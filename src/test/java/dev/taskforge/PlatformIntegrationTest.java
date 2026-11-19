@@ -45,6 +45,7 @@ class PlatformIntegrationTest {
         r.add("spring.data.redis.host",redis::getHost);r.add("spring.data.redis.port",()->redis.getMappedPort(6379));
         r.add("taskforge.storage-endpoint",()->"http://"+minio.getHost()+":"+minio.getMappedPort(9000));
         r.add("taskforge.storage-access-key",()->"taskforge-test");r.add("taskforge.storage-secret-key",()->"taskforge-test-password");
+        r.add("taskforge.owner-storage-bytes",()->65536);
         r.add("taskforge.max-active-jobs",()->4);r.add("taskforge.per-owner-concurrency",()->1);
         r.add("taskforge.auth-tokens",()->ALICE+"=alice,"+BOB+"=bob,"+ADMIN+"=admin");
     }
@@ -56,6 +57,8 @@ class PlatformIntegrationTest {
     @Autowired Settings settings;
     @Autowired JobRunner runner;
     @Autowired RedisQueue queue;
+    @Autowired StorageCleanup cleanup;
+    @Autowired ApiAuthentication authFilter;
     @Autowired org.springframework.data.redis.core.StringRedisTemplate redisTemplate;
     final HttpClient http=HttpClient.newHttpClient();
     HttpResponse<String> request(String method,String path,String token,String body) throws Exception {
@@ -64,9 +67,10 @@ class PlatformIntegrationTest {
         return http.send(b.method(method,HttpRequest.BodyPublishers.ofString(body==null?"":body)).build(),HttpResponse.BodyHandlers.ofString());
     }
     UUID upload(String csv) throws Exception { return upload(csv,ALICE); }
-    UUID upload(String csv,String token) throws Exception {
+    UUID upload(String csv,String token) throws Exception { return upload(csv,token,"sample.csv"); }
+    UUID upload(String csv,String token,String filename) throws Exception {
         String boundary="taskforge-boundary";
-        String body="--"+boundary+"\r\nContent-Disposition: form-data; name=\"file\"; filename=\"sample.csv\"\r\nContent-Type: text/csv\r\n\r\n"+csv+"\r\n--"+boundary+"--\r\n";
+        String body="--"+boundary+"\r\nContent-Disposition: form-data; name=\"file\"; filename=\""+filename+"\"\r\nContent-Type: text/csv\r\n\r\n"+csv+"\r\n--"+boundary+"--\r\n";
         var response=http.send(HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api/datasets"))
                 .header("Authorization","Bearer "+token).header("Content-Type","multipart/form-data; boundary="+boundary)
                 .POST(HttpRequest.BodyPublishers.ofString(body,StandardCharsets.UTF_8)).build(),HttpResponse.BodyHandlers.ofString());
@@ -384,5 +388,93 @@ class PlatformIntegrationTest {
             assertThat(jobs.getInternal(id).errorCode()).isEqualTo("DEADLINE_EXCEEDED");
         }
         assertThat(jobs.complete(active,"active-worker","late-output")).isFalse();
+    }
+
+    @Test void authenticationRunsBeforeMultipartParsingAndUnknownFieldsAreRejected() throws Exception {
+        var response=http.send(HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api/datasets"))
+                .header("Content-Type","multipart/form-data; boundary=broken")
+                .POST(HttpRequest.BodyPublishers.ofString("not a valid multipart body")).build(),HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode()).isEqualTo(401);
+        UUID dataset=upload("a\n1");
+        assertThat(request("POST","/jobs",ALICE,"{\"datasetId\":\""+dataset+"\",\"ownerId\":\"bob\"}").statusCode()).isEqualTo(400);
+        assertThat(db.queryForObject("SELECT count(*) FROM jobs",Integer.class)).isZero();
+    }
+    @Test void filenamesDoNotControlObjectPathsAndUnreadyInputsCannotBeSubmitted() throws Exception {
+        UUID dataset=upload("a\n1",ALICE,"../../outside.csv");
+        String key=db.queryForObject("SELECT object_key FROM datasets WHERE id=?",String.class,dataset);
+        assertThat(key).startsWith("inputs/").doesNotContain("..").doesNotContain("outside");
+        UUID pending=UUID.randomUUID();jobs.reserveDataset(pending,"alice","inputs/"+pending,"0".repeat(64),12);
+        assertThatThrownBy(()->jobs.create("alice",pending)).isInstanceOf(org.springframework.web.server.ResponseStatusException.class);
+    }
+    @Test void competingStorageReservationsRespectOwnerBudget() throws Exception {
+        var start=new java.util.concurrent.CountDownLatch(1);
+        try(var pool=java.util.concurrent.Executors.newFixedThreadPool(2)) {
+            var calls=new ArrayList<java.util.concurrent.Future<Integer>>();
+            for(int i=0;i<2;i++)calls.add(pool.submit(()-> {
+                start.await();UUID id=UUID.randomUUID();
+                try { jobs.reserveDataset(id,"alice","inputs/"+id,"0".repeat(64),40_000);return 201; }
+                catch(org.springframework.web.server.ResponseStatusException e) { return e.getStatusCode().value(); }
+            }));
+            start.countDown();assertThat(List.of(calls.get(0).get(),calls.get(1).get())).containsExactlyInAnyOrder(201,429);
+        }
+    }
+    @Test void cleanupPreservesLiveAndAuthoritativeObjectsThenExpiresReports() throws Exception {
+        UUID dataset=upload("a\n2\n4");UUID id=jobs.create("alice",dataset).id();
+        var claim=jobs.claim(id,"live");String key="reports/"+id+"/candidate.json";
+        jobs.candidateOutput(claim,"live",key);storage.putReport(key,"{}".getBytes());
+        db.update("UPDATE datasets SET created_at=clock_timestamp()-interval '8 days' WHERE id=?",dataset);
+        cleanup.cleanOnce();
+        assertThat(db.queryForObject("SELECT expired_at IS NULL FROM datasets WHERE id=?",Boolean.class,dataset)).isTrue();
+        try(var input=storage.read(key)) { assertThat(input.read()).isNotEqualTo(-1); }
+        runner.run(claim,"live");String canonical=jobs.getInternal(id).outputKey();
+        cleanup.cleanOnce();
+        try(var input=storage.read(canonical)) { assertThat(json.readTree(input).get("rowCount").asInt()).isEqualTo(2); }
+        db.update("UPDATE jobs SET finished_at=clock_timestamp()-interval '8 days' WHERE id=?",id);
+        cleanup.cleanOnce();
+        assertThat(request("GET","/jobs/"+id+"/result",ALICE,null).statusCode()).isEqualTo(410);
+        assertThatThrownBy(()->storage.read(canonical)).isInstanceOf(Exception.class);
+    }
+    @Test void abandonedAttemptsAndFailedUploadsAreEventuallyDeleted() throws Exception {
+        UUID dataset=upload("a\n1"),id=jobs.create("alice",dataset).id();
+        var old=jobs.claim(id,"old");String orphan="reports/"+id+"/orphan.json";
+        jobs.candidateOutput(old,"old",orphan);storage.putReport(orphan,"{}".getBytes());
+        db.update("UPDATE jobs SET lease_expires_at=clock_timestamp()-interval '1 second' WHERE id=?",id);
+        jobs.recoverExpired();
+        db.update("UPDATE job_attempts SET finished_at=clock_timestamp()-interval '2 hours' WHERE job_id=?",id);
+        cleanup.cleanOnce();assertThatThrownBy(()->storage.read(orphan)).isInstanceOf(Exception.class);
+        // A very late stale upload is not authoritative; periodic rechecking removes it again.
+        storage.putReport(orphan,"{}".getBytes());
+        db.update("UPDATE job_attempts SET last_cleanup_at=clock_timestamp()-interval '2 hours' WHERE job_id=?",id);
+        cleanup.cleanOnce();assertThatThrownBy(()->storage.read(orphan)).isInstanceOf(Exception.class);
+        UUID reserved=UUID.randomUUID();String inputKey="inputs/"+reserved;
+        jobs.reserveDataset(reserved,"alice",inputKey,"0".repeat(64),4);storage.putReport(inputKey,"{}".getBytes());
+        db.update("UPDATE datasets SET created_at=clock_timestamp()-interval '2 hours' WHERE id=?",reserved);
+        cleanup.cleanOnce();assertThatThrownBy(()->storage.read(inputKey)).isInstanceOf(Exception.class);
+    }
+    @Test void modifiedInputIsDetectedBeforeAnyReportCanCommit() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        storage.putReport(jobs.getInternal(id).inputKey(),"a\n9".getBytes());
+        runner.run(jobs.claim(id,"worker"),"worker");
+        assertThat(jobs.getInternal(id).status()).isEqualTo("FAILED");
+        assertThat(jobs.getInternal(id).outputKey()).isNull();
+    }
+
+    @Test void oversizedUploadIsRejectedWithoutHoldingTheEntireFileInClientMemory() throws Exception {
+        byte[] header="--limit-test\r\nContent-Disposition: form-data; name=\"file\"; filename=\"large.csv\"\r\nContent-Type: text/csv\r\n\r\n".getBytes();
+        byte[] footer="\r\n--limit-test--\r\n".getBytes();
+        var publisher=HttpRequest.BodyPublishers.ofInputStream(()->new java.io.SequenceInputStream(java.util.Collections.enumeration(List.of(
+                new java.io.ByteArrayInputStream(header),new java.io.InputStream() {
+                    long remaining=52_428_801L;
+                    @Override public int read() { if(remaining==0)return -1;remaining--;return 'a'; }
+                    @Override public int read(byte[] b,int offset,int length) {
+                        if(remaining==0)return -1;int n=(int)Math.min(length,remaining);
+                        java.util.Arrays.fill(b,offset,offset+n,(byte)'a');remaining-=n;return n;
+                    }
+                },new java.io.ByteArrayInputStream(footer)))));
+        var response=http.send(HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api/datasets"))
+                .header("Authorization","Bearer "+ALICE).header("Content-Type","multipart/form-data; boundary=limit-test")
+                .POST(publisher).build(),HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode()).isEqualTo(413);
+        assertThat(db.queryForObject("SELECT count(*) FROM datasets",Integer.class)).isZero();
     }
 }

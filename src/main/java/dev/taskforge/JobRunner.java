@@ -31,9 +31,14 @@ public class JobRunner {
         },Math.max(1,settings.leaseSeconds()/3),Math.max(1,settings.leaseSeconds()/3),TimeUnit.SECONDS);
         Runnable checkpoint=()-> { if(lost.get()||Thread.currentThread().isInterrupted())throw new OwnershipLost(); };
         String key="reports/"+job.id()+"/"+job.generation()+"-"+UUID.randomUUID()+".json";
-        try(var in=storage.read(job.inputKey())) {
+        java.security.MessageDigest digest;
+        try { digest=java.security.MessageDigest.getInstance("SHA-256"); }
+        catch(java.security.NoSuchAlgorithmException impossible) { throw new IllegalStateException(impossible); }
+        try(var in=new java.security.DigestInputStream(new LimitedInputStream(storage.read(job.inputKey()),52_428_800),digest)) {
             var report=processors.get("CSV_ANALYTICS").process(in,checkpoint);
             checkpoint.run();
+            if(!java.util.HexFormat.of().formatHex(digest.digest()).equals(job.inputSha256()))
+                throw new CsvAnalytics.InvalidCsv("Input integrity verification failed.");
             if(!jobs.candidateOutput(job,worker,key))throw new OwnershipLost();
             storage.putReport(key,json.writeValueAsBytes(report));
             checkpoint.run();

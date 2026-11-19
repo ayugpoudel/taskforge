@@ -60,4 +60,13 @@ class CsvAnalyticsTest {
         assertThat(r.invalidRows()).isEqualTo(100);
         assertThat(r.invalidRowNumbers()).hasSize(20);
     }
+    @Test void malformedQuotingAndBinaryInputAreRejected() {
+        for(String csv:new String[]{"a\n\"unterminated", "a\nab\"cd", "a\n\"closed\"suffix", "a\nx\u0000y"})
+            assertThatThrownBy(()->report(csv)).isInstanceOf(CsvAnalytics.InvalidCsv.class);
+        assertThat(report("a\n\"quoted \"\"word\"\"\"\n").rowCount()).isEqualTo(1);
+    }
+    @Test void objectByteLimitIsEnforcedWithoutAllocatingAnEntireFile() {
+        var input=new LimitedInputStream(new ByteArrayInputStream("a\n123456789".getBytes()),5);
+        assertThatThrownBy(()->new CsvAnalytics().analyze(input,()->{})).isInstanceOf(CsvAnalytics.InvalidCsv.class);
+    }
 }

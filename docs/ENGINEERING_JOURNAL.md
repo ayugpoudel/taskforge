@@ -37,3 +37,11 @@ Phase 3 closure: actual Redis/PostgreSQL restart tests passed after the stable-p
 Added atomic admission control, owner-scoped live-lease concurrency caps, logical cancellation, total deadlines and bounded graceful shutdown. Kept approximate FIFO/due ordering; priority has no demonstrated need. Owner locks precede job claims consistently; cancellation and completion serialize on the job row. A successful logical cancellation cannot be followed by result finalization, even if physical parsing stops later.
 
 Executed: 10 unit + 23 integration tests passed, including 20 cancellation/completion races, competing capacity claims, deadline sweeps, separate-owner progress and graceful draining. One overloaded Java method reference in the test was replaced by an explicit Runnable lambda. Phase 4 stable; next validate the storage/security boundary and retention.
+
+## Phase 5 — in progress
+
+Added a pre-multipart bearer filter, strict public JSON fields, bounded HTTP resources, per-owner upload reservations/quotas, ready/unexpired dataset checks, input byte/hash verification, stricter CSV quote/binary validation, and safe eventual storage retention. Retention row locks are coordinated with job acceptance; outputs cannot be deleted just because a worker's attempt is old if it is still live/canonical.
+
+A refactor exposed a Gradle incremental-output issue: after moving the old authentication class out of Api.java, the new filter class was missing from compiled output, causing owner-null SQL failures. A clean build restored it and all then-current tests passed. The integration fixture now explicitly injects the filter and includes an unauthenticated malformed multipart request so a missing filter fails visibly. The additional 50 MiB streaming request limit check is running; no file contents/secrets are logged for diagnosis.
+
+Phase 5 acceptance: 12 unit + 30 real-service integration tests passed, zero skipped, including an actual streaming oversized HTTP request and storage cleanup/integrity scenarios. No public bucket or presigned bypass was added. The stored input hash is checked at execution, and metadata-only idempotent responses still work for already accepted requests even after the input has expired. Cleanup remains eventual and metadata is intentionally retained; these limits are documented rather than described as production compliance.

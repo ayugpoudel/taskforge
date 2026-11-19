@@ -23,3 +23,9 @@ Testcontainers initially used dynamically remapped ports that changed across exp
 ## Phase 4 executed evidence
 
 10 unit + 23 integration tests passed, 0 skipped (33 total). Added concurrent admission at the capacity boundary, idempotent replay while full, per-owner concurrency without blocking another owner, ownership/idempotence of cancellation, 20 barrier-driven cancellation/completion races, queued/running/retrying total deadlines, and a latch-driven graceful worker drain test. A Java overloaded method-reference compile error in the lifecycle test was fixed before these results. Tests use explicit barriers/state/time adjustments; no timing-based race winner is assumed.
+
+## Phase 4 and 5 executed evidence
+
+Phase 4: 10 unit + 23 integration tests passed, including 20 completion/cancellation races, simultaneous capacity checks, per-owner isolation and graceful-drain behavior.
+
+Phase 5: 12 unit + 30 integration tests passed, 0 skipped. The 50 MiB+1-byte upload is generated as a streaming HTTP body, receives 413, and leaves no dataset reservation. Other checks cover authentication before malformed multipart parsing, unsupported owner fields, path-like filenames, concurrent quota reservations, unready input rejection, changed-object hash detection, strict quoted CSV/binary checks, live/canonical retention protection, 410 for expired reports, abandoned input cleanup and a late stale-object reappearance. Clean compilation verified the moved filter class is actually present; the fixture explicitly requires that bean.

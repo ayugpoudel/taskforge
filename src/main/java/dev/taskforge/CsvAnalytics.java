@@ -36,7 +36,7 @@ public final class CsvAnalytics {
             var reader = new PushbackReader(new InputStreamReader(input, decoder), 1);
             int first = reader.read();
             if (first != -1 && first != 0xFEFF) reader.unread(first);
-            parser.beginParsing(reader);
+            parser.beginParsing(new CsvSyntaxReader(reader));
             String[] headers = parser.parseNext();
             if (headers == null || headers.length == 0) throw new InvalidCsv("CSV requires a header.");
             var names = new HashSet<String>();

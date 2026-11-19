@@ -11,12 +11,12 @@ import java.util.*;
 
 @Repository
 public class JobStore {
-    public record Job(UUID id, String ownerId, UUID datasetId, String inputKey, String status, int attemptCount,
+    public record Job(UUID id, String ownerId, UUID datasetId, String inputKey, String inputSha256, String status, int attemptCount,
                       long generation, String outputKey, String errorCode, Instant createdAt,
                       Instant startedAt, Instant finishedAt, Instant deadlineAt) {}
-    private static final String SELECT = "SELECT j.*,d.object_key input_key FROM jobs j JOIN datasets d ON d.id=j.dataset_id ";
+    private static final String SELECT = "SELECT j.*,d.object_key input_key,d.sha256 input_sha FROM jobs j JOIN datasets d ON d.id=j.dataset_id ";
     private static final RowMapper<Job> MAPPER = (r,n) -> new Job(r.getObject("id",UUID.class),r.getString("owner_id"),
-            r.getObject("dataset_id",UUID.class),r.getString("input_key"),r.getString("status"),r.getInt("attempt_count"),
+            r.getObject("dataset_id",UUID.class),r.getString("input_key"),r.getString("input_sha"),r.getString("status"),r.getInt("attempt_count"),
             r.getLong("generation"),r.getString("output_key"),r.getString("error_code"),r.getTimestamp("created_at").toInstant(),
             r.getTimestamp("started_at")==null?null:r.getTimestamp("started_at").toInstant(),
             r.getTimestamp("finished_at")==null?null:r.getTimestamp("finished_at").toInstant(),r.getTimestamp("deadline_at").toInstant());
@@ -24,14 +24,25 @@ public class JobStore {
     final TransactionTemplate tx;
     final Settings settings;
     public JobStore(JdbcTemplate db, TransactionTemplate tx, Settings settings) { this.db=db; this.tx=tx; this.settings=settings; }
-    public void dataset(UUID id,String owner,String key,String sha,long bytes) {
-        db.update("INSERT INTO datasets(id,owner_id,object_key,sha256,size_bytes) VALUES (?,?,?,?,?)",id,owner,key,sha,bytes);
+    public void reserveDataset(UUID id,String owner,String key,String sha,long bytes) {
+        tx.executeWithoutResult(s -> {
+            db.update("INSERT INTO owner_scheduling(owner_id) VALUES (?) ON CONFLICT DO NOTHING",owner);
+            db.queryForList("SELECT owner_id FROM owner_scheduling WHERE owner_id=? FOR UPDATE",owner);
+            long used=db.queryForObject("SELECT coalesce(sum(size_bytes),0) FROM datasets WHERE owner_id=? AND expired_at IS NULL",Long.class,owner);
+            if(bytes>settings.ownerStorageBytes()-used)throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS);
+            db.update("INSERT INTO datasets(id,owner_id,object_key,sha256,size_bytes) VALUES (?,?,?,?,?)",id,owner,key,sha,bytes);
+        });
+    }
+    public void datasetReady(UUID id) { db.update("UPDATE datasets SET ready=true WHERE id=? AND expired_at IS NULL",id); }
+    public void abandonDataset(UUID id) { db.update("UPDATE datasets SET expired_at=clock_timestamp() WHERE id=? AND NOT ready",id); }
+    public boolean reportExpired(UUID id) {
+        return Boolean.TRUE.equals(db.queryForObject("SELECT output_expired_at IS NOT NULL FROM jobs WHERE id=?",Boolean.class,id));
     }
     public Job create(String owner, UUID dataset) { return create(owner,dataset,null); }
     public Job create(String owner, UUID dataset,String key) {
         if(key!=null&&!key.matches("[A-Za-z0-9._:-]{1,128}"))throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         return tx.execute(s -> {
-            var hashes=db.queryForList("SELECT sha256 FROM datasets WHERE id=? AND owner_id=?",String.class,dataset,owner);
+            var hashes=db.queryForList("SELECT sha256 FROM datasets WHERE id=? AND owner_id=? FOR SHARE",String.class,dataset,owner);
             if(hashes.isEmpty())throw missing();
             String fingerprint=dataset+":"+hashes.getFirst();
             // Store a stable SHA-256 fingerprint of the public payload, not runtime retry settings.
@@ -48,6 +59,7 @@ public class JobStore {
                     return getInternal(existing.getFirst());
                 }
             }
+            if(db.queryForObject("SELECT count(*) FROM datasets WHERE id=? AND ready AND expired_at IS NULL",Integer.class,dataset)==0)throw missing();
             admission();
             UUID id=UUID.randomUUID();
             db.update("INSERT INTO jobs(id,owner_id,dataset_id,max_attempts,deadline_at,idempotency_key,payload_fingerprint) VALUES (?,?,?,?,clock_timestamp() + ? * interval '1 second',?,?)",

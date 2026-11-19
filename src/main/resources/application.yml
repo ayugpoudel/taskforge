@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
   application:
     name: taskforge
   datasource:
@@ -27,6 +30,12 @@ spring:
 server:
   address: ${TF_BIND_ADDRESS:127.0.0.1}
   port: ${TF_PORT:8080}
+  tomcat:
+    threads:
+      max: 32
+      min-spare: 4
+    max-connections: 128
+    accept-count: 32
   shutdown: graceful
   error:
     include-message: never
@@ -58,3 +67,6 @@ taskforge:
   max-attempts: ${TF_MAX_ATTEMPTS:3}
   per-owner-concurrency: ${TF_PER_OWNER_CONCURRENCY:8}
   shutdown-seconds: ${TF_SHUTDOWN_SECONDS:20}
+  owner-storage-bytes: ${TF_OWNER_STORAGE_BYTES:209715200}
+  retention-seconds: ${TF_RETENTION_SECONDS:604800}
+  cleanup-grace-seconds: ${TF_CLEANUP_GRACE_SECONDS:3600}
