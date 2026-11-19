@@ -83,7 +83,28 @@ services:
     mem_limit: 384m
     healthcheck: *app-health
     depends_on: *app-dependencies
+  prometheus:
+    image: prom/prometheus:v3.16.0
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=7d"]
+    volumes: ["./infra/observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro", "prometheus-data:/prometheus"]
+    ports: ["127.0.0.1:19090:9090"]
+    mem_limit: 384m
+    depends_on: [api, worker, dispatcher]
+  grafana:
+    image: grafana/grafana:13.3.1
+    environment:
+      GF_SECURITY_ADMIN_USER: taskforge
+      GF_SECURITY_ADMIN_PASSWORD: ${TF_GRAFANA_PASSWORD:?run scripts/setup.sh}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    volumes: ["./infra/observability/grafana/provisioning:/etc/grafana/provisioning:ro", "./infra/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro", "grafana-data:/var/lib/grafana"]
+    ports: ["127.0.0.1:13000:3000"]
+    mem_limit: 384m
+    depends_on: [prometheus]
 volumes:
   postgres-data:
   redis-data:
   minio-data:
+  prometheus-data:
+  grafana-data:

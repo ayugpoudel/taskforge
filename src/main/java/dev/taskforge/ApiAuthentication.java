@@ -30,6 +30,9 @@ class ApiAuthentication extends OncePerRequestFilter {
         if(owner==null) {
             response.setStatus(401);response.setContentType("application/json");response.getWriter().write("{\"error\":\"unauthorized\"}");return;
         }
-        request.setAttribute("owner",owner);chain.doFilter(request,response);
+        String requestId=UUID.randomUUID().toString();
+        response.setHeader("X-Request-Id",requestId);org.slf4j.MDC.put("request_id",requestId);
+        request.setAttribute("owner",owner);
+        try { chain.doFilter(request,response); } finally { org.slf4j.MDC.remove("request_id"); }
     }
 }

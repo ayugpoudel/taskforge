@@ -59,6 +59,8 @@ class PlatformIntegrationTest {
     @Autowired RedisQueue queue;
     @Autowired StorageCleanup cleanup;
     @Autowired ApiAuthentication authFilter;
+    @Autowired TaskMetrics metrics;
+    @Autowired io.micrometer.core.instrument.MeterRegistry meters;
     @Autowired org.springframework.data.redis.core.StringRedisTemplate redisTemplate;
     final HttpClient http=HttpClient.newHttpClient();
     HttpResponse<String> request(String method,String path,String token,String body) throws Exception {
@@ -476,5 +478,17 @@ class PlatformIntegrationTest {
                 .POST(publisher).build(),HttpResponse.BodyHandlers.ofString());
         assertThat(response.statusCode()).isEqualTo(413);
         assertThat(db.queryForObject("SELECT count(*) FROM datasets",Integer.class)).isZero();
+    }
+
+    @Test void metricsDistinguishQueueExecutionAndDurableHistoryWithoutJobLabels() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n2\n4")).id();
+        metrics.refresh();assertThat(metrics.value("queued")).isEqualTo(1);
+        long before=metrics.execution.count();
+        runner.run(jobs.claim(id,"metric-worker"),"metric-worker");metrics.refresh();
+        assertThat(metrics.value("queued")).isZero();assertThat(metrics.value("succeeded_total")).isEqualTo(1);
+        assertThat(metrics.execution.count()).isEqualTo(before+1);
+        assertThat(metrics.active.get()).isZero();
+        for(var meter:meters.getMeters())if(meter.getId().getName().startsWith("taskforge"))
+            for(var tag:meter.getId().getTags())assertThat(tag.getKey()).isNotIn("job_id","owner_id","user_id");
     }
 }

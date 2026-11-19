@@ -70,3 +70,7 @@ taskforge:
   owner-storage-bytes: ${TF_OWNER_STORAGE_BYTES:209715200}
   retention-seconds: ${TF_RETENTION_SECONDS:604800}
   cleanup-grace-seconds: ${TF_CLEANUP_GRACE_SECONDS:3600}
+logging:
+  structured:
+    format:
+      console: logstash

@@ -11,10 +11,11 @@ public class RedisQueue {
     public static final String STREAM="taskforge:jobs", GROUP="taskforge-workers";
     public record Delivery(String messageId,UUID jobId) {}
     final StringRedisTemplate redis;
+    final io.micrometer.core.instrument.MeterRegistry metrics;
     final StreamOperations<String,String,String> streams;
     volatile boolean initialized;
     String pendingCursor;
-    public RedisQueue(StringRedisTemplate redis) { this.redis=redis;this.streams=redis.opsForStream(); }
+    public RedisQueue(StringRedisTemplate redis,io.micrometer.core.instrument.MeterRegistry metrics) { this.redis=redis;this.metrics=metrics;this.streams=redis.opsForStream(); }
     public synchronized void initialize() {
         if(initialized)return;
         // MKSTREAM is handled by Spring Data's group creation command.
@@ -28,7 +29,11 @@ public class RedisQueue {
         for(Throwable t=e;t!=null;t=t.getCause())if(t.getMessage()!=null&&t.getMessage().contains(text))return true;
         return false;
     }
-    public String publish(UUID id) { return streams.add(STREAM,Map.of("jobId",id.toString())).getValue(); }
+    public String publish(UUID id) {
+        String message=streams.add(STREAM,Map.of("jobId",id.toString())).getValue();
+        metrics.counter("taskforge.queue.publications").increment();return message;
+    }
+    void recovered(int count) { if(count>0)metrics.counter("taskforge.jobs.recovered").increment(count); }
     public Delivery receive(String consumer) {
         try {
             initialize();
@@ -62,7 +67,7 @@ public class RedisQueue {
             }
             if(!jobs.recoverable(id))continue;
             var claimed=streams.claim(STREAM,GROUP,consumer,java.time.Duration.ZERO,entry.getId());
-            if(claimed!=null&&!claimed.isEmpty())return new Delivery(pendingCursor,id);
+            if(claimed!=null&&!claimed.isEmpty()) { metrics.counter("taskforge.queue.redeliveries").increment();return new Delivery(pendingCursor,id); }
         }
         return null;
     }

@@ -13,13 +13,13 @@ import java.util.*;
 public class JobStore {
     public record Job(UUID id, String ownerId, UUID datasetId, String inputKey, String inputSha256, String status, int attemptCount,
                       long generation, String outputKey, String errorCode, Instant createdAt,
-                      Instant startedAt, Instant finishedAt, Instant deadlineAt) {}
+                      Instant startedAt, Instant finishedAt, Instant deadlineAt, Instant availableAt) {}
     private static final String SELECT = "SELECT j.*,d.object_key input_key,d.sha256 input_sha FROM jobs j JOIN datasets d ON d.id=j.dataset_id ";
     private static final RowMapper<Job> MAPPER = (r,n) -> new Job(r.getObject("id",UUID.class),r.getString("owner_id"),
             r.getObject("dataset_id",UUID.class),r.getString("input_key"),r.getString("input_sha"),r.getString("status"),r.getInt("attempt_count"),
             r.getLong("generation"),r.getString("output_key"),r.getString("error_code"),r.getTimestamp("created_at").toInstant(),
             r.getTimestamp("started_at")==null?null:r.getTimestamp("started_at").toInstant(),
-            r.getTimestamp("finished_at")==null?null:r.getTimestamp("finished_at").toInstant(),r.getTimestamp("deadline_at").toInstant());
+            r.getTimestamp("finished_at")==null?null:r.getTimestamp("finished_at").toInstant(),r.getTimestamp("deadline_at").toInstant(),r.getTimestamp("next_attempt_at").toInstant());
     final JdbcTemplate db;
     final TransactionTemplate tx;
     final Settings settings;

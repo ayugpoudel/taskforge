@@ -1,0 +1,12 @@
+{
+  "scenario": "worker pool stopped after healthy startup; accept four real CSV jobs; resume workers",
+  "dashboardPanels": 13,
+  "paused": {
+    "queued": 4.0,
+    "oldestAgeSeconds": 1.140336,
+    "outboxPending": 0.0
+  },
+  "recoveredJobs": 4,
+  "queuedAfterRecovery": 0.0,
+  "diagnosis": "Queued age rose while the deliberately stopped workers could not claim work; jobs completed after restart."
+}

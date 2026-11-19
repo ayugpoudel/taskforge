@@ -29,3 +29,7 @@ Testcontainers initially used dynamically remapped ports that changed across exp
 Phase 4: 10 unit + 23 integration tests passed, including 20 completion/cancellation races, simultaneous capacity checks, per-owner isolation and graceful-drain behavior.
 
 Phase 5: 12 unit + 30 integration tests passed, 0 skipped. The 50 MiB+1-byte upload is generated as a streaming HTTP body, receives 413, and leaves no dataset reservation. Other checks cover authentication before malformed multipart parsing, unsupported owner fields, path-like filenames, concurrent quota reservations, unready input rejection, changed-object hash detection, strict quoted CSV/binary checks, live/canonical retention protection, 410 for expired reports, abandoned input cleanup and a late stale-object reappearance. Clean compilation verified the moved filter class is actually present; the fixture explicitly requires that bean.
+
+## Phase 6 executed evidence
+
+12 unit + 31 integration tests passed, 0 skipped. Full stack with pinned Prometheus 3.16.0 and Grafana 13.3.1 started successfully. The provisioned dashboard has 13 panels. The controlled worker-pause diagnostic observed four queued jobs, increasing queue age and zero outbox backlog; after restart all four reports were verified and queue depth returned to zero. See `docs/evidence/phase6-observability.json`. The actual Prometheus targets include both worker processes, and captured JSON execution logs include job/worker correlation fields (`phase6-log-sample.json`).

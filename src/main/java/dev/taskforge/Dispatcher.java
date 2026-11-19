@@ -23,7 +23,7 @@ class Dispatcher {
     void tick() {
         try {
             jobs.expireDeadlines();
-            jobs.recoverExpired();
+            queue.recovered(jobs.recoverExpired());
             jobs.reconcileNotifications();
             for(int i=0;i<100&&publishOne(()->{});i++) { /* bounded batch */ }
         } catch(RuntimeException e) { LoggerFactory.getLogger(getClass()).warn("event=dispatcher_unavailable error={}",e.getClass().getSimpleName()); }

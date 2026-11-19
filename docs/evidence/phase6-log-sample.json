@@ -1,0 +1,35 @@
+[
+  {
+    "@timestamp": "2026-11-19T20:10:40.449878002Z",
+    "@version": "1",
+    "message": "event=job_started generation=1",
+    "logger_name": "dev.taskforge.JobRunner",
+    "thread_name": "pool-3-thread-2",
+    "level": "INFO",
+    "level_value": 20000,
+    "job_id": "65518e48-c717-4fac-9db9-d97cb7e780f5",
+    "worker_id": "c08de95b-475f-43d5-99c7-bf1da20248f2-1"
+  },
+  {
+    "@timestamp": "2026-11-19T20:10:40.490768627Z",
+    "@version": "1",
+    "message": "event=job_succeeded generation=1",
+    "logger_name": "dev.taskforge.JobRunner",
+    "thread_name": "pool-3-thread-2",
+    "level": "INFO",
+    "level_value": 20000,
+    "job_id": "65518e48-c717-4fac-9db9-d97cb7e780f5",
+    "worker_id": "c08de95b-475f-43d5-99c7-bf1da20248f2-1"
+  },
+  {
+    "@timestamp": "2026-11-19T20:10:40.490764252Z",
+    "@version": "1",
+    "message": "event=job_succeeded generation=1",
+    "logger_name": "dev.taskforge.JobRunner",
+    "thread_name": "pool-3-thread-1",
+    "level": "INFO",
+    "level_value": 20000,
+    "job_id": "857cbe46-e622-44da-81d0-2a85674ffe80",
+    "worker_id": "c08de95b-475f-43d5-99c7-bf1da20248f2-0"
+  }
+]
