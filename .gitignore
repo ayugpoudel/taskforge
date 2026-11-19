@@ -5,3 +5,6 @@ build/
 .idea/
 .DS_Store
 benchmarks/runs/
+
+__pycache__/
+*.pyc

@@ -1,0 +1,8 @@
+# Controlled benchmark override: one execution slot and one vCPU per worker.
+services:
+  worker:
+    cpus: 1.0
+    mem_limit: 512m
+    environment:
+      TF_WORKER_CONCURRENCY: "1"
+      TF_LEASE_SECONDS: "6"

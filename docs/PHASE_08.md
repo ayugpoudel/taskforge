@@ -1,0 +1,7 @@
+# Phase 8 plan: controlled experiments
+
+Use the same numeric CSV formula, dataset and Docker resources for 1/2/4 independent worker processes. Benchmark override sets one execution slot, one vCPU, 512 MiB per worker and a six-second heartbeated lease. Other services remain unchanged. Warm up each configuration, then run three finite batches of 18 jobs × 500,000 rows. Exclude uploads/setup/warmup from batch throughput; use durable PostgreSQL timestamps for completion/queue/execution latencies and client clocks for API acknowledgement latency. Record hardware, image ID, commit, exact parameters, CPU/memory samples and raw results. Percentiles are descriptive with explicit sample counts.
+
+Inspect stage metrics and code only after baseline measurements. The numeric classifier currently calls String.matches for each cell, which recompiles its pattern; precompilation is a candidate optimization, not a claimed speedup. Change one thing and rerun the one-worker protocol with the same inputs/settings. Preserve regressions and limits if speedup is absent.
+
+Additional scenarios: small/large/mixed jobs, a burst of 100 small jobs, controlled sustained submissions, killing an active worker, Redis interruption and PostgreSQL interruption. Verify every accepted logical job's durable terminal state and report; count retries/failed attempts rather than interpreting logs as success. No arbitrary external-effect or exactly-once claim.
