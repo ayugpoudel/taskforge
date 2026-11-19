@@ -22,6 +22,9 @@ spring:
       host: ${TF_REDIS_HOST:localhost}
       port: ${TF_REDIS_PORT:16379}
       timeout: 2s
+      password: ${TF_REDIS_PASSWORD:}
+      ssl:
+        enabled: ${TF_REDIS_TLS:false}
   servlet:
     multipart:
       max-file-size: 50MB
@@ -48,6 +51,11 @@ management:
   endpoint:
     health:
       show-details: never
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
   metrics:
     tags:
       application: taskforge
@@ -57,8 +65,8 @@ taskforge:
   instance-id: ${TF_INSTANCE_ID:${random.uuid}}
   auth-tokens: ${TF_AUTH_TOKENS}
   storage-endpoint: ${TF_STORAGE_ENDPOINT:http://localhost:19000}
-  storage-access-key: ${TF_STORAGE_ACCESS_KEY}
-  storage-secret-key: ${TF_STORAGE_SECRET_KEY}
+  storage-access-key: ${TF_STORAGE_ACCESS_KEY:}
+  storage-secret-key: ${TF_STORAGE_SECRET_KEY:}
   storage-bucket: ${TF_STORAGE_BUCKET:taskforge}
   lease-seconds: ${TF_LEASE_SECONDS:30}
   deadline-seconds: ${TF_DEADLINE_SECONDS:600}

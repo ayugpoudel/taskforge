@@ -7,5 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 public class TaskForgeApplication {
-    public static void main(String[] args) { SpringApplication.run(TaskForgeApplication.class, args); }
+  public static void main(String[] args) {
+    SpringApplication.run(TaskForgeApplication.class, args);
+  }
 }

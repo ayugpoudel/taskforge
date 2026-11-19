@@ -1,0 +1,5 @@
+# Phase 7 plan: reproducibility and an unapplied cloud design
+
+The user requested a GitHub link; the validated code is now public at https://github.com/ayugpoudel/taskforge . Add a real GitHub Actions pipeline for Java 21 compilation, required unit/integration tests and image builds; inspect its run rather than inferring success from YAML. Keep dependencies/images pinned and enable update review.
+
+Complete local one-command setup and runbooks. Prepare a CloudFormation application stack for existing VPC/subnets, ECS Fargate process roles, private RDS/Redis, S3, TLS load balancing, IAM/secrets and CloudWatch logs. Validate its schema locally without making AWS API changes. Estimate costs with explicit region/runtime assumptions. No stack, bucket, container registry or other paid AWS resource is created without explicit spending approval. Static validation cannot establish actual regional engine availability, IAM runtime behavior, DNS/TLS, or S3 connectivity; list those untested cloud-specific paths.

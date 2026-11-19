@@ -29,6 +29,11 @@ jobs:
           ./scripts/setup.sh
           docker compose config --quiet
           docker build -t taskforge-app:ci .
+      - name: Validate cloud template without AWS access
+        run: |
+          python3 -m venv /tmp/taskforge-cfn
+          /tmp/taskforge-cfn/bin/pip install cfn-lint==1.46.0
+          /tmp/taskforge-cfn/bin/cfn-lint infra/aws/taskforge-stack.json
       - name: Verify repository hygiene
         run: |
           git diff --check
