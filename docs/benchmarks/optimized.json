@@ -1,0 +1,4586 @@
+{
+  "label": "optimized",
+  "startedAt": "2026-11-19T20:39:41.899832+00:00",
+  "protocol": "finite batch; uploads/setup/warmup excluded; durable DB timestamps; linear-interpolated percentiles",
+  "runs": [
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:39:56.983975+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:00.690148+00:00",
+      "durableBatchSeconds": 3.706173,
+      "jobsPerSecond": 4.856761948241488,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.01884891894444469,
+        "p50": 0.016931125000001046,
+        "p95": 0.030925729400000077,
+        "p99": 0.03777701228000087,
+        "max": 0.039489833000001084
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.8744378333333334,
+        "p50": 1.9409315,
+        "p95": 3.3228030499999996,
+        "p99": 3.4357014099999996,
+        "max": 3.463926
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.20098116666666666,
+        "p50": 0.1916385,
+        "p95": 0.2606154499999999,
+        "p99": 0.3095366899999999,
+        "max": 0.321767
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 2.075419,
+        "p50": 2.1325700000000003,
+        "p95": 3.4912475499999998,
+        "p99": 3.6056759099999995,
+        "max": 3.634283
+      },
+      "results": [
+        {
+          "jobId": "861bfde1-eb98-4fad-b184-78f34e894b97",
+          "apiAcknowledgementSeconds": 0.0251712080000015,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "861bfde1-eb98-4fad-b184-78f34e894b97",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:56.983975Z",
+            "startedAt": "2026-11-19T20:39:57.019301Z",
+            "finishedAt": "2026-11-19T20:39:57.341068Z",
+            "deadlineAt": "2026-11-19T20:49:56.983974Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/861bfde1-eb98-4fad-b184-78f34e894b97"
+          }
+        },
+        {
+          "jobId": "e0c7c4d6-ab84-48ad-b057-8f037a463a91",
+          "apiAcknowledgementSeconds": 0.039489833000001084,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e0c7c4d6-ab84-48ad-b057-8f037a463a91",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:56.999563Z",
+            "startedAt": "2026-11-19T20:39:57.789038Z",
+            "finishedAt": "2026-11-19T20:39:57.979979Z",
+            "deadlineAt": "2026-11-19T20:49:56.999563Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e0c7c4d6-ab84-48ad-b057-8f037a463a91"
+          }
+        },
+        {
+          "jobId": "4b1129e8-38a5-4951-8399-df52572d1eae",
+          "apiAcknowledgementSeconds": 0.029414416999999915,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "4b1129e8-38a5-4951-8399-df52572d1eae",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:56.993655Z",
+            "startedAt": "2026-11-19T20:39:57.574987Z",
+            "finishedAt": "2026-11-19T20:39:57.785871Z",
+            "deadlineAt": "2026-11-19T20:49:56.993655Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/4b1129e8-38a5-4951-8399-df52572d1eae"
+          }
+        },
+        {
+          "jobId": "d7092b3a-686d-404f-8409-1aa9c197776b",
+          "apiAcknowledgementSeconds": 0.02278529099999993,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d7092b3a-686d-404f-8409-1aa9c197776b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:56.988561Z",
+            "startedAt": "2026-11-19T20:39:57.345646Z",
+            "finishedAt": "2026-11-19T20:39:57.569568Z",
+            "deadlineAt": "2026-11-19T20:49:56.988560Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d7092b3a-686d-404f-8409-1aa9c197776b"
+          }
+        },
+        {
+          "jobId": "d8ffd294-6d8d-47cf-8eb8-a1affb023b90",
+          "apiAcknowledgementSeconds": 0.01787316700000119,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d8ffd294-6d8d-47cf-8eb8-a1affb023b90",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.003863Z",
+            "startedAt": "2026-11-19T20:39:57.983781Z",
+            "finishedAt": "2026-11-19T20:39:58.183587Z",
+            "deadlineAt": "2026-11-19T20:49:57.003863Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d8ffd294-6d8d-47cf-8eb8-a1affb023b90"
+          }
+        },
+        {
+          "jobId": "78126aac-257e-4d29-b2da-6c17348cde35",
+          "apiAcknowledgementSeconds": 0.01963770799999942,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "78126aac-257e-4d29-b2da-6c17348cde35",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.007450Z",
+            "startedAt": "2026-11-19T20:39:58.186486Z",
+            "finishedAt": "2026-11-19T20:39:58.405522Z",
+            "deadlineAt": "2026-11-19T20:49:57.007449Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/78126aac-257e-4d29-b2da-6c17348cde35"
+          }
+        },
+        {
+          "jobId": "93796cde-3b50-406c-929c-1d9fe06e8c91",
+          "apiAcknowledgementSeconds": 0.016862749999999593,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "93796cde-3b50-406c-929c-1d9fe06e8c91",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.010886Z",
+            "startedAt": "2026-11-19T20:39:58.408161Z",
+            "finishedAt": "2026-11-19T20:39:58.657985Z",
+            "deadlineAt": "2026-11-19T20:49:57.010885Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/93796cde-3b50-406c-929c-1d9fe06e8c91"
+          }
+        },
+        {
+          "jobId": "7ea015f9-4d62-452d-bc29-a8a22c5dcc57",
+          "apiAcknowledgementSeconds": 0.018733250000000368,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7ea015f9-4d62-452d-bc29-a8a22c5dcc57",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.015418Z",
+            "startedAt": "2026-11-19T20:39:58.660729Z",
+            "finishedAt": "2026-11-19T20:39:58.863913Z",
+            "deadlineAt": "2026-11-19T20:49:57.015417Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7ea015f9-4d62-452d-bc29-a8a22c5dcc57"
+          }
+        },
+        {
+          "jobId": "0ff73fcc-81b7-4b5a-89fa-5b58e9a566c1",
+          "apiAcknowledgementSeconds": 0.01840999999999937,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0ff73fcc-81b7-4b5a-89fa-5b58e9a566c1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.022010Z",
+            "startedAt": "2026-11-19T20:39:58.866446Z",
+            "finishedAt": "2026-11-19T20:39:59.058680Z",
+            "deadlineAt": "2026-11-19T20:49:57.022010Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0ff73fcc-81b7-4b5a-89fa-5b58e9a566c1"
+          }
+        },
+        {
+          "jobId": "2849f1b9-e54c-4173-8ca8-2248c64c0585",
+          "apiAcknowledgementSeconds": 0.01689300000000138,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "2849f1b9-e54c-4173-8ca8-2248c64c0585",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.026084Z",
+            "startedAt": "2026-11-19T20:39:59.063511Z",
+            "finishedAt": "2026-11-19T20:39:59.254554Z",
+            "deadlineAt": "2026-11-19T20:49:57.026084Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/2849f1b9-e54c-4173-8ca8-2248c64c0585"
+          }
+        },
+        {
+          "jobId": "97d8d00b-e77c-4801-afcd-ea75e5a7d70b",
+          "apiAcknowledgementSeconds": 0.016969250000000713,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "97d8d00b-e77c-4801-afcd-ea75e5a7d70b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.029632Z",
+            "startedAt": "2026-11-19T20:39:59.256934Z",
+            "finishedAt": "2026-11-19T20:39:59.460993Z",
+            "deadlineAt": "2026-11-19T20:49:57.029631Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/97d8d00b-e77c-4801-afcd-ea75e5a7d70b"
+          }
+        },
+        {
+          "jobId": "77eac83d-a9e0-4107-b5c7-34e821ef2a57",
+          "apiAcknowledgementSeconds": 0.013696042000001185,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "77eac83d-a9e0-4107-b5c7-34e821ef2a57",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.032606Z",
+            "startedAt": "2026-11-19T20:39:59.463359Z",
+            "finishedAt": "2026-11-19T20:39:59.647826Z",
+            "deadlineAt": "2026-11-19T20:49:57.032605Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/77eac83d-a9e0-4107-b5c7-34e821ef2a57"
+          }
+        },
+        {
+          "jobId": "086c08b2-d277-427c-b101-9d210f2c995b",
+          "apiAcknowledgementSeconds": 0.013180790999999914,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "086c08b2-d277-427c-b101-9d210f2c995b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.036271Z",
+            "startedAt": "2026-11-19T20:39:59.650678Z",
+            "finishedAt": "2026-11-19T20:39:59.823068Z",
+            "deadlineAt": "2026-11-19T20:49:57.036271Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/086c08b2-d277-427c-b101-9d210f2c995b"
+          }
+        },
+        {
+          "jobId": "7f17cb7f-05a9-4c99-9989-1bed9d572ed2",
+          "apiAcknowledgementSeconds": 0.01636129199999914,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7f17cb7f-05a9-4c99-9989-1bed9d572ed2",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.042421Z",
+            "startedAt": "2026-11-19T20:39:59.995665Z",
+            "finishedAt": "2026-11-19T20:40:00.162835Z",
+            "deadlineAt": "2026-11-19T20:49:57.042420Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7f17cb7f-05a9-4c99-9989-1bed9d572ed2"
+          }
+        },
+        {
+          "jobId": "42affb06-798f-4e39-9c49-d6445f1d2def",
+          "apiAcknowledgementSeconds": 0.01296633399999969,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "42affb06-798f-4e39-9c49-d6445f1d2def",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.039751Z",
+            "startedAt": "2026-11-19T20:39:59.825498Z",
+            "finishedAt": "2026-11-19T20:39:59.993464Z",
+            "deadlineAt": "2026-11-19T20:49:57.039750Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/42affb06-798f-4e39-9c49-d6445f1d2def"
+          }
+        },
+        {
+          "jobId": "6e77c4c3-8e52-4541-8479-5e1817117bbc",
+          "apiAcknowledgementSeconds": 0.01422900000000027,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "6e77c4c3-8e52-4541-8479-5e1817117bbc",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.045990Z",
+            "startedAt": "2026-11-19T20:40:00.165972Z",
+            "finishedAt": "2026-11-19T20:40:00.346476Z",
+            "deadlineAt": "2026-11-19T20:49:57.045990Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/6e77c4c3-8e52-4541-8479-5e1817117bbc"
+          }
+        },
+        {
+          "jobId": "b664d562-efe6-4ed1-9fe7-a1d3d3364791",
+          "apiAcknowledgementSeconds": 0.014709749999999744,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b664d562-efe6-4ed1-9fe7-a1d3d3364791",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.051245Z",
+            "startedAt": "2026-11-19T20:40:00.349144Z",
+            "finishedAt": "2026-11-19T20:40:00.517251Z",
+            "deadlineAt": "2026-11-19T20:49:57.051245Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b664d562-efe6-4ed1-9fe7-a1d3d3364791"
+          }
+        },
+        {
+          "jobId": "c619b388-2ace-4295-8561-a3ebbec3754f",
+          "apiAcknowledgementSeconds": 0.011897457999999972,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c619b388-2ace-4295-8561-a3ebbec3754f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:39:57.055865Z",
+            "startedAt": "2026-11-19T20:40:00.519791Z",
+            "finishedAt": "2026-11-19T20:40:00.690148Z",
+            "deadlineAt": "2026-11-19T20:49:57.055864Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c619b388-2ace-4295-8561-a3ebbec3754f"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:39:58.974437+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "103.99%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "46.88%",
+          "MemUsage": "240MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "57.3MB / 342kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974476+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "36.82%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "47.31%",
+          "MemUsage": "242.2MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "546kB / 1.38MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974485+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "1.85%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.62%",
+          "MemUsage": "217.4MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "270kB / 1.23MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974493+00:00",
+          "BlockIO": "28.7kB / 98.3kB",
+          "CPUPerc": "4.14%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "1.22%",
+          "MemUsage": "95.95MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "111kB / 57.2MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974500+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.54%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974507+00:00",
+          "BlockIO": "0B / 6.71MB",
+          "CPUPerc": "0.08%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.19%",
+          "MemUsage": "54.5MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "145MB / 2.06MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974513+00:00",
+          "BlockIO": "164kB / 71MB",
+          "CPUPerc": "2.84%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.90%",
+          "MemUsage": "70.88MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "18.6MB / 15.7MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:39:58.974520+00:00",
+          "BlockIO": "1.25MB / 573kB",
+          "CPUPerc": "0.33%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.3MB / 11.7MB",
+          "PIDs": "6"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072316+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "21.25%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "47.96%",
+          "MemUsage": "245.6MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "137MB / 619kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072459+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "2.56%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "47.72%",
+          "MemUsage": "244.3MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "851kB / 1.73MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072487+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "10.51%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.70%",
+          "MemUsage": "217.7MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "280kB / 1.31MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072507+00:00",
+          "BlockIO": "28.7kB / 147kB",
+          "CPUPerc": "0.62%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "1.55%",
+          "MemUsage": "121.7MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "236kB / 137MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072521+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.88%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072535+00:00",
+          "BlockIO": "0B / 6.75MB",
+          "CPUPerc": "0.41%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "146MB / 2.06MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072548+00:00",
+          "BlockIO": "164kB / 71.3MB",
+          "CPUPerc": "0.58%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.91%",
+          "MemUsage": "70.97MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "18.7MB / 15.9MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:02.072562+00:00",
+          "BlockIO": "1.25MB / 590kB",
+          "CPUPerc": "0.96%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.4MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 1,
+      "trial": 1
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:02.090710+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:05.529884+00:00",
+      "durableBatchSeconds": 3.439174,
+      "jobsPerSecond": 5.233814863685292,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.011135858777778217,
+        "p50": 0.01017520800000149,
+        "p95": 0.01872637679999673,
+        "p99": 0.021456775359997977,
+        "max": 0.022139374999998296
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.758764611111111,
+        "p50": 1.7665175,
+        "p95": 3.10092385,
+        "p99": 3.20395677,
+        "max": 3.229715
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.17515722222222221,
+        "p50": 0.16995,
+        "p95": 0.20354234999999998,
+        "p99": 0.20934207,
+        "max": 0.210792
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.9339218333333332,
+        "p50": 1.9368535,
+        "p95": 3.2544939999999998,
+        "p99": 3.3691827999999995,
+        "max": 3.397855
+      },
+      "results": [
+        {
+          "jobId": "9d55b225-faaa-4bcc-b390-23509172a7d1",
+          "apiAcknowledgementSeconds": 0.022139374999998296,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "9d55b225-faaa-4bcc-b390-23509172a7d1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.095754Z",
+            "startedAt": "2026-11-19T20:40:02.716766Z",
+            "finishedAt": "2026-11-19T20:40:02.879421Z",
+            "deadlineAt": "2026-11-19T20:50:02.095753Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/9d55b225-faaa-4bcc-b390-23509172a7d1"
+          }
+        },
+        {
+          "jobId": "e76e3fd8-a127-407a-a430-c76f8715e39a",
+          "apiAcknowledgementSeconds": 0.01277608299999855,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e76e3fd8-a127-407a-a430-c76f8715e39a",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.090710Z",
+            "startedAt": "2026-11-19T20:40:02.334797Z",
+            "finishedAt": "2026-11-19T20:40:02.524009Z",
+            "deadlineAt": "2026-11-19T20:50:02.090709Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e76e3fd8-a127-407a-a430-c76f8715e39a"
+          }
+        },
+        {
+          "jobId": "0bced24e-ec0a-40dc-992e-ef4a1865be9e",
+          "apiAcknowledgementSeconds": 0.01812408299999646,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0bced24e-ec0a-40dc-992e-ef4a1865be9e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.098787Z",
+            "startedAt": "2026-11-19T20:40:02.881484Z",
+            "finishedAt": "2026-11-19T20:40:03.092276Z",
+            "deadlineAt": "2026-11-19T20:50:02.098786Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0bced24e-ec0a-40dc-992e-ef4a1865be9e"
+          }
+        },
+        {
+          "jobId": "0f95fb5d-23e1-4b55-a64b-b0f4fab9d173",
+          "apiAcknowledgementSeconds": 0.012452458999998584,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0f95fb5d-23e1-4b55-a64b-b0f4fab9d173",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.093026Z",
+            "startedAt": "2026-11-19T20:40:02.526684Z",
+            "finishedAt": "2026-11-19T20:40:02.713645Z",
+            "deadlineAt": "2026-11-19T20:50:02.093026Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0f95fb5d-23e1-4b55-a64b-b0f4fab9d173"
+          }
+        },
+        {
+          "jobId": "e38f1fc9-1b86-41ca-b196-259d06194c64",
+          "apiAcknowledgementSeconds": 0.009454208000001074,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e38f1fc9-1b86-41ca-b196-259d06194c64",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.101162Z",
+            "startedAt": "2026-11-19T20:40:03.095430Z",
+            "finishedAt": "2026-11-19T20:40:03.263649Z",
+            "deadlineAt": "2026-11-19T20:50:02.101162Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e38f1fc9-1b86-41ca-b196-259d06194c64"
+          }
+        },
+        {
+          "jobId": "686cd8ab-821d-4876-86c6-8beac0d85493",
+          "apiAcknowledgementSeconds": 0.010526999999999731,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "686cd8ab-821d-4876-86c6-8beac0d85493",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.103762Z",
+            "startedAt": "2026-11-19T20:40:03.265875Z",
+            "finishedAt": "2026-11-19T20:40:03.434792Z",
+            "deadlineAt": "2026-11-19T20:50:02.103761Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/686cd8ab-821d-4876-86c6-8beac0d85493"
+          }
+        },
+        {
+          "jobId": "e7096cc7-f80f-4e27-9ae7-b09ba5d99c52",
+          "apiAcknowledgementSeconds": 0.009823416000003249,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e7096cc7-f80f-4e27-9ae7-b09ba5d99c52",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.106412Z",
+            "startedAt": "2026-11-19T20:40:03.437422Z",
+            "finishedAt": "2026-11-19T20:40:03.619979Z",
+            "deadlineAt": "2026-11-19T20:50:02.106412Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e7096cc7-f80f-4e27-9ae7-b09ba5d99c52"
+          }
+        },
+        {
+          "jobId": "db7fab0f-0b35-4da3-9b4b-fe1f5688d32e",
+          "apiAcknowledgementSeconds": 0.009442291999999242,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "db7fab0f-0b35-4da3-9b4b-fe1f5688d32e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.108335Z",
+            "startedAt": "2026-11-19T20:40:03.622445Z",
+            "finishedAt": "2026-11-19T20:40:03.789810Z",
+            "deadlineAt": "2026-11-19T20:50:02.108335Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/db7fab0f-0b35-4da3-9b4b-fe1f5688d32e"
+          }
+        },
+        {
+          "jobId": "55225740-b507-46ff-9c12-a64d1ab9e99f",
+          "apiAcknowledgementSeconds": 0.009228667000002133,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "55225740-b507-46ff-9c12-a64d1ab9e99f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.110532Z",
+            "startedAt": "2026-11-19T20:40:03.791974Z",
+            "finishedAt": "2026-11-19T20:40:03.962361Z",
+            "deadlineAt": "2026-11-19T20:50:02.110532Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/55225740-b507-46ff-9c12-a64d1ab9e99f"
+          }
+        },
+        {
+          "jobId": "74e320d5-44d2-4b8c-83be-aa8d697e6a07",
+          "apiAcknowledgementSeconds": 0.008788208000002129,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "74e320d5-44d2-4b8c-83be-aa8d697e6a07",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.112855Z",
+            "startedAt": "2026-11-19T20:40:03.964448Z",
+            "finishedAt": "2026-11-19T20:40:04.134733Z",
+            "deadlineAt": "2026-11-19T20:50:02.112855Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/74e320d5-44d2-4b8c-83be-aa8d697e6a07"
+          }
+        },
+        {
+          "jobId": "4dcc9a84-a1ea-4eed-ba18-c34537c4f5f7",
+          "apiAcknowledgementSeconds": 0.008824625000002584,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "4dcc9a84-a1ea-4eed-ba18-c34537c4f5f7",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.115656Z",
+            "startedAt": "2026-11-19T20:40:04.137144Z",
+            "finishedAt": "2026-11-19T20:40:04.315773Z",
+            "deadlineAt": "2026-11-19T20:50:02.115656Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/4dcc9a84-a1ea-4eed-ba18-c34537c4f5f7"
+          }
+        },
+        {
+          "jobId": "cbeb8a6e-c3ce-4274-8443-0e76670fee1f",
+          "apiAcknowledgementSeconds": 0.00864050000000205,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cbeb8a6e-c3ce-4274-8443-0e76670fee1f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.117144Z",
+            "startedAt": "2026-11-19T20:40:04.318416Z",
+            "finishedAt": "2026-11-19T20:40:04.485027Z",
+            "deadlineAt": "2026-11-19T20:50:02.117144Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cbeb8a6e-c3ce-4274-8443-0e76670fee1f"
+          }
+        },
+        {
+          "jobId": "7de7f100-2416-4172-be0e-723efa4641e7",
+          "apiAcknowledgementSeconds": 0.010901499999999231,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7de7f100-2416-4172-be0e-723efa4641e7",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.120286Z",
+            "startedAt": "2026-11-19T20:40:04.487601Z",
+            "finishedAt": "2026-11-19T20:40:04.657216Z",
+            "deadlineAt": "2026-11-19T20:50:02.120285Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7de7f100-2416-4172-be0e-723efa4641e7"
+          }
+        },
+        {
+          "jobId": "58ffb07f-7440-4e24-b4a1-da77a62d2157",
+          "apiAcknowledgementSeconds": 0.010746832999998901,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "58ffb07f-7440-4e24-b4a1-da77a62d2157",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.123556Z",
+            "startedAt": "2026-11-19T20:40:04.659658Z",
+            "finishedAt": "2026-11-19T20:40:04.826396Z",
+            "deadlineAt": "2026-11-19T20:50:02.123555Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/58ffb07f-7440-4e24-b4a1-da77a62d2157"
+          }
+        },
+        {
+          "jobId": "516e0135-fa9e-4dd8-a7cd-3985e1cbf59a",
+          "apiAcknowledgementSeconds": 0.011404084000002257,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "516e0135-fa9e-4dd8-a7cd-3985e1cbf59a",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.126202Z",
+            "startedAt": "2026-11-19T20:40:04.828740Z",
+            "finishedAt": "2026-11-19T20:40:05.031003Z",
+            "deadlineAt": "2026-11-19T20:50:02.126202Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/516e0135-fa9e-4dd8-a7cd-3985e1cbf59a"
+          }
+        },
+        {
+          "jobId": "e4634bdc-656f-40f0-a123-71ef8da83088",
+          "apiAcknowledgementSeconds": 0.011236582999998745,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e4634bdc-656f-40f0-a123-71ef8da83088",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.128546Z",
+            "startedAt": "2026-11-19T20:40:05.033693Z",
+            "finishedAt": "2026-11-19T20:40:05.206178Z",
+            "deadlineAt": "2026-11-19T20:50:02.128545Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e4634bdc-656f-40f0-a123-71ef8da83088"
+          }
+        },
+        {
+          "jobId": "19c0062f-0582-43ef-996b-c56df5a48d63",
+          "apiAcknowledgementSeconds": 0.008633125000002906,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "19c0062f-0582-43ef-996b-c56df5a48d63",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.130429Z",
+            "startedAt": "2026-11-19T20:40:05.208625Z",
+            "finishedAt": "2026-11-19T20:40:05.359624Z",
+            "deadlineAt": "2026-11-19T20:50:02.130428Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/19c0062f-0582-43ef-996b-c56df5a48d63"
+          }
+        },
+        {
+          "jobId": "950c9922-25f6-4480-a04a-77f4c87b7b2f",
+          "apiAcknowledgementSeconds": 0.007302417000001782,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "950c9922-25f6-4480-a04a-77f4c87b7b2f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:02.132029Z",
+            "startedAt": "2026-11-19T20:40:05.361744Z",
+            "finishedAt": "2026-11-19T20:40:05.529884Z",
+            "deadlineAt": "2026-11-19T20:50:02.132028Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/950c9922-25f6-4480-a04a-77f4c87b7b2f"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:04.078748+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "99.61%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.08%",
+          "MemUsage": "246.2MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "183MB / 709kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079323+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "32.20%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.13%",
+          "MemUsage": "246.4MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "1.27MB / 2.13MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079359+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "0.44%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.74%",
+          "MemUsage": "217.9MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "309kB / 1.35MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079375+00:00",
+          "BlockIO": "28.7kB / 172kB",
+          "CPUPerc": "4.23%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "1.76%",
+          "MemUsage": "138.2MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "308kB / 183MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079389+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.61%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079402+00:00",
+          "BlockIO": "0B / 6.75MB",
+          "CPUPerc": "0.07%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "146MB / 2.06MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079840+00:00",
+          "BlockIO": "164kB / 72MB",
+          "CPUPerc": "2.93%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.91%",
+          "MemUsage": "71.36MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "18.9MB / 16.1MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:04.079884+00:00",
+          "BlockIO": "1.27MB / 606kB",
+          "CPUPerc": "0.96%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.4MB / 11.7MB",
+          "PIDs": "6"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164069+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "5.54%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.06%",
+          "MemUsage": "246.1MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "260MB / 985kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164196+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "0.43%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.18%",
+          "MemUsage": "246.7MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "1.54MB / 2.44MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164214+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "2.23%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.77%",
+          "MemUsage": "218MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "320kB / 1.42MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164226+00:00",
+          "BlockIO": "28.7kB / 221kB",
+          "CPUPerc": "0.02%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.07%",
+          "MemUsage": "162.1MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "431kB / 260MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164237+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.77%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164247+00:00",
+          "BlockIO": "0B / 6.75MB",
+          "CPUPerc": "0.40%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.72MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "146MB / 2.07MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164257+00:00",
+          "BlockIO": "164kB / 72.4MB",
+          "CPUPerc": "1.22%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.91%",
+          "MemUsage": "71.36MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19MB / 16.3MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:07.164267+00:00",
+          "BlockIO": "1.27MB / 627kB",
+          "CPUPerc": "1.42%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.4MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 1,
+      "trial": 2
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:07.190098+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:10.574983+00:00",
+      "durableBatchSeconds": 3.384885,
+      "jobsPerSecond": 5.317758210397104,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.011504113555555485,
+        "p50": 0.00896402150000064,
+        "p95": 0.024482601899999772,
+        "p99": 0.027478087580000966,
+        "max": 0.028226959000001273
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.6789965,
+        "p50": 1.6790015,
+        "p95": 3.0374224499999998,
+        "p99": 3.1500188899999997,
+        "max": 3.178168
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.17553583333333334,
+        "p50": 0.1702305,
+        "p95": 0.21587899999999993,
+        "p99": 0.24277979999999993,
+        "max": 0.249505
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.8545323333333334,
+        "p50": 1.8822505,
+        "p95": 3.2018344,
+        "p99": 3.3202468799999996,
+        "max": 3.34985
+      },
+      "results": [
+        {
+          "jobId": "c7f9017c-56dc-46d4-ab25-d9a676695f7e",
+          "apiAcknowledgementSeconds": 0.028226959000001273,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c7f9017c-56dc-46d4-ab25-d9a676695f7e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.196434Z",
+            "startedAt": "2026-11-19T20:40:07.886926Z",
+            "finishedAt": "2026-11-19T20:40:08.052675Z",
+            "deadlineAt": "2026-11-19T20:50:07.196433Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c7f9017c-56dc-46d4-ab25-d9a676695f7e"
+          }
+        },
+        {
+          "jobId": "cb32c03a-280e-496a-9f9e-2bc341746120",
+          "apiAcknowledgementSeconds": 0.02216262499999999,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cb32c03a-280e-496a-9f9e-2bc341746120",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.191978Z",
+            "startedAt": "2026-11-19T20:40:07.549804Z",
+            "finishedAt": "2026-11-19T20:40:07.718583Z",
+            "deadlineAt": "2026-11-19T20:50:07.191977Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cb32c03a-280e-496a-9f9e-2bc341746120"
+          }
+        },
+        {
+          "jobId": "47621bf5-ab94-4186-a24c-99bb7ce9e792",
+          "apiAcknowledgementSeconds": 0.02035979200000071,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "47621bf5-ab94-4186-a24c-99bb7ce9e792",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.190098Z",
+            "startedAt": "2026-11-19T20:40:07.372239Z",
+            "finishedAt": "2026-11-19T20:40:07.547018Z",
+            "deadlineAt": "2026-11-19T20:50:07.190095Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/47621bf5-ab94-4186-a24c-99bb7ce9e792"
+          }
+        },
+        {
+          "jobId": "f3c6a755-08fa-4195-b3ee-e7d6db6453ca",
+          "apiAcknowledgementSeconds": 0.023821832999999515,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "f3c6a755-08fa-4195-b3ee-e7d6db6453ca",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.194433Z",
+            "startedAt": "2026-11-19T20:40:07.721523Z",
+            "finishedAt": "2026-11-19T20:40:07.884794Z",
+            "deadlineAt": "2026-11-19T20:50:07.194432Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/f3c6a755-08fa-4195-b3ee-e7d6db6453ca"
+          }
+        },
+        {
+          "jobId": "c344295b-bed3-4bec-80b2-556aa122402d",
+          "apiAcknowledgementSeconds": 0.009502999999998707,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c344295b-bed3-4bec-80b2-556aa122402d",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.199583Z",
+            "startedAt": "2026-11-19T20:40:08.054723Z",
+            "finishedAt": "2026-11-19T20:40:08.232088Z",
+            "deadlineAt": "2026-11-19T20:50:07.199582Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c344295b-bed3-4bec-80b2-556aa122402d"
+          }
+        },
+        {
+          "jobId": "5ad3c0c6-c96c-4b4d-a845-37acb4d59a7e",
+          "apiAcknowledgementSeconds": 0.009741291999997514,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "5ad3c0c6-c96c-4b4d-a845-37acb4d59a7e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.202382Z",
+            "startedAt": "2026-11-19T20:40:08.235021Z",
+            "finishedAt": "2026-11-19T20:40:08.409790Z",
+            "deadlineAt": "2026-11-19T20:50:07.202381Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/5ad3c0c6-c96c-4b4d-a845-37acb4d59a7e"
+          }
+        },
+        {
+          "jobId": "1d3a72f0-9686-4d22-991d-7528095887a1",
+          "apiAcknowledgementSeconds": 0.00963000000000136,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "1d3a72f0-9686-4d22-991d-7528095887a1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.203943Z",
+            "startedAt": "2026-11-19T20:40:08.412494Z",
+            "finishedAt": "2026-11-19T20:40:08.579299Z",
+            "deadlineAt": "2026-11-19T20:50:07.203942Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/1d3a72f0-9686-4d22-991d-7528095887a1"
+          }
+        },
+        {
+          "jobId": "25960d3e-40ae-42e3-8238-0241591d1524",
+          "apiAcknowledgementSeconds": 0.009465291999998016,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "25960d3e-40ae-42e3-8238-0241591d1524",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.206390Z",
+            "startedAt": "2026-11-19T20:40:08.581911Z",
+            "finishedAt": "2026-11-19T20:40:08.760127Z",
+            "deadlineAt": "2026-11-19T20:50:07.206389Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/25960d3e-40ae-42e3-8238-0241591d1524"
+          }
+        },
+        {
+          "jobId": "d0bab12b-b686-4ec2-b513-b63658bd5a58",
+          "apiAcknowledgementSeconds": 0.008785083999999443,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d0bab12b-b686-4ec2-b513-b63658bd5a58",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.208418Z",
+            "startedAt": "2026-11-19T20:40:08.762433Z",
+            "finishedAt": "2026-11-19T20:40:09.011938Z",
+            "deadlineAt": "2026-11-19T20:50:07.208416Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d0bab12b-b686-4ec2-b513-b63658bd5a58"
+          }
+        },
+        {
+          "jobId": "b37919e3-f08c-4cbb-80fe-33dacc4342ad",
+          "apiAcknowledgementSeconds": 0.009142959000001838,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b37919e3-f08c-4cbb-80fe-33dacc4342ad",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.210702Z",
+            "startedAt": "2026-11-19T20:40:09.014690Z",
+            "finishedAt": "2026-11-19T20:40:09.171683Z",
+            "deadlineAt": "2026-11-19T20:50:07.210700Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b37919e3-f08c-4cbb-80fe-33dacc4342ad"
+          }
+        },
+        {
+          "jobId": "d41a1c78-bcd0-4ebe-9ffc-2f284694901f",
+          "apiAcknowledgementSeconds": 0.008431542000000292,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d41a1c78-bcd0-4ebe-9ffc-2f284694901f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.213367Z",
+            "startedAt": "2026-11-19T20:40:09.174042Z",
+            "finishedAt": "2026-11-19T20:40:09.342250Z",
+            "deadlineAt": "2026-11-19T20:50:07.213366Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d41a1c78-bcd0-4ebe-9ffc-2f284694901f"
+          }
+        },
+        {
+          "jobId": "7eebc47b-9bd9-40c7-a423-37c2f068fa87",
+          "apiAcknowledgementSeconds": 0.007875582999997022,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7eebc47b-9bd9-40c7-a423-37c2f068fa87",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.215126Z",
+            "startedAt": "2026-11-19T20:40:09.344520Z",
+            "finishedAt": "2026-11-19T20:40:09.516916Z",
+            "deadlineAt": "2026-11-19T20:50:07.215126Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7eebc47b-9bd9-40c7-a423-37c2f068fa87"
+          }
+        },
+        {
+          "jobId": "6d85f1d4-d55a-4e11-8669-52d242162d87",
+          "apiAcknowledgementSeconds": 0.006998374999998447,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "6d85f1d4-d55a-4e11-8669-52d242162d87",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.216624Z",
+            "startedAt": "2026-11-19T20:40:09.518944Z",
+            "finishedAt": "2026-11-19T20:40:09.728889Z",
+            "deadlineAt": "2026-11-19T20:50:07.216623Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/6d85f1d4-d55a-4e11-8669-52d242162d87"
+          }
+        },
+        {
+          "jobId": "72a53c46-7698-442a-a539-85409776b472",
+          "apiAcknowledgementSeconds": 0.007214707999999348,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "72a53c46-7698-442a-a539-85409776b472",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.218011Z",
+            "startedAt": "2026-11-19T20:40:09.731384Z",
+            "finishedAt": "2026-11-19T20:40:09.908217Z",
+            "deadlineAt": "2026-11-19T20:50:07.218011Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/72a53c46-7698-442a-a539-85409776b472"
+          }
+        },
+        {
+          "jobId": "13fd6e11-1ea1-4e70-a92b-594ee84e2f56",
+          "apiAcknowledgementSeconds": 0.006854625000002557,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "13fd6e11-1ea1-4e70-a92b-594ee84e2f56",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.220452Z",
+            "startedAt": "2026-11-19T20:40:09.910301Z",
+            "finishedAt": "2026-11-19T20:40:10.067663Z",
+            "deadlineAt": "2026-11-19T20:50:07.220451Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/13fd6e11-1ea1-4e70-a92b-594ee84e2f56"
+          }
+        },
+        {
+          "jobId": "2e40210e-2101-48bf-ba29-1091e55d9be3",
+          "apiAcknowledgementSeconds": 0.0065101659999982076,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "2e40210e-2101-48bf-ba29-1091e55d9be3",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.221924Z",
+            "startedAt": "2026-11-19T20:40:10.070094Z",
+            "finishedAt": "2026-11-19T20:40:10.233953Z",
+            "deadlineAt": "2026-11-19T20:50:07.221924Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/2e40210e-2101-48bf-ba29-1091e55d9be3"
+          }
+        },
+        {
+          "jobId": "ac780f7b-475a-426a-a9d9-30dcd8822856",
+          "apiAcknowledgementSeconds": 0.0065777090000018745,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "ac780f7b-475a-426a-a9d9-30dcd8822856",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.223208Z",
+            "startedAt": "2026-11-19T20:40:10.235793Z",
+            "finishedAt": "2026-11-19T20:40:10.398922Z",
+            "deadlineAt": "2026-11-19T20:50:07.223207Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/ac780f7b-475a-426a-a9d9-30dcd8822856"
+          }
+        },
+        {
+          "jobId": "b1d62b5b-cbb6-4e28-8f8e-f65fd22c4de8",
+          "apiAcknowledgementSeconds": 0.005772500000002623,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b1d62b5b-cbb6-4e28-8f8e-f65fd22c4de8",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:07.225133Z",
+            "startedAt": "2026-11-19T20:40:10.403301Z",
+            "finishedAt": "2026-11-19T20:40:10.574983Z",
+            "deadlineAt": "2026-11-19T20:50:07.225132Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b1d62b5b-cbb6-4e28-8f8e-f65fd22c4de8"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:09.170855+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "102.61%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.21%",
+          "MemUsage": "246.9MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "312MB / 1.09MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170889+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "36.05%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.31%",
+          "MemUsage": "247.4MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "1.95MB / 2.84MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170897+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "0.34%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.87%",
+          "MemUsage": "218.4MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "348kB / 1.46MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170904+00:00",
+          "BlockIO": "28.7kB / 250kB",
+          "CPUPerc": "5.22%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.28%",
+          "MemUsage": "179MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "512kB / 312MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170910+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.41%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170917+00:00",
+          "BlockIO": "0B / 6.75MB",
+          "CPUPerc": "0.06%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "146MB / 2.07MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170923+00:00",
+          "BlockIO": "164kB / 73.3MB",
+          "CPUPerc": "3.41%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.91%",
+          "MemUsage": "71.51MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.1MB / 16.5MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:09.170929+00:00",
+          "BlockIO": "1.29MB / 639kB",
+          "CPUPerc": "0.34%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.4MB / 11.7MB",
+          "PIDs": "6"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258069+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "3.99%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.39%",
+          "MemUsage": "247.8MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "383MB / 1.35MB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258192+00:00",
+          "BlockIO": "8.04MB / 115kB",
+          "CPUPerc": "0.32%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.39%",
+          "MemUsage": "247.7MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "2.2MB / 3.14MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258216+00:00",
+          "BlockIO": "1.31MB / 119kB",
+          "CPUPerc": "1.94%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "56.89%",
+          "MemUsage": "218.4MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "358kB / 1.53MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258236+00:00",
+          "BlockIO": "28.7kB / 295kB",
+          "CPUPerc": "1.49%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.56%",
+          "MemUsage": "200.4MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "625kB / 383MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258252+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "1.15%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258266+00:00",
+          "BlockIO": "0B / 6.75MB",
+          "CPUPerc": "0.38%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.26%",
+          "MemUsage": "54.75MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "146MB / 2.07MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258295+00:00",
+          "BlockIO": "164kB / 73.6MB",
+          "CPUPerc": "0.29%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "0.91%",
+          "MemUsage": "71.48MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.2MB / 16.7MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:12.258319+00:00",
+          "BlockIO": "1.29MB / 664kB",
+          "CPUPerc": "0.96%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.4MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 1,
+      "trial": 3
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:26.998246+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:29.173770+00:00",
+      "durableBatchSeconds": 2.175524,
+      "jobsPerSecond": 8.273868732314606,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.02102677316666717,
+        "p50": 0.021271520500000918,
+        "p95": 0.028252074900003876,
+        "p99": 0.02848644778000157,
+        "max": 0.028545041000000992
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.0300872777777779,
+        "p50": 1.109328,
+        "p95": 1.78144015,
+        "p99": 1.9035280299999997,
+        "max": 1.93405
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.21604255555555557,
+        "p50": 0.197249,
+        "p95": 0.3171498499999999,
+        "p99": 0.3594315699999999,
+        "max": 0.370002
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.2461298333333333,
+        "p50": 1.2954415,
+        "p95": 1.9723171999999998,
+        "p99": 2.0636194399999996,
+        "max": 2.086445
+      },
+      "results": [
+        {
+          "jobId": "65a3153b-f67c-4e9f-ba6e-c907c8e54f20",
+          "apiAcknowledgementSeconds": 0.014977000000001794,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "65a3153b-f67c-4e9f-ba6e-c907c8e54f20",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:26.999735Z",
+            "startedAt": "2026-11-19T20:40:27.233272Z",
+            "finishedAt": "2026-11-19T20:40:27.424558Z",
+            "deadlineAt": "2026-11-19T20:50:26.999734Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/65a3153b-f67c-4e9f-ba6e-c907c8e54f20"
+          }
+        },
+        {
+          "jobId": "6cb05888-60df-4e1e-ae2e-9cd2c5d3d5ec",
+          "apiAcknowledgementSeconds": 0.012412458000000015,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "6cb05888-60df-4e1e-ae2e-9cd2c5d3d5ec",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:26.998246Z",
+            "startedAt": "2026-11-19T20:40:27.024850Z",
+            "finishedAt": "2026-11-19T20:40:27.230402Z",
+            "deadlineAt": "2026-11-19T20:50:26.998245Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/6cb05888-60df-4e1e-ae2e-9cd2c5d3d5ec"
+          }
+        },
+        {
+          "jobId": "20838109-90a8-424d-9e92-35de7da1d7ba",
+          "apiAcknowledgementSeconds": 0.023753958000000353,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "20838109-90a8-424d-9e92-35de7da1d7ba",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.005217Z",
+            "startedAt": "2026-11-19T20:40:27.427027Z",
+            "finishedAt": "2026-11-19T20:40:27.609454Z",
+            "deadlineAt": "2026-11-19T20:50:27.005216Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/20838109-90a8-424d-9e92-35de7da1d7ba"
+          }
+        },
+        {
+          "jobId": "c9268c76-69f7-4848-8007-1ae958a2f0a3",
+          "apiAcknowledgementSeconds": 0.016163417000001346,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c9268c76-69f7-4848-8007-1ae958a2f0a3",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.002137Z",
+            "startedAt": "2026-11-19T20:40:27.245017Z",
+            "finishedAt": "2026-11-19T20:40:27.615019Z",
+            "deadlineAt": "2026-11-19T20:50:27.002136Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c9268c76-69f7-4848-8007-1ae958a2f0a3"
+          }
+        },
+        {
+          "jobId": "eb699797-13bd-428f-8527-ca1baa76c351",
+          "apiAcknowledgementSeconds": 0.018875250000000676,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "eb699797-13bd-428f-8527-ca1baa76c351",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.016582Z",
+            "startedAt": "2026-11-19T20:40:27.612429Z",
+            "finishedAt": "2026-11-19T20:40:27.846355Z",
+            "deadlineAt": "2026-11-19T20:50:27.016581Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/eb699797-13bd-428f-8527-ca1baa76c351"
+          }
+        },
+        {
+          "jobId": "028a5f01-7f72-43b1-9a86-82fb308a831e",
+          "apiAcknowledgementSeconds": 0.022981542000003685,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "028a5f01-7f72-43b1-9a86-82fb308a831e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.020222Z",
+            "startedAt": "2026-11-19T20:40:27.619767Z",
+            "finishedAt": "2026-11-19T20:40:27.923686Z",
+            "deadlineAt": "2026-11-19T20:50:27.020211Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/028a5f01-7f72-43b1-9a86-82fb308a831e"
+          }
+        },
+        {
+          "jobId": "60e8662a-d6ed-4fa4-a652-0f7d924d0048",
+          "apiAcknowledgementSeconds": 0.02488783399999761,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "60e8662a-d6ed-4fa4-a652-0f7d924d0048",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.025450Z",
+            "startedAt": "2026-11-19T20:40:27.849216Z",
+            "finishedAt": "2026-11-19T20:40:28.057052Z",
+            "deadlineAt": "2026-11-19T20:50:27.025450Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/60e8662a-d6ed-4fa4-a652-0f7d924d0048"
+          }
+        },
+        {
+          "jobId": "315c84a1-18a4-45df-9f63-befb73233865",
+          "apiAcknowledgementSeconds": 0.021774291999996365,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "315c84a1-18a4-45df-9f63-befb73233865",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.030569Z",
+            "startedAt": "2026-11-19T20:40:27.927863Z",
+            "finishedAt": "2026-11-19T20:40:28.235686Z",
+            "deadlineAt": "2026-11-19T20:50:27.030566Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/315c84a1-18a4-45df-9f63-befb73233865"
+          }
+        },
+        {
+          "jobId": "3895602d-abbf-4921-9125-07dcea98640c",
+          "apiAcknowledgementSeconds": 0.02377720900000213,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3895602d-abbf-4921-9125-07dcea98640c",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.034970Z",
+            "startedAt": "2026-11-19T20:40:28.060574Z",
+            "finishedAt": "2026-11-19T20:40:28.250059Z",
+            "deadlineAt": "2026-11-19T20:50:27.034968Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3895602d-abbf-4921-9125-07dcea98640c"
+          }
+        },
+        {
+          "jobId": "eda32114-801a-472b-b707-de8515de51ee",
+          "apiAcknowledgementSeconds": 0.028200375000004385,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "eda32114-801a-472b-b707-de8515de51ee",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.046677Z",
+            "startedAt": "2026-11-19T20:40:28.239729Z",
+            "finishedAt": "2026-11-19T20:40:28.440948Z",
+            "deadlineAt": "2026-11-19T20:50:27.046675Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/eda32114-801a-472b-b707-de8515de51ee"
+          }
+        },
+        {
+          "jobId": "50162253-c81e-4c86-94a0-52e7a41d72ef",
+          "apiAcknowledgementSeconds": 0.028058541000000048,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "50162253-c81e-4c86-94a0-52e7a41d72ef",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.056439Z",
+            "startedAt": "2026-11-19T20:40:28.252548Z",
+            "finishedAt": "2026-11-19T20:40:28.432233Z",
+            "deadlineAt": "2026-11-19T20:50:27.056437Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/50162253-c81e-4c86-94a0-52e7a41d72ef"
+          }
+        },
+        {
+          "jobId": "fbd81fdb-8ce6-4ccd-8039-eb25b9680b1d",
+          "apiAcknowledgementSeconds": 0.028545041000000992,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "fbd81fdb-8ce6-4ccd-8039-eb25b9680b1d",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.059805Z",
+            "startedAt": "2026-11-19T20:40:28.434318Z",
+            "finishedAt": "2026-11-19T20:40:28.617801Z",
+            "deadlineAt": "2026-11-19T20:50:27.059804Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/fbd81fdb-8ce6-4ccd-8039-eb25b9680b1d"
+          }
+        },
+        {
+          "jobId": "ed86c33a-852f-47db-a74b-023b05253b24",
+          "apiAcknowledgementSeconds": 0.021037415999998643,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "ed86c33a-852f-47db-a74b-023b05253b24",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.062788Z",
+            "startedAt": "2026-11-19T20:40:28.443860Z",
+            "finishedAt": "2026-11-19T20:40:28.640690Z",
+            "deadlineAt": "2026-11-19T20:50:27.062787Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/ed86c33a-852f-47db-a74b-023b05253b24"
+          }
+        },
+        {
+          "jobId": "9646a72d-b58d-45ff-bae8-e473a7715d2b",
+          "apiAcknowledgementSeconds": 0.017789249999999868,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "9646a72d-b58d-45ff-bae8-e473a7715d2b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.065972Z",
+            "startedAt": "2026-11-19T20:40:28.621334Z",
+            "finishedAt": "2026-11-19T20:40:28.790063Z",
+            "deadlineAt": "2026-11-19T20:50:27.065971Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/9646a72d-b58d-45ff-bae8-e473a7715d2b"
+          }
+        },
+        {
+          "jobId": "0c614c8e-72f2-4dd8-a250-f62c8fdd4f41",
+          "apiAcknowledgementSeconds": 0.015467708999999275,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0c614c8e-72f2-4dd8-a250-f62c8fdd4f41",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.071584Z",
+            "startedAt": "2026-11-19T20:40:28.643224Z",
+            "finishedAt": "2026-11-19T20:40:28.832797Z",
+            "deadlineAt": "2026-11-19T20:50:27.071583Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0c614c8e-72f2-4dd8-a250-f62c8fdd4f41"
+          }
+        },
+        {
+          "jobId": "3e322ef0-29bf-4044-938d-78db6c264b70",
+          "apiAcknowledgementSeconds": 0.018271583000000646,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3e322ef0-29bf-4044-938d-78db6c264b70",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.077802Z",
+            "startedAt": "2026-11-19T20:40:28.792179Z",
+            "finishedAt": "2026-11-19T20:40:29.019107Z",
+            "deadlineAt": "2026-11-19T20:50:27.077800Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3e322ef0-29bf-4044-938d-78db6c264b70"
+          }
+        },
+        {
+          "jobId": "627aa113-d8b9-4ad0-9e4f-ecfe4fd5a589",
+          "apiAcknowledgementSeconds": 0.02000341699999808,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "627aa113-d8b9-4ad0-9e4f-ecfe4fd5a589",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.081864Z",
+            "startedAt": "2026-11-19T20:40:28.836373Z",
+            "finishedAt": "2026-11-19T20:40:29.034041Z",
+            "deadlineAt": "2026-11-19T20:50:27.081862Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/627aa113-d8b9-4ad0-9e4f-ecfe4fd5a589"
+          }
+        },
+        {
+          "jobId": "edd036c5-7f86-47f7-99da-c9b494ac7a61",
+          "apiAcknowledgementSeconds": 0.021505625000003192,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "edd036c5-7f86-47f7-99da-c9b494ac7a61",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:27.087325Z",
+            "startedAt": "2026-11-19T20:40:29.021375Z",
+            "finishedAt": "2026-11-19T20:40:29.173770Z",
+            "deadlineAt": "2026-11-19T20:50:27.087324Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/edd036c5-7f86-47f7-99da-c9b494ac7a61"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:29.006787+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "102.53%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "45.11%",
+          "MemUsage": "231MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "37MB / 276kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006824+00:00",
+          "BlockIO": "0B / 69.6kB",
+          "CPUPerc": "102.48%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.71%",
+          "MemUsage": "249.4MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "454MB / 1.9MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006832+00:00",
+          "BlockIO": "8.04MB / 147kB",
+          "CPUPerc": "25.92%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.55%",
+          "MemUsage": "248.6MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "2.64MB / 3.75MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006840+00:00",
+          "BlockIO": "1.31MB / 143kB",
+          "CPUPerc": "2.72%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.09%",
+          "MemUsage": "219.2MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "437kB / 1.82MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006847+00:00",
+          "BlockIO": "28.7kB / 356kB",
+          "CPUPerc": "9.74%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.57%",
+          "MemUsage": "201.8MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "776kB / 491MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006853+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.53%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006860+00:00",
+          "BlockIO": "0B / 6.79MB",
+          "CPUPerc": "0.08%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "147MB / 2.08MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006866+00:00",
+          "BlockIO": "164kB / 74.8MB",
+          "CPUPerc": "4.26%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.08%",
+          "MemUsage": "84.43MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.5MB / 17MB",
+          "PIDs": "38"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:29.006872+00:00",
+          "BlockIO": "1.31MB / 688kB",
+          "CPUPerc": "0.43%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.5MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 2,
+      "trial": 1
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:29.224123+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:32.077773+00:00",
+      "durableBatchSeconds": 2.85365,
+      "jobsPerSecond": 6.307711176913777,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.006156719944443346,
+        "p50": 0.005572729499998985,
+        "p95": 0.010328981199998564,
+        "p99": 0.010915962639997473,
+        "max": 0.011062707999997201
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.5760573333333334,
+        "p50": 1.5942775,
+        "p95": 2.4719454,
+        "p99": 2.54694668,
+        "max": 2.565697
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.2435518888888889,
+        "p50": 0.236204,
+        "p95": 0.31908539999999996,
+        "p99": 0.3483498799999999,
+        "max": 0.355666
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.8196092222222222,
+        "p50": 1.810965,
+        "p95": 2.7773856,
+        "p99": 2.81979312,
+        "max": 2.830395
+      },
+      "results": [
+        {
+          "jobId": "735fb2be-ae44-445d-825e-c3d0f05cd714",
+          "apiAcknowledgementSeconds": 0.009443874999995217,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "735fb2be-ae44-445d-825e-c3d0f05cd714",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.225038Z",
+            "startedAt": "2026-11-19T20:40:29.852343Z",
+            "finishedAt": "2026-11-19T20:40:30.208009Z",
+            "deadlineAt": "2026-11-19T20:50:29.225038Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/735fb2be-ae44-445d-825e-c3d0f05cd714"
+          }
+        },
+        {
+          "jobId": "2d10575b-4b64-452f-b76c-6a96c4143f2a",
+          "apiAcknowledgementSeconds": 0.010199499999998807,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "2d10575b-4b64-452f-b76c-6a96c4143f2a",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.225906Z",
+            "startedAt": "2026-11-19T20:40:30.024344Z",
+            "finishedAt": "2026-11-19T20:40:30.235850Z",
+            "deadlineAt": "2026-11-19T20:50:29.225905Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/2d10575b-4b64-452f-b76c-6a96c4143f2a"
+          }
+        },
+        {
+          "jobId": "363f9d77-a3aa-4f7d-9e5e-8b3363809375",
+          "apiAcknowledgementSeconds": 0.0047412090000023,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "363f9d77-a3aa-4f7d-9e5e-8b3363809375",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.224123Z",
+            "startedAt": "2026-11-19T20:40:29.785177Z",
+            "finishedAt": "2026-11-19T20:40:30.021324Z",
+            "deadlineAt": "2026-11-19T20:50:29.224122Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/363f9d77-a3aa-4f7d-9e5e-8b3363809375"
+          }
+        },
+        {
+          "jobId": "74e99892-62ac-4077-915b-4f84c0cbf50c",
+          "apiAcknowledgementSeconds": 0.006289791999996908,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "74e99892-62ac-4077-915b-4f84c0cbf50c",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.227Z",
+            "startedAt": "2026-11-19T20:40:30.212527Z",
+            "finishedAt": "2026-11-19T20:40:30.478761Z",
+            "deadlineAt": "2026-11-19T20:50:29.226999Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/74e99892-62ac-4077-915b-4f84c0cbf50c"
+          }
+        },
+        {
+          "jobId": "33774f13-ef23-4942-a39c-21b7040003c0",
+          "apiAcknowledgementSeconds": 0.006168541999997501,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "33774f13-ef23-4942-a39c-21b7040003c0",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.230951Z",
+            "startedAt": "2026-11-19T20:40:30.483031Z",
+            "finishedAt": "2026-11-19T20:40:30.744485Z",
+            "deadlineAt": "2026-11-19T20:50:29.230951Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/33774f13-ef23-4942-a39c-21b7040003c0"
+          }
+        },
+        {
+          "jobId": "d2f15645-251d-488f-854a-ebcbbddd986b",
+          "apiAcknowledgementSeconds": 0.004441708000001654,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d2f15645-251d-488f-854a-ebcbbddd986b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.229494Z",
+            "startedAt": "2026-11-19T20:40:30.238041Z",
+            "finishedAt": "2026-11-19T20:40:30.428541Z",
+            "deadlineAt": "2026-11-19T20:50:29.229493Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d2f15645-251d-488f-854a-ebcbbddd986b"
+          }
+        },
+        {
+          "jobId": "117cca67-25c1-4d1d-a22a-0b86ce2dab9d",
+          "apiAcknowledgementSeconds": 0.003915542000001437,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "117cca67-25c1-4d1d-a22a-0b86ce2dab9d",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.230247Z",
+            "startedAt": "2026-11-19T20:40:30.431203Z",
+            "finishedAt": "2026-11-19T20:40:30.667464Z",
+            "deadlineAt": "2026-11-19T20:50:29.230246Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/117cca67-25c1-4d1d-a22a-0b86ce2dab9d"
+          }
+        },
+        {
+          "jobId": "c49cce56-1d8e-47e8-898f-1c4632542937",
+          "apiAcknowledgementSeconds": 0.004384125000001404,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c49cce56-1d8e-47e8-898f-1c4632542937",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.231630Z",
+            "startedAt": "2026-11-19T20:40:30.671170Z",
+            "finishedAt": "2026-11-19T20:40:30.899090Z",
+            "deadlineAt": "2026-11-19T20:50:29.231629Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c49cce56-1d8e-47e8-898f-1c4632542937"
+          }
+        },
+        {
+          "jobId": "f338fb0c-e0e6-4244-b1f9-5ef0a25b74b3",
+          "apiAcknowledgementSeconds": 0.004095082999995725,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "f338fb0c-e0e6-4244-b1f9-5ef0a25b74b3",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.233438Z",
+            "startedAt": "2026-11-19T20:40:30.751126Z",
+            "finishedAt": "2026-11-19T20:40:30.981602Z",
+            "deadlineAt": "2026-11-19T20:50:29.233438Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/f338fb0c-e0e6-4244-b1f9-5ef0a25b74b3"
+          }
+        },
+        {
+          "jobId": "236a5d13-d49a-42da-af3f-8842338133cf",
+          "apiAcknowledgementSeconds": 0.004267499999997426,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "236a5d13-d49a-42da-af3f-8842338133cf",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.234321Z",
+            "startedAt": "2026-11-19T20:40:30.905188Z",
+            "finishedAt": "2026-11-19T20:40:31.108087Z",
+            "deadlineAt": "2026-11-19T20:50:29.234320Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/236a5d13-d49a-42da-af3f-8842338133cf"
+          }
+        },
+        {
+          "jobId": "b2976216-54f1-4f67-8a8b-b2de53dc314d",
+          "apiAcknowledgementSeconds": 0.004333791000000531,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b2976216-54f1-4f67-8a8b-b2de53dc314d",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.235195Z",
+            "startedAt": "2026-11-19T20:40:30.984638Z",
+            "finishedAt": "2026-11-19T20:40:31.230855Z",
+            "deadlineAt": "2026-11-19T20:50:29.235194Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b2976216-54f1-4f67-8a8b-b2de53dc314d"
+          }
+        },
+        {
+          "jobId": "d48c3d9f-ef0d-4d1e-b257-155edaf68e74",
+          "apiAcknowledgementSeconds": 0.0044278749999975275,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d48c3d9f-ef0d-4d1e-b257-155edaf68e74",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.236035Z",
+            "startedAt": "2026-11-19T20:40:31.111537Z",
+            "finishedAt": "2026-11-19T20:40:31.336505Z",
+            "deadlineAt": "2026-11-19T20:50:29.236034Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d48c3d9f-ef0d-4d1e-b257-155edaf68e74"
+          }
+        },
+        {
+          "jobId": "3706be95-a063-4fc6-a242-b6eb162d0a9a",
+          "apiAcknowledgementSeconds": 0.00598529199999831,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3706be95-a063-4fc6-a242-b6eb162d0a9a",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.238517Z",
+            "startedAt": "2026-11-19T20:40:31.234688Z",
+            "finishedAt": "2026-11-19T20:40:31.441511Z",
+            "deadlineAt": "2026-11-19T20:50:29.238516Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3706be95-a063-4fc6-a242-b6eb162d0a9a"
+          }
+        },
+        {
+          "jobId": "8d57109d-147b-487d-84e1-9dd68578fbcb",
+          "apiAcknowledgementSeconds": 0.011062707999997201,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "8d57109d-147b-487d-84e1-9dd68578fbcb",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.245004Z",
+            "startedAt": "2026-11-19T20:40:31.608078Z",
+            "finishedAt": "2026-11-19T20:40:31.810422Z",
+            "deadlineAt": "2026-11-19T20:50:29.245003Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/8d57109d-147b-487d-84e1-9dd68578fbcb"
+          }
+        },
+        {
+          "jobId": "635557d8-3730-413b-a27c-500a7ebcf14b",
+          "apiAcknowledgementSeconds": 0.007391292000001215,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "635557d8-3730-413b-a27c-500a7ebcf14b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.240892Z",
+            "startedAt": "2026-11-19T20:40:31.341552Z",
+            "finishedAt": "2026-11-19T20:40:31.596551Z",
+            "deadlineAt": "2026-11-19T20:50:29.240891Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/635557d8-3730-413b-a27c-500a7ebcf14b"
+          }
+        },
+        {
+          "jobId": "74b399f5-9bc8-42f3-9f7c-5974cebc66f1",
+          "apiAcknowledgementSeconds": 0.008039082999999891,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "74b399f5-9bc8-42f3-9f7c-5974cebc66f1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.243457Z",
+            "startedAt": "2026-11-19T20:40:31.444539Z",
+            "finishedAt": "2026-11-19T20:40:31.696731Z",
+            "deadlineAt": "2026-11-19T20:50:29.243455Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/74b399f5-9bc8-42f3-9f7c-5974cebc66f1"
+          }
+        },
+        {
+          "jobId": "f99fb1ae-dafa-4edb-9a88-b6f41729712e",
+          "apiAcknowledgementSeconds": 0.00647387499999752,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "f99fb1ae-dafa-4edb-9a88-b6f41729712e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.246138Z",
+            "startedAt": "2026-11-19T20:40:31.701539Z",
+            "finishedAt": "2026-11-19T20:40:32.014169Z",
+            "deadlineAt": "2026-11-19T20:50:29.246138Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/f99fb1ae-dafa-4edb-9a88-b6f41729712e"
+          }
+        },
+        {
+          "jobId": "97c4313b-615e-4779-a2a0-663253d0c26b",
+          "apiAcknowledgementSeconds": 0.00516016699999966,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "97c4313b-615e-4779-a2a0-663253d0c26b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:29.247378Z",
+            "startedAt": "2026-11-19T20:40:31.813075Z",
+            "finishedAt": "2026-11-19T20:40:32.077773Z",
+            "deadlineAt": "2026-11-19T20:50:29.247377Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/97c4313b-615e-4779-a2a0-663253d0c26b"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:31.035848+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "69.83%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "47.81%",
+          "MemUsage": "244.8MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "70.6MB / 325kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035905+00:00",
+          "BlockIO": "0B / 69.6kB",
+          "CPUPerc": "75.29%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.73%",
+          "MemUsage": "249.5MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "503MB / 1.99MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035915+00:00",
+          "BlockIO": "8.04MB / 147kB",
+          "CPUPerc": "25.67%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.64%",
+          "MemUsage": "249MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "3.06MB / 4.21MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035924+00:00",
+          "BlockIO": "1.31MB / 143kB",
+          "CPUPerc": "6.04%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.14%",
+          "MemUsage": "219.4MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "467kB / 1.86MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035931+00:00",
+          "BlockIO": "28.7kB / 406kB",
+          "CPUPerc": "8.12%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.57%",
+          "MemUsage": "201.5MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "887kB / 573MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035938+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "2.59%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035945+00:00",
+          "BlockIO": "0B / 6.79MB",
+          "CPUPerc": "0.67%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "147MB / 2.08MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035953+00:00",
+          "BlockIO": "164kB / 75.6MB",
+          "CPUPerc": "7.46%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.08%",
+          "MemUsage": "84.59MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.7MB / 17.2MB",
+          "PIDs": "38"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:31.035960+00:00",
+          "BlockIO": "1.32MB / 705kB",
+          "CPUPerc": "1.59%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.5MB / 11.7MB",
+          "PIDs": "6"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222470+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "38.91%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "47.74%",
+          "MemUsage": "244.4MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "110MB / 503kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222564+00:00",
+          "BlockIO": "0B / 69.6kB",
+          "CPUPerc": "2.76%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.72%",
+          "MemUsage": "249.5MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "548MB / 2.21MB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222575+00:00",
+          "BlockIO": "8.04MB / 147kB",
+          "CPUPerc": "0.41%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "48.68%",
+          "MemUsage": "249.2MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "3.27MB / 4.4MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222582+00:00",
+          "BlockIO": "1.31MB / 143kB",
+          "CPUPerc": "0.77%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.16%",
+          "MemUsage": "219.5MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "477kB / 1.94MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222590+00:00",
+          "BlockIO": "28.7kB / 459kB",
+          "CPUPerc": "0.00%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.56%",
+          "MemUsage": "200.7MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "998kB / 657MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222597+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "1.84%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222603+00:00",
+          "BlockIO": "0B / 6.83MB",
+          "CPUPerc": "0.19%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "147MB / 2.09MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222614+00:00",
+          "BlockIO": "164kB / 76MB",
+          "CPUPerc": "1.73%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.08%",
+          "MemUsage": "84.61MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.8MB / 17.4MB",
+          "PIDs": "38"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:34.222622+00:00",
+          "BlockIO": "1.33MB / 721kB",
+          "CPUPerc": "1.75%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.73MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.5MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 2,
+      "trial": 2
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:34.246329+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:37.086644+00:00",
+      "durableBatchSeconds": 2.840315,
+      "jobsPerSecond": 6.337325261458677,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.01696609027777798,
+        "p50": 0.015376770999999678,
+        "p95": 0.028894664299998485,
+        "p99": 0.033836932859998316,
+        "max": 0.035072499999998286
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 1.6176505555555556,
+        "p50": 1.6758525,
+        "p95": 2.490772,
+        "p99": 2.514368,
+        "max": 2.520267
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.23530988888888887,
+        "p50": 0.238881,
+        "p95": 0.2893942,
+        "p99": 0.29124924,
+        "max": 0.291713
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.8529604444444445,
+        "p50": 1.863609,
+        "p95": 2.7562714,
+        "p99": 2.77307828,
+        "max": 2.77728
+      },
+      "results": [
+        {
+          "jobId": "1c812f8d-4b7d-4cbe-84b0-a2ee9a8a4093",
+          "apiAcknowledgementSeconds": 0.019224457999996503,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "1c812f8d-4b7d-4cbe-84b0-a2ee9a8a4093",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.246329Z",
+            "startedAt": "2026-11-19T20:40:34.874170Z",
+            "finishedAt": "2026-11-19T20:40:35.146161Z",
+            "deadlineAt": "2026-11-19T20:50:34.246326Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/1c812f8d-4b7d-4cbe-84b0-a2ee9a8a4093"
+          }
+        },
+        {
+          "jobId": "157e09aa-d986-4e16-af52-26aafdf68639",
+          "apiAcknowledgementSeconds": 0.035072499999998286,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "157e09aa-d986-4e16-af52-26aafdf68639",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.255483Z",
+            "startedAt": "2026-11-19T20:40:35.226771Z",
+            "finishedAt": "2026-11-19T20:40:35.464306Z",
+            "deadlineAt": "2026-11-19T20:50:34.255482Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/157e09aa-d986-4e16-af52-26aafdf68639"
+          }
+        },
+        {
+          "jobId": "55d98a85-c3ba-4e3c-99c4-beec8f768d12",
+          "apiAcknowledgementSeconds": 0.020588916999997764,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "55d98a85-c3ba-4e3c-99c4-beec8f768d12",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.251276Z",
+            "startedAt": "2026-11-19T20:40:35.153509Z",
+            "finishedAt": "2026-11-19T20:40:35.403814Z",
+            "deadlineAt": "2026-11-19T20:50:34.251275Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/55d98a85-c3ba-4e3c-99c4-beec8f768d12"
+          }
+        },
+        {
+          "jobId": "909978f8-f809-4589-9bc1-06c1161a6ef9",
+          "apiAcknowledgementSeconds": 0.015354500000000826,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "909978f8-f809-4589-9bc1-06c1161a6ef9",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.248901Z",
+            "startedAt": "2026-11-19T20:40:34.932974Z",
+            "finishedAt": "2026-11-19T20:40:35.221959Z",
+            "deadlineAt": "2026-11-19T20:50:34.248900Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/909978f8-f809-4589-9bc1-06c1161a6ef9"
+          }
+        },
+        {
+          "jobId": "595b225a-5130-41a0-a8d4-111ddac53930",
+          "apiAcknowledgementSeconds": 0.027804457999998533,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "595b225a-5130-41a0-a8d4-111ddac53930",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.273607Z",
+            "startedAt": "2026-11-19T20:40:35.470963Z",
+            "finishedAt": "2026-11-19T20:40:35.711190Z",
+            "deadlineAt": "2026-11-19T20:50:34.273606Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/595b225a-5130-41a0-a8d4-111ddac53930"
+          }
+        },
+        {
+          "jobId": "08d738aa-13ce-4259-b314-400d2979e8a1",
+          "apiAcknowledgementSeconds": 0.02336612500000257,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "08d738aa-13ce-4259-b314-400d2979e8a1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.269073Z",
+            "startedAt": "2026-11-19T20:40:35.408492Z",
+            "finishedAt": "2026-11-19T20:40:35.660194Z",
+            "deadlineAt": "2026-11-19T20:50:34.269056Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/08d738aa-13ce-4259-b314-400d2979e8a1"
+          }
+        },
+        {
+          "jobId": "05c5830a-bfd1-4239-ae51-7f5c17d785e2",
+          "apiAcknowledgementSeconds": 0.025702541000001133,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "05c5830a-bfd1-4239-ae51-7f5c17d785e2",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.277521Z",
+            "startedAt": "2026-11-19T20:40:35.671831Z",
+            "finishedAt": "2026-11-19T20:40:35.917442Z",
+            "deadlineAt": "2026-11-19T20:50:34.277518Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/05c5830a-bfd1-4239-ae51-7f5c17d785e2"
+          }
+        },
+        {
+          "jobId": "b6096d5d-73c5-455d-8265-d7413f208e58",
+          "apiAcknowledgementSeconds": 0.017111707999994508,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b6096d5d-73c5-455d-8265-d7413f208e58",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.280942Z",
+            "startedAt": "2026-11-19T20:40:35.716898Z",
+            "finishedAt": "2026-11-19T20:40:35.995789Z",
+            "deadlineAt": "2026-11-19T20:50:34.280941Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b6096d5d-73c5-455d-8265-d7413f208e58"
+          }
+        },
+        {
+          "jobId": "c24a563a-813e-4731-98fe-60834e030beb",
+          "apiAcknowledgementSeconds": 0.015010124999996322,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c24a563a-813e-4731-98fe-60834e030beb",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.284384Z",
+            "startedAt": "2026-11-19T20:40:35.926055Z",
+            "finishedAt": "2026-11-19T20:40:36.119553Z",
+            "deadlineAt": "2026-11-19T20:50:34.284382Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c24a563a-813e-4731-98fe-60834e030beb"
+          }
+        },
+        {
+          "jobId": "671b895d-5ca9-424a-85be-96e174dbee20",
+          "apiAcknowledgementSeconds": 0.014051250000001403,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "671b895d-5ca9-424a-85be-96e174dbee20",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.289103Z",
+            "startedAt": "2026-11-19T20:40:35.999137Z",
+            "finishedAt": "2026-11-19T20:40:36.181152Z",
+            "deadlineAt": "2026-11-19T20:50:34.289100Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/671b895d-5ca9-424a-85be-96e174dbee20"
+          }
+        },
+        {
+          "jobId": "2c4cd828-c6cd-46da-90c6-05834445e1b7",
+          "apiAcknowledgementSeconds": 0.015711667000005036,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "2c4cd828-c6cd-46da-90c6-05834445e1b7",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.291681Z",
+            "startedAt": "2026-11-19T20:40:36.122397Z",
+            "finishedAt": "2026-11-19T20:40:36.329357Z",
+            "deadlineAt": "2026-11-19T20:50:34.291679Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/2c4cd828-c6cd-46da-90c6-05834445e1b7"
+          }
+        },
+        {
+          "jobId": "15143e13-57b1-47f2-8777-782a154e9b4b",
+          "apiAcknowledgementSeconds": 0.01331137500000068,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "15143e13-57b1-47f2-8777-782a154e9b4b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.296834Z",
+            "startedAt": "2026-11-19T20:40:36.205566Z",
+            "finishedAt": "2026-11-19T20:40:36.413102Z",
+            "deadlineAt": "2026-11-19T20:50:34.296832Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/15143e13-57b1-47f2-8777-782a154e9b4b"
+          }
+        },
+        {
+          "jobId": "99a50fdd-a958-4a36-8aa6-3ee57e1851f6",
+          "apiAcknowledgementSeconds": 0.01539904199999853,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "99a50fdd-a958-4a36-8aa6-3ee57e1851f6",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.303010Z",
+            "startedAt": "2026-11-19T20:40:36.416142Z",
+            "finishedAt": "2026-11-19T20:40:36.605784Z",
+            "deadlineAt": "2026-11-19T20:50:34.303009Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/99a50fdd-a958-4a36-8aa6-3ee57e1851f6"
+          }
+        },
+        {
+          "jobId": "fa6bf798-b93d-4f4a-b70f-083a73eb75c8",
+          "apiAcknowledgementSeconds": 0.011290833000003886,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "fa6bf798-b93d-4f4a-b70f-083a73eb75c8",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.300500Z",
+            "startedAt": "2026-11-19T20:40:36.334033Z",
+            "finishedAt": "2026-11-19T20:40:36.521280Z",
+            "deadlineAt": "2026-11-19T20:50:34.300498Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/fa6bf798-b93d-4f4a-b70f-083a73eb75c8"
+          }
+        },
+        {
+          "jobId": "8eeddc87-903e-4893-a89b-7eda07bd0b16",
+          "apiAcknowledgementSeconds": 0.010907457999998371,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "8eeddc87-903e-4893-a89b-7eda07bd0b16",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.305213Z",
+            "startedAt": "2026-11-19T20:40:36.525443Z",
+            "finishedAt": "2026-11-19T20:40:36.788500Z",
+            "deadlineAt": "2026-11-19T20:50:34.305212Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/8eeddc87-903e-4893-a89b-7eda07bd0b16"
+          }
+        },
+        {
+          "jobId": "aa3eff3a-9174-4994-9678-8d1519bf5f12",
+          "apiAcknowledgementSeconds": 0.009072750000001406,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "aa3eff3a-9174-4994-9678-8d1519bf5f12",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.307868Z",
+            "startedAt": "2026-11-19T20:40:36.609220Z",
+            "finishedAt": "2026-11-19T20:40:36.825586Z",
+            "deadlineAt": "2026-11-19T20:50:34.307866Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/aa3eff3a-9174-4994-9678-8d1519bf5f12"
+          }
+        },
+        {
+          "jobId": "0ea28917-84d1-4135-bcde-646a23aaad04",
+          "apiAcknowledgementSeconds": 0.008697709000003329,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0ea28917-84d1-4135-bcde-646a23aaad04",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.309364Z",
+            "startedAt": "2026-11-19T20:40:36.794931Z",
+            "finishedAt": "2026-11-19T20:40:37.086644Z",
+            "deadlineAt": "2026-11-19T20:50:34.309364Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0ea28917-84d1-4135-bcde-646a23aaad04"
+          }
+        },
+        {
+          "jobId": "d08d09ab-b9b5-4f49-b83f-6ce19ad1b83a",
+          "apiAcknowledgementSeconds": 0.007712209000004577,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d08d09ab-b9b5-4f49-b83f-6ce19ad1b83a",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:34.311078Z",
+            "startedAt": "2026-11-19T20:40:36.831345Z",
+            "finishedAt": "2026-11-19T20:40:37.063642Z",
+            "deadlineAt": "2026-11-19T20:50:34.311078Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d08d09ab-b9b5-4f49-b83f-6ce19ad1b83a"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:36.246715+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "87.83%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "48.07%",
+          "MemUsage": "246.1MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "134MB / 542kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246771+00:00",
+          "BlockIO": "0B / 69.6kB",
+          "CPUPerc": "82.86%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "49.02%",
+          "MemUsage": "251MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "569MB / 2.37MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246780+00:00",
+          "BlockIO": "8.04MB / 147kB",
+          "CPUPerc": "53.31%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "49.24%",
+          "MemUsage": "252.1MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "3.64MB / 4.81MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246788+00:00",
+          "BlockIO": "1.31MB / 143kB",
+          "CPUPerc": "5.14%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.19%",
+          "MemUsage": "219.6MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "507kB / 1.98MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246795+00:00",
+          "BlockIO": "28.7kB / 532kB",
+          "CPUPerc": "10.75%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.57%",
+          "MemUsage": "201.7MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "1.05MB / 702MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246802+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.76%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246809+00:00",
+          "BlockIO": "0B / 6.83MB",
+          "CPUPerc": "0.63%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.74MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "148MB / 2.09MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246816+00:00",
+          "BlockIO": "164kB / 76.7MB",
+          "CPUPerc": "5.54%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.08%",
+          "MemUsage": "84.66MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "19.9MB / 17.6MB",
+          "PIDs": "38"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:36.246823+00:00",
+          "BlockIO": "1.34MB / 725kB",
+          "CPUPerc": "0.66%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.73MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.5MB / 11.7MB",
+          "PIDs": "6"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321153+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "3.76%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "47.83%",
+          "MemUsage": "244.9MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "171MB / 721kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321200+00:00",
+          "BlockIO": "0B / 69.6kB",
+          "CPUPerc": "1.65%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "48.81%",
+          "MemUsage": "249.9MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "609MB / 2.46MB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321210+00:00",
+          "BlockIO": "8.04MB / 147kB",
+          "CPUPerc": "1.34%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "49.21%",
+          "MemUsage": "252MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "3.82MB / 4.99MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321219+00:00",
+          "BlockIO": "1.31MB / 143kB",
+          "CPUPerc": "0.54%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.21%",
+          "MemUsage": "219.7MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "517kB / 2.05MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321226+00:00",
+          "BlockIO": "28.7kB / 582kB",
+          "CPUPerc": "1.24%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.67%",
+          "MemUsage": "208.9MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "1.16MB / 780MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321232+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "1.89%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321238+00:00",
+          "BlockIO": "0B / 6.83MB",
+          "CPUPerc": "0.18%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.73MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "148MB / 2.09MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321245+00:00",
+          "BlockIO": "164kB / 77MB",
+          "CPUPerc": "0.62%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.08%",
+          "MemUsage": "84.64MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "20MB / 17.7MB",
+          "PIDs": "38"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:39.321251+00:00",
+          "BlockIO": "1.34MB / 750kB",
+          "CPUPerc": "0.92%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.72MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.5MB / 11.7MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 2,
+      "trial": 3
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:54.195946+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:55.980376+00:00",
+      "durableBatchSeconds": 1.78443,
+      "jobsPerSecond": 10.087254753618803,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.013362178166666972,
+        "p50": 0.009477354000004823,
+        "p95": 0.02998637325000146,
+        "p99": 0.03204940825000136,
+        "max": 0.03256516700000134
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 0.9456913888888889,
+        "p50": 0.9530985000000001,
+        "p95": 1.4761083,
+        "p99": 1.49816886,
+        "max": 1.503684
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.26648638888888887,
+        "p50": 0.229883,
+        "p95": 0.504147,
+        "p99": 0.5368142,
+        "max": 0.544981
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.2121777777777778,
+        "p50": 1.2739660000000002,
+        "p95": 1.74138635,
+        "p99": 1.74226287,
+        "max": 1.742482
+      },
+      "results": [
+        {
+          "jobId": "4383165e-e5f2-4a27-a30b-7f8205ea2f6c",
+          "apiAcknowledgementSeconds": 0.026310915999999906,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "4383165e-e5f2-4a27-a30b-7f8205ea2f6c",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.195946Z",
+            "startedAt": "2026-11-19T20:40:54.639415Z",
+            "finishedAt": "2026-11-19T20:40:54.827722Z",
+            "deadlineAt": "2026-11-19T20:50:54.195944Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/4383165e-e5f2-4a27-a30b-7f8205ea2f6c"
+          }
+        },
+        {
+          "jobId": "3ebb3e2c-7dfe-44e3-956f-882507f8a822",
+          "apiAcknowledgementSeconds": 0.03256516700000134,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3ebb3e2c-7dfe-44e3-956f-882507f8a822",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.204686Z",
+            "startedAt": "2026-11-19T20:40:54.680704Z",
+            "finishedAt": "2026-11-19T20:40:54.864957Z",
+            "deadlineAt": "2026-11-19T20:50:54.204684Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3ebb3e2c-7dfe-44e3-956f-882507f8a822"
+          }
+        },
+        {
+          "jobId": "134b493f-9779-48ad-9ce5-485cea2ab320",
+          "apiAcknowledgementSeconds": 0.02761179099999822,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "134b493f-9779-48ad-9ce5-485cea2ab320",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.200358Z",
+            "startedAt": "2026-11-19T20:40:54.641281Z",
+            "finishedAt": "2026-11-19T20:40:54.919879Z",
+            "deadlineAt": "2026-11-19T20:50:54.200355Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/134b493f-9779-48ad-9ce5-485cea2ab320"
+          }
+        },
+        {
+          "jobId": "55a333ad-4f33-4f89-a0f9-0d8594bab004",
+          "apiAcknowledgementSeconds": 0.029531292000001486,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "55a333ad-4f33-4f89-a0f9-0d8594bab004",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.208836Z",
+            "startedAt": "2026-11-19T20:40:54.717252Z",
+            "finishedAt": "2026-11-19T20:40:55.214193Z",
+            "deadlineAt": "2026-11-19T20:50:54.208836Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/55a333ad-4f33-4f89-a0f9-0d8594bab004"
+          }
+        },
+        {
+          "jobId": "dbd77786-9a91-4a47-8029-defed7bcab15",
+          "apiAcknowledgementSeconds": 0.013003625000010288,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "dbd77786-9a91-4a47-8029-defed7bcab15",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.212631Z",
+            "startedAt": "2026-11-19T20:40:54.831174Z",
+            "finishedAt": "2026-11-19T20:40:55.099796Z",
+            "deadlineAt": "2026-11-19T20:50:54.212629Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/dbd77786-9a91-4a47-8029-defed7bcab15"
+          }
+        },
+        {
+          "jobId": "5b60ca75-3ae1-43f7-95cf-3ded0b6853c1",
+          "apiAcknowledgementSeconds": 0.01290425000000539,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "5b60ca75-3ae1-43f7-95cf-3ded0b6853c1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.215205Z",
+            "startedAt": "2026-11-19T20:40:54.866841Z",
+            "finishedAt": "2026-11-19T20:40:55.126149Z",
+            "deadlineAt": "2026-11-19T20:50:54.215204Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/5b60ca75-3ae1-43f7-95cf-3ded0b6853c1"
+          }
+        },
+        {
+          "jobId": "c6de9453-b537-42c3-8ba7-659ebd369ecb",
+          "apiAcknowledgementSeconds": 0.011293167000005155,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c6de9453-b537-42c3-8ba7-659ebd369ecb",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.217856Z",
+            "startedAt": "2026-11-19T20:40:54.926971Z",
+            "finishedAt": "2026-11-19T20:40:55.471952Z",
+            "deadlineAt": "2026-11-19T20:50:54.217855Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c6de9453-b537-42c3-8ba7-659ebd369ecb"
+          }
+        },
+        {
+          "jobId": "8a8a2a32-4619-4ba6-9edf-040c69ada4e1",
+          "apiAcknowledgementSeconds": 0.009750832999998238,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "8a8a2a32-4619-4ba6-9edf-040c69ada4e1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.220158Z",
+            "startedAt": "2026-11-19T20:40:55.108581Z",
+            "finishedAt": "2026-11-19T20:40:55.314750Z",
+            "deadlineAt": "2026-11-19T20:50:54.220157Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/8a8a2a32-4619-4ba6-9edf-040c69ada4e1"
+          }
+        },
+        {
+          "jobId": "8d08aa3a-fe17-477a-a4ff-fc318e7edef9",
+          "apiAcknowledgementSeconds": 0.011086582999993766,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "8d08aa3a-fe17-477a-a4ff-fc318e7edef9",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.224619Z",
+            "startedAt": "2026-11-19T20:40:55.221285Z",
+            "finishedAt": "2026-11-19T20:40:55.584117Z",
+            "deadlineAt": "2026-11-19T20:50:54.224619Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/8d08aa3a-fe17-477a-a4ff-fc318e7edef9"
+          }
+        },
+        {
+          "jobId": "5b064a0e-402d-4b43-8856-d1ca2b360c3e",
+          "apiAcknowledgementSeconds": 0.006765000000001464,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "5b064a0e-402d-4b43-8856-d1ca2b360c3e",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.222706Z",
+            "startedAt": "2026-11-19T20:40:55.132237Z",
+            "finishedAt": "2026-11-19T20:40:55.328808Z",
+            "deadlineAt": "2026-11-19T20:50:54.222705Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/5b064a0e-402d-4b43-8856-d1ca2b360c3e"
+          }
+        },
+        {
+          "jobId": "25911411-8116-4220-989f-dc73b0ef22f0",
+          "apiAcknowledgementSeconds": 0.008344624999992334,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "25911411-8116-4220-989f-dc73b0ef22f0",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.226338Z",
+            "startedAt": "2026-11-19T20:40:55.319742Z",
+            "finishedAt": "2026-11-19T20:40:55.520174Z",
+            "deadlineAt": "2026-11-19T20:50:54.226338Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/25911411-8116-4220-989f-dc73b0ef22f0"
+          }
+        },
+        {
+          "jobId": "7116dae6-2533-4c61-869a-01b301743139",
+          "apiAcknowledgementSeconds": 0.007952040999995802,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7116dae6-2533-4c61-869a-01b301743139",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.228704Z",
+            "startedAt": "2026-11-19T20:40:55.331916Z",
+            "finishedAt": "2026-11-19T20:40:55.541528Z",
+            "deadlineAt": "2026-11-19T20:50:54.228703Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7116dae6-2533-4c61-869a-01b301743139"
+          }
+        },
+        {
+          "jobId": "abf91076-f493-4217-9c08-1cfbacb785ae",
+          "apiAcknowledgementSeconds": 0.007490500000002953,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "abf91076-f493-4217-9c08-1cfbacb785ae",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.230113Z",
+            "startedAt": "2026-11-19T20:40:55.480218Z",
+            "finishedAt": "2026-11-19T20:40:55.702475Z",
+            "deadlineAt": "2026-11-19T20:50:54.230113Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/abf91076-f493-4217-9c08-1cfbacb785ae"
+          }
+        },
+        {
+          "jobId": "833e135f-abab-40b6-8552-8a26c03100b8",
+          "apiAcknowledgementSeconds": 0.008143124999989482,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "833e135f-abab-40b6-8552-8a26c03100b8",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.231784Z",
+            "startedAt": "2026-11-19T20:40:55.526430Z",
+            "finishedAt": "2026-11-19T20:40:55.737994Z",
+            "deadlineAt": "2026-11-19T20:50:54.231784Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/833e135f-abab-40b6-8552-8a26c03100b8"
+          }
+        },
+        {
+          "jobId": "7af6e47c-1f0a-4298-9ea5-0de8cc7c3f20",
+          "apiAcknowledgementSeconds": 0.009203875000011408,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7af6e47c-1f0a-4298-9ea5-0de8cc7c3f20",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.236369Z",
+            "startedAt": "2026-11-19T20:40:55.588622Z",
+            "finishedAt": "2026-11-19T20:40:55.843152Z",
+            "deadlineAt": "2026-11-19T20:50:54.236368Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7af6e47c-1f0a-4298-9ea5-0de8cc7c3f20"
+          }
+        },
+        {
+          "jobId": "fa9c5e69-37d7-4dd3-9684-0a36cdb01c9b",
+          "apiAcknowledgementSeconds": 0.005920750000001362,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "fa9c5e69-37d7-4dd3-9684-0a36cdb01c9b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.234157Z",
+            "startedAt": "2026-11-19T20:40:55.545316Z",
+            "finishedAt": "2026-11-19T20:40:55.748345Z",
+            "deadlineAt": "2026-11-19T20:50:54.234156Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/fa9c5e69-37d7-4dd3-9684-0a36cdb01c9b"
+          }
+        },
+        {
+          "jobId": "65db697b-a2b5-4f37-b4fe-61f8294ae781",
+          "apiAcknowledgementSeconds": 0.0069562500000017735,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "65db697b-a2b5-4f37-b4fe-61f8294ae781",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.237894Z",
+            "startedAt": "2026-11-19T20:40:55.709136Z",
+            "finishedAt": "2026-11-19T20:40:55.980376Z",
+            "deadlineAt": "2026-11-19T20:50:54.237893Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/65db697b-a2b5-4f37-b4fe-61f8294ae781"
+          }
+        },
+        {
+          "jobId": "685905da-afd8-4046-b31c-9afde53a24ff",
+          "apiAcknowledgementSeconds": 0.005685416999995141,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "685905da-afd8-4046-b31c-9afde53a24ff",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:54.238980Z",
+            "startedAt": "2026-11-19T20:40:55.742664Z",
+            "finishedAt": "2026-11-19T20:40:55.980173Z",
+            "deadlineAt": "2026-11-19T20:50:54.238980Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/685905da-afd8-4046-b31c-9afde53a24ff"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:56.202895+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "99.43%",
+          "Container": "af0b9288e816",
+          "ID": "af0b9288e816",
+          "MemPerc": "44.47%",
+          "MemUsage": "227.7MiB / 512MiB",
+          "Name": "taskforge-worker-7",
+          "NetIO": "22.9MB / 152kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.202987+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "103.96%",
+          "Container": "d46ddee678f6",
+          "ID": "d46ddee678f6",
+          "MemPerc": "44.38%",
+          "MemUsage": "227.2MiB / 512MiB",
+          "Name": "taskforge-worker-8",
+          "NetIO": "27.1MB / 221kB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203000+00:00",
+          "BlockIO": "0B / 57.3kB",
+          "CPUPerc": "104.47%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "48.23%",
+          "MemUsage": "247MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "226MB / 1.21MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203010+00:00",
+          "BlockIO": "0B / 98.3kB",
+          "CPUPerc": "104.59%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "49.16%",
+          "MemUsage": "251.7MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "662MB / 2.97MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203017+00:00",
+          "BlockIO": "8.04MB / 172kB",
+          "CPUPerc": "53.06%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "49.46%",
+          "MemUsage": "253.2MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "4.4MB / 5.78MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203025+00:00",
+          "BlockIO": "1.31MB / 168kB",
+          "CPUPerc": "4.51%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.41%",
+          "MemUsage": "220.5MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "606kB / 2.36MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203032+00:00",
+          "BlockIO": "28.7kB / 664kB",
+          "CPUPerc": "17.19%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.68%",
+          "MemUsage": "210MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "1.39MB / 938MB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203039+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "1.58%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203046+00:00",
+          "BlockIO": "0B / 6.92MB",
+          "CPUPerc": "1.22%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.25%",
+          "MemUsage": "54.74MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "149MB / 2.11MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203053+00:00",
+          "BlockIO": "164kB / 78.5MB",
+          "CPUPerc": "5.89%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.41%",
+          "MemUsage": "110.1MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "20.4MB / 18.2MB",
+          "PIDs": "54"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:56.203059+00:00",
+          "BlockIO": "1.36MB / 778kB",
+          "CPUPerc": "0.61%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.75MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.7MB / 11.8MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 4,
+      "trial": 1
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:56.223375+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:57.727769+00:00",
+      "durableBatchSeconds": 1.504394,
+      "jobsPerSecond": 11.96495067116726,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.01100823372222395,
+        "p50": 0.010744582999997476,
+        "p95": 0.017674562550000415,
+        "p99": 0.01877644610999908,
+        "max": 0.019051916999998753
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 0.7987793333333334,
+        "p50": 0.8223055,
+        "p95": 1.1980543,
+        "p99": 1.2748684599999998,
+        "max": 1.294072
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.2293588888888889,
+        "p50": 0.21513300000000002,
+        "p95": 0.28915024999999994,
+        "p99": 0.32377244999999993,
+        "max": 0.332428
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.0281382222222222,
+        "p50": 1.034566,
+        "p95": 1.4029456999999999,
+        "p99": 1.4504899399999998,
+        "max": 1.462376
+      },
+      "results": [
+        {
+          "jobId": "c22c3b35-1378-4f2d-9024-b7250a28acfe",
+          "apiAcknowledgementSeconds": 0.01250449999999148,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c22c3b35-1378-4f2d-9024-b7250a28acfe",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.223375Z",
+            "startedAt": "2026-11-19T20:40:56.566244Z",
+            "finishedAt": "2026-11-19T20:40:56.799333Z",
+            "deadlineAt": "2026-11-19T20:50:56.223373Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c22c3b35-1378-4f2d-9024-b7250a28acfe"
+          }
+        },
+        {
+          "jobId": "42b18570-e044-46d3-b483-689af2bf8852",
+          "apiAcknowledgementSeconds": 0.013481875000010746,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "42b18570-e044-46d3-b483-689af2bf8852",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.224902Z",
+            "startedAt": "2026-11-19T20:40:56.588719Z",
+            "finishedAt": "2026-11-19T20:40:56.921147Z",
+            "deadlineAt": "2026-11-19T20:50:56.224902Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/42b18570-e044-46d3-b483-689af2bf8852"
+          }
+        },
+        {
+          "jobId": "c06354c7-c500-449d-9144-1d453f78e037",
+          "apiAcknowledgementSeconds": 0.012548542000004659,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "c06354c7-c500-449d-9144-1d453f78e037",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.226794Z",
+            "startedAt": "2026-11-19T20:40:56.591698Z",
+            "finishedAt": "2026-11-19T20:40:56.809842Z",
+            "deadlineAt": "2026-11-19T20:50:56.226793Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/c06354c7-c500-449d-9144-1d453f78e037"
+          }
+        },
+        {
+          "jobId": "14257006-8557-48da-a7d2-3945577e5206",
+          "apiAcknowledgementSeconds": 0.014841875000001892,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "14257006-8557-48da-a7d2-3945577e5206",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.229546Z",
+            "startedAt": "2026-11-19T20:40:56.680809Z",
+            "finishedAt": "2026-11-19T20:40:56.931241Z",
+            "deadlineAt": "2026-11-19T20:50:56.229545Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/14257006-8557-48da-a7d2-3945577e5206"
+          }
+        },
+        {
+          "jobId": "cafb7838-4802-40f5-a758-15c8c9a53c02",
+          "apiAcknowledgementSeconds": 0.007563416000010648,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cafb7838-4802-40f5-a758-15c8c9a53c02",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.231600Z",
+            "startedAt": "2026-11-19T20:40:56.806828Z",
+            "finishedAt": "2026-11-19T20:40:57.021756Z",
+            "deadlineAt": "2026-11-19T20:50:56.231599Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cafb7838-4802-40f5-a758-15c8c9a53c02"
+          }
+        },
+        {
+          "jobId": "44bee38b-e230-4b0c-9c44-1b4fce421803",
+          "apiAcknowledgementSeconds": 0.008608957999996392,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "44bee38b-e230-4b0c-9c44-1b4fce421803",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.233404Z",
+            "startedAt": "2026-11-19T20:40:56.826638Z",
+            "finishedAt": "2026-11-19T20:40:57.096484Z",
+            "deadlineAt": "2026-11-19T20:50:56.233403Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/44bee38b-e230-4b0c-9c44-1b4fce421803"
+          }
+        },
+        {
+          "jobId": "a8c86c9e-0f22-451d-bcfb-d0614cc93351",
+          "apiAcknowledgementSeconds": 0.008518833000010773,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "a8c86c9e-0f22-451d-bcfb-d0614cc93351",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.235387Z",
+            "startedAt": "2026-11-19T20:40:56.927444Z",
+            "finishedAt": "2026-11-19T20:40:57.136509Z",
+            "deadlineAt": "2026-11-19T20:50:56.235386Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/a8c86c9e-0f22-451d-bcfb-d0614cc93351"
+          }
+        },
+        {
+          "jobId": "1ad24dd0-9137-4a40-b92c-9d26424b0f0c",
+          "apiAcknowledgementSeconds": 0.00962120799999866,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "1ad24dd0-9137-4a40-b92c-9d26424b0f0c",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.237517Z",
+            "startedAt": "2026-11-19T20:40:56.937064Z",
+            "finishedAt": "2026-11-19T20:40:57.218577Z",
+            "deadlineAt": "2026-11-19T20:50:56.237516Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/1ad24dd0-9137-4a40-b92c-9d26424b0f0c"
+          }
+        },
+        {
+          "jobId": "b20c0e62-11f5-46c9-8251-1c1371f19754",
+          "apiAcknowledgementSeconds": 0.011867957999996293,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b20c0e62-11f5-46c9-8251-1c1371f19754",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.240303Z",
+            "startedAt": "2026-11-19T20:40:57.026086Z",
+            "finishedAt": "2026-11-19T20:40:57.226172Z",
+            "deadlineAt": "2026-11-19T20:50:56.240302Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b20c0e62-11f5-46c9-8251-1c1371f19754"
+          }
+        },
+        {
+          "jobId": "3595f7a6-e4c4-4010-84df-9e1f7c03cbc3",
+          "apiAcknowledgementSeconds": 0.019051916999998753,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3595f7a6-e4c4-4010-84df-9e1f7c03cbc3",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.245143Z",
+            "startedAt": "2026-11-19T20:40:57.103971Z",
+            "finishedAt": "2026-11-19T20:40:57.328406Z",
+            "deadlineAt": "2026-11-19T20:50:56.245142Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3595f7a6-e4c4-4010-84df-9e1f7c03cbc3"
+          }
+        },
+        {
+          "jobId": "a114adf4-975d-42b1-928a-9d624adb9036",
+          "apiAcknowledgementSeconds": 0.01743150000000071,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "a114adf4-975d-42b1-928a-9d624adb9036",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.249945Z",
+            "startedAt": "2026-11-19T20:40:57.141178Z",
+            "finishedAt": "2026-11-19T20:40:57.343411Z",
+            "deadlineAt": "2026-11-19T20:50:56.249944Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/a114adf4-975d-42b1-928a-9d624adb9036"
+          }
+        },
+        {
+          "jobId": "3433cf94-2500-4de0-b64e-91b60865afd4",
+          "apiAcknowledgementSeconds": 0.015212667000000124,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "3433cf94-2500-4de0-b64e-91b60865afd4",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.253324Z",
+            "startedAt": "2026-11-19T20:40:57.224152Z",
+            "finishedAt": "2026-11-19T20:40:57.439490Z",
+            "deadlineAt": "2026-11-19T20:50:56.253323Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/3433cf94-2500-4de0-b64e-91b60865afd4"
+          }
+        },
+        {
+          "jobId": "f32a0552-c885-4527-91f1-ce9688353676",
+          "apiAcknowledgementSeconds": 0.014710917000002155,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "f32a0552-c885-4527-91f1-ce9688353676",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.258415Z",
+            "startedAt": "2026-11-19T20:40:57.230857Z",
+            "finishedAt": "2026-11-19T20:40:57.440456Z",
+            "deadlineAt": "2026-11-19T20:50:56.258414Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/f32a0552-c885-4527-91f1-ce9688353676"
+          }
+        },
+        {
+          "jobId": "68403665-81e6-4287-9a59-7a39f1e08f33",
+          "apiAcknowledgementSeconds": 0.006656250000006025,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "68403665-81e6-4287-9a59-7a39f1e08f33",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.259776Z",
+            "startedAt": "2026-11-19T20:40:57.332926Z",
+            "finishedAt": "2026-11-19T20:40:57.603907Z",
+            "deadlineAt": "2026-11-19T20:50:56.259775Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/68403665-81e6-4287-9a59-7a39f1e08f33"
+          }
+        },
+        {
+          "jobId": "0b670a9d-3c10-4551-82e4-3cdea43e36e9",
+          "apiAcknowledgementSeconds": 0.007748750000004634,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0b670a9d-3c10-4551-82e4-3cdea43e36e9",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.261385Z",
+            "startedAt": "2026-11-19T20:40:57.347948Z",
+            "finishedAt": "2026-11-19T20:40:57.556150Z",
+            "deadlineAt": "2026-11-19T20:50:56.261384Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0b670a9d-3c10-4551-82e4-3cdea43e36e9"
+          }
+        },
+        {
+          "jobId": "b350bba1-a0c0-4ce6-a817-ccbe71c9ae78",
+          "apiAcknowledgementSeconds": 0.0073505830000044625,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b350bba1-a0c0-4ce6-a817-ccbe71c9ae78",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.262997Z",
+            "startedAt": "2026-11-19T20:40:57.444107Z",
+            "finishedAt": "2026-11-19T20:40:57.652586Z",
+            "deadlineAt": "2026-11-19T20:50:56.262997Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b350bba1-a0c0-4ce6-a817-ccbe71c9ae78"
+          }
+        },
+        {
+          "jobId": "d72fc832-3080-4181-805c-bc62a3c10b44",
+          "apiAcknowledgementSeconds": 0.005273582999990367,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "d72fc832-3080-4181-805c-bc62a3c10b44",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.264079Z",
+            "startedAt": "2026-11-19T20:40:57.445179Z",
+            "finishedAt": "2026-11-19T20:40:57.656537Z",
+            "deadlineAt": "2026-11-19T20:50:56.264079Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/d72fc832-3080-4181-805c-bc62a3c10b44"
+          }
+        },
+        {
+          "jobId": "cfacc8c4-7dcc-400f-911d-95716eee77d6",
+          "apiAcknowledgementSeconds": 0.005154875000002335,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cfacc8c4-7dcc-400f-911d-95716eee77d6",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:56.265393Z",
+            "startedAt": "2026-11-19T20:40:57.559465Z",
+            "finishedAt": "2026-11-19T20:40:57.727769Z",
+            "deadlineAt": "2026-11-19T20:50:56.265393Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cfacc8c4-7dcc-400f-911d-95716eee77d6"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:40:58.235881+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "98.93%",
+          "Container": "af0b9288e816",
+          "ID": "af0b9288e816",
+          "MemPerc": "46.24%",
+          "MemUsage": "236.8MiB / 512MiB",
+          "Name": "taskforge-worker-7",
+          "NetIO": "54.8MB / 351kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.235964+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "93.68%",
+          "Container": "d46ddee678f6",
+          "ID": "d46ddee678f6",
+          "MemPerc": "47.08%",
+          "MemUsage": "241MiB / 512MiB",
+          "Name": "taskforge-worker-8",
+          "NetIO": "61.7MB / 304kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.235979+00:00",
+          "BlockIO": "0B / 57.3kB",
+          "CPUPerc": "102.86%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "48.08%",
+          "MemUsage": "246.1MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "267MB / 1.39MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.235990+00:00",
+          "BlockIO": "0B / 98.3kB",
+          "CPUPerc": "96.90%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "49.11%",
+          "MemUsage": "251.4MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "698MB / 3.17MB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236012+00:00",
+          "BlockIO": "8.04MB / 172kB",
+          "CPUPerc": "22.33%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "49.55%",
+          "MemUsage": "253.7MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "4.77MB / 6.14MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236024+00:00",
+          "BlockIO": "1.31MB / 168kB",
+          "CPUPerc": "0.85%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.51%",
+          "MemUsage": "220.8MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "638kB / 2.45MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236033+00:00",
+          "BlockIO": "28.7kB / 758kB",
+          "CPUPerc": "19.13%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.67%",
+          "MemUsage": "209.5MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "1.61MB / 1.08GB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236042+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.70%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236051+00:00",
+          "BlockIO": "0B / 6.92MB",
+          "CPUPerc": "0.69%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.26%",
+          "MemUsage": "54.77MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "150MB / 2.12MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236060+00:00",
+          "BlockIO": "164kB / 79.6MB",
+          "CPUPerc": "7.52%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.41%",
+          "MemUsage": "110.5MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "20.6MB / 18.4MB",
+          "PIDs": "54"
+        },
+        {
+          "sampledAt": "2026-11-19T20:40:58.236070+00:00",
+          "BlockIO": "1.37MB / 803kB",
+          "CPUPerc": "1.56%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.75MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.7MB / 11.8MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 4,
+      "trial": 2
+    },
+    {
+      "jobs": 18,
+      "dataset": {
+        "datasetId": "d10cd53f-2ff7-46dd-aec8-5739e3b29c6b",
+        "rows": 500000,
+        "bytes": 6833355,
+        "sha256": "3072d451793833a2418157b8768582c81a7e394d40ad30907156b03aa32095b4"
+      },
+      "firstCreatedAt": "2026-11-19T20:40:58.255007+00:00",
+      "lastFinishedAt": "2026-11-19T20:40:59.809173+00:00",
+      "durableBatchSeconds": 1.554166,
+      "jobsPerSecond": 11.581774405050684,
+      "apiAcknowledgementSeconds": {
+        "n": 18,
+        "mean": 0.011796451388891663,
+        "p50": 0.012246771000008039,
+        "p95": 0.013353535649998348,
+        "p99": 0.013549573529991362,
+        "max": 0.013598582999989617
+      },
+      "queueWaitSeconds": {
+        "n": 18,
+        "mean": 0.8384791666666667,
+        "p50": 0.884549,
+        "p95": 1.2875686000000002,
+        "p99": 1.30089932,
+        "max": 1.304232
+      },
+      "executionSeconds": {
+        "n": 18,
+        "mean": 0.22823855555555556,
+        "p50": 0.2115545,
+        "p95": 0.31849964999999997,
+        "p99": 0.33255592999999994,
+        "max": 0.33607
+      },
+      "completionSeconds": {
+        "n": 18,
+        "mean": 1.0667177222222222,
+        "p50": 1.0868095,
+        "p95": 1.48359295,
+        "p99": 1.5012409899999999,
+        "max": 1.505653
+      },
+      "results": [
+        {
+          "jobId": "7decbcfb-6551-4528-99ec-2d8c61baec34",
+          "apiAcknowledgementSeconds": 0.012982750000006149,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7decbcfb-6551-4528-99ec-2d8c61baec34",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.258241Z",
+            "startedAt": "2026-11-19T20:40:58.695970Z",
+            "finishedAt": "2026-11-19T20:40:58.927826Z",
+            "deadlineAt": "2026-11-19T20:50:58.258241Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7decbcfb-6551-4528-99ec-2d8c61baec34"
+          }
+        },
+        {
+          "jobId": "49da0d13-20f8-473f-ba55-a992e914ff6f",
+          "apiAcknowledgementSeconds": 0.010029709000008324,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "49da0d13-20f8-473f-ba55-a992e914ff6f",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.256580Z",
+            "startedAt": "2026-11-19T20:40:58.673551Z",
+            "finishedAt": "2026-11-19T20:40:58.868788Z",
+            "deadlineAt": "2026-11-19T20:50:58.256580Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/49da0d13-20f8-473f-ba55-a992e914ff6f"
+          }
+        },
+        {
+          "jobId": "cb5bb723-83d6-4edc-9680-c55de9b39129",
+          "apiAcknowledgementSeconds": 0.007770290999999929,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cb5bb723-83d6-4edc-9680-c55de9b39129",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.255007Z",
+            "startedAt": "2026-11-19T20:40:58.633854Z",
+            "finishedAt": "2026-11-19T20:40:58.869277Z",
+            "deadlineAt": "2026-11-19T20:50:58.255005Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cb5bb723-83d6-4edc-9680-c55de9b39129"
+          }
+        },
+        {
+          "jobId": "ed385608-3548-4f7e-af95-755e32be1d48",
+          "apiAcknowledgementSeconds": 0.013598582999989617,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "ed385608-3548-4f7e-af95-755e32be1d48",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.260845Z",
+            "startedAt": "2026-11-19T20:40:58.750990Z",
+            "finishedAt": "2026-11-19T20:40:58.945510Z",
+            "deadlineAt": "2026-11-19T20:50:58.260844Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/ed385608-3548-4f7e-af95-755e32be1d48"
+          }
+        },
+        {
+          "jobId": "2b0b1674-3f44-486f-bfd9-238792b6e125",
+          "apiAcknowledgementSeconds": 0.009072209000009934,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "2b0b1674-3f44-486f-bfd9-238792b6e125",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.263525Z",
+            "startedAt": "2026-11-19T20:40:58.871908Z",
+            "finishedAt": "2026-11-19T20:40:59.140375Z",
+            "deadlineAt": "2026-11-19T20:50:58.263524Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/2b0b1674-3f44-486f-bfd9-238792b6e125"
+          }
+        },
+        {
+          "jobId": "1efc97f3-cafe-4ba3-8b4e-9759258b597b",
+          "apiAcknowledgementSeconds": 0.011938416000006669,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "1efc97f3-cafe-4ba3-8b4e-9759258b597b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.266158Z",
+            "startedAt": "2026-11-19T20:40:58.873555Z",
+            "finishedAt": "2026-11-19T20:40:59.188954Z",
+            "deadlineAt": "2026-11-19T20:50:58.266156Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/1efc97f3-cafe-4ba3-8b4e-9759258b597b"
+          }
+        },
+        {
+          "jobId": "cf530aea-90f2-4312-a7b0-33626f52023b",
+          "apiAcknowledgementSeconds": 0.012236792000010155,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "cf530aea-90f2-4312-a7b0-33626f52023b",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.269943Z",
+            "startedAt": "2026-11-19T20:40:58.941854Z",
+            "finishedAt": "2026-11-19T20:40:59.277924Z",
+            "deadlineAt": "2026-11-19T20:50:58.269941Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/cf530aea-90f2-4312-a7b0-33626f52023b"
+          }
+        },
+        {
+          "jobId": "b4580dc1-4017-415d-967e-48ca5b8eb680",
+          "apiAcknowledgementSeconds": 0.012532458999999108,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "b4580dc1-4017-415d-967e-48ca5b8eb680",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.273135Z",
+            "startedAt": "2026-11-19T20:40:58.951413Z",
+            "finishedAt": "2026-11-19T20:40:59.160700Z",
+            "deadlineAt": "2026-11-19T20:50:58.273133Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/b4580dc1-4017-415d-967e-48ca5b8eb680"
+          }
+        },
+        {
+          "jobId": "e0661bac-1a53-4f8f-ba23-3786c57ef4bc",
+          "apiAcknowledgementSeconds": 0.012256750000005923,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "e0661bac-1a53-4f8f-ba23-3786c57ef4bc",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.275709Z",
+            "startedAt": "2026-11-19T20:40:59.143062Z",
+            "finishedAt": "2026-11-19T20:40:59.348319Z",
+            "deadlineAt": "2026-11-19T20:50:58.275708Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/e0661bac-1a53-4f8f-ba23-3786c57ef4bc"
+          }
+        },
+        {
+          "jobId": "0ca7b374-156a-4dd4-ba8a-fa64060e04db",
+          "apiAcknowledgementSeconds": 0.011930415999998445,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "0ca7b374-156a-4dd4-ba8a-fa64060e04db",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.278560Z",
+            "startedAt": "2026-11-19T20:40:59.180305Z",
+            "finishedAt": "2026-11-19T20:40:59.379569Z",
+            "deadlineAt": "2026-11-19T20:50:58.278558Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/0ca7b374-156a-4dd4-ba8a-fa64060e04db"
+          }
+        },
+        {
+          "jobId": "dab2e379-65da-4f23-882d-8a3c83ea25f2",
+          "apiAcknowledgementSeconds": 0.011841042000000357,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "dab2e379-65da-4f23-882d-8a3c83ea25f2",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.281670Z",
+            "startedAt": "2026-11-19T20:40:59.200914Z",
+            "finishedAt": "2026-11-19T20:40:59.438405Z",
+            "deadlineAt": "2026-11-19T20:50:58.281668Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/dab2e379-65da-4f23-882d-8a3c83ea25f2"
+          }
+        },
+        {
+          "jobId": "ce854447-7054-4e76-b445-da66d2bcf6d8",
+          "apiAcknowledgementSeconds": 0.012727957999999262,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "ce854447-7054-4e76-b445-da66d2bcf6d8",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.284980Z",
+            "startedAt": "2026-11-19T20:40:59.284934Z",
+            "finishedAt": "2026-11-19T20:40:59.498756Z",
+            "deadlineAt": "2026-11-19T20:50:58.284978Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/ce854447-7054-4e76-b445-da66d2bcf6d8"
+          }
+        },
+        {
+          "jobId": "7b78150d-05e4-47b9-9197-f078d9ee0bc1",
+          "apiAcknowledgementSeconds": 0.013002459000006183,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "7b78150d-05e4-47b9-9197-f078d9ee0bc1",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.288106Z",
+            "startedAt": "2026-11-19T20:40:59.352999Z",
+            "finishedAt": "2026-11-19T20:40:59.596601Z",
+            "deadlineAt": "2026-11-19T20:50:58.288105Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/7b78150d-05e4-47b9-9197-f078d9ee0bc1"
+          }
+        },
+        {
+          "jobId": "6552b232-2e65-4598-b3ee-fd8ded25c443",
+          "apiAcknowledgementSeconds": 0.012298624999999674,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "6552b232-2e65-4598-b3ee-fd8ded25c443",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.291931Z",
+            "startedAt": "2026-11-19T20:40:59.384418Z",
+            "finishedAt": "2026-11-19T20:40:59.582063Z",
+            "deadlineAt": "2026-11-19T20:50:58.291929Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/6552b232-2e65-4598-b3ee-fd8ded25c443"
+          }
+        },
+        {
+          "jobId": "9db75b01-51f3-4f68-9eef-1fd28af33297",
+          "apiAcknowledgementSeconds": 0.01331029199999989,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "9db75b01-51f3-4f68-9eef-1fd28af33297",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.295061Z",
+            "startedAt": "2026-11-19T20:40:59.458345Z",
+            "finishedAt": "2026-11-19T20:40:59.657488Z",
+            "deadlineAt": "2026-11-19T20:50:58.295059Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/9db75b01-51f3-4f68-9eef-1fd28af33297"
+          }
+        },
+        {
+          "jobId": "201d38f2-1e18-48c7-bb9b-c4dec523e64c",
+          "apiAcknowledgementSeconds": 0.01280020800000159,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "201d38f2-1e18-48c7-bb9b-c4dec523e64c",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.298532Z",
+            "startedAt": "2026-11-19T20:40:59.503676Z",
+            "finishedAt": "2026-11-19T20:40:59.732994Z",
+            "deadlineAt": "2026-11-19T20:50:58.298531Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/201d38f2-1e18-48c7-bb9b-c4dec523e64c"
+          }
+        },
+        {
+          "jobId": "62c896f3-2caa-41c6-92fc-03cc89cc3ba7",
+          "apiAcknowledgementSeconds": 0.01152879100000348,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "62c896f3-2caa-41c6-92fc-03cc89cc3ba7",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.301595Z",
+            "startedAt": "2026-11-19T20:40:59.586223Z",
+            "finishedAt": "2026-11-19T20:40:59.781295Z",
+            "deadlineAt": "2026-11-19T20:50:58.301593Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/62c896f3-2caa-41c6-92fc-03cc89cc3ba7"
+          }
+        },
+        {
+          "jobId": "8465e1e4-9cd9-4963-a4d9-66ccf99b2f21",
+          "apiAcknowledgementSeconds": 0.010478375000005258,
+          "requestedRows": 500000,
+          "state": {
+            "jobId": "8465e1e4-9cd9-4963-a4d9-66ccf99b2f21",
+            "status": "SUCCEEDED",
+            "attemptCount": 1,
+            "createdAt": "2026-11-19T20:40:58.303520Z",
+            "startedAt": "2026-11-19T20:40:59.607752Z",
+            "finishedAt": "2026-11-19T20:40:59.809173Z",
+            "deadlineAt": "2026-11-19T20:50:58.303519Z",
+            "errorCode": null,
+            "statusUrl": "/api/jobs/8465e1e4-9cd9-4963-a4d9-66ccf99b2f21"
+          }
+        }
+      ],
+      "resourceSamples": [
+        {
+          "sampledAt": "2026-11-19T20:41:00.263974+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "106.55%",
+          "Container": "af0b9288e816",
+          "ID": "af0b9288e816",
+          "MemPerc": "48.14%",
+          "MemUsage": "246.5MiB / 512MiB",
+          "Name": "taskforge-worker-7",
+          "NetIO": "82.2MB / 413kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264099+00:00",
+          "BlockIO": "0B / 32.8kB",
+          "CPUPerc": "91.67%",
+          "Container": "d46ddee678f6",
+          "ID": "d46ddee678f6",
+          "MemPerc": "48.02%",
+          "MemUsage": "245.9MiB / 512MiB",
+          "Name": "taskforge-worker-8",
+          "NetIO": "89MB / 366kB",
+          "PIDs": "33"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264117+00:00",
+          "BlockIO": "0B / 57.3kB",
+          "CPUPerc": "102.26%",
+          "Container": "63209b5bd41c",
+          "ID": "63209b5bd41c",
+          "MemPerc": "48.25%",
+          "MemUsage": "247.1MiB / 512MiB",
+          "Name": "taskforge-worker-6",
+          "NetIO": "301MB / 1.44MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264131+00:00",
+          "BlockIO": "0B / 98.3kB",
+          "CPUPerc": "102.77%",
+          "Container": "8a9b36b01091",
+          "ID": "8a9b36b01091",
+          "MemPerc": "49.22%",
+          "MemUsage": "252MiB / 512MiB",
+          "Name": "taskforge-worker-5",
+          "NetIO": "730MB / 3.23MB",
+          "PIDs": "34"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264140+00:00",
+          "BlockIO": "8.04MB / 172kB",
+          "CPUPerc": "33.12%",
+          "Container": "dcd2a01a3ef8",
+          "ID": "dcd2a01a3ef8",
+          "MemPerc": "49.62%",
+          "MemUsage": "254.1MiB / 512MiB",
+          "Name": "taskforge-api-1",
+          "NetIO": "5.12MB / 6.47MB",
+          "PIDs": "40"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264150+00:00",
+          "BlockIO": "1.31MB / 168kB",
+          "CPUPerc": "0.65%",
+          "Container": "a80560d737e7",
+          "ID": "a80560d737e7",
+          "MemPerc": "57.53%",
+          "MemUsage": "220.9MiB / 384MiB",
+          "Name": "taskforge-dispatcher-1",
+          "NetIO": "668kB / 2.5MB",
+          "PIDs": "30"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264158+00:00",
+          "BlockIO": "28.7kB / 827kB",
+          "CPUPerc": "27.33%",
+          "Container": "9be83734d451",
+          "ID": "9be83734d451",
+          "MemPerc": "2.75%",
+          "MemUsage": "215.2MiB / 7.654GiB",
+          "Name": "taskforge-minio-1",
+          "NetIO": "1.79MB / 1.2GB",
+          "PIDs": "16"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264167+00:00",
+          "BlockIO": "126MB / 584MB",
+          "CPUPerc": "0.91%",
+          "Container": "104ad2462692",
+          "ID": "104ad2462692",
+          "MemPerc": "89.07%",
+          "MemUsage": "342MiB / 384MiB",
+          "Name": "taskforge-grafana-1",
+          "NetIO": "108MB / 1.97MB",
+          "PIDs": "153"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264176+00:00",
+          "BlockIO": "0B / 6.92MB",
+          "CPUPerc": "0.22%",
+          "Container": "e64ffd63eda3",
+          "ID": "e64ffd63eda3",
+          "MemPerc": "14.26%",
+          "MemUsage": "54.77MiB / 384MiB",
+          "Name": "taskforge-prometheus-1",
+          "NetIO": "150MB / 2.12MB",
+          "PIDs": "12"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264185+00:00",
+          "BlockIO": "164kB / 80.6MB",
+          "CPUPerc": "6.78%",
+          "Container": "fc95fd152865",
+          "ID": "fc95fd152865",
+          "MemPerc": "1.41%",
+          "MemUsage": "110.7MiB / 7.654GiB",
+          "Name": "taskforge-postgres-1",
+          "NetIO": "20.8MB / 18.7MB",
+          "PIDs": "54"
+        },
+        {
+          "sampledAt": "2026-11-19T20:41:00.264193+00:00",
+          "BlockIO": "1.38MB / 823kB",
+          "CPUPerc": "1.04%",
+          "Container": "0aefe880839f",
+          "ID": "0aefe880839f",
+          "MemPerc": "0.14%",
+          "MemUsage": "10.75MiB / 7.654GiB",
+          "Name": "taskforge-redis-1",
+          "NetIO": "30.7MB / 11.8MB",
+          "PIDs": "6"
+        }
+      ],
+      "workers": 4,
+      "trial": 3
+    }
+  ],
+  "environment": {
+    "commit": "84a913be889664c60e0a31b442bb055f1681cca6",
+    "platform": "macOS-15.1-arm64-arm-64bit",
+    "docker": {
+      "cpus": 11,
+      "memoryBytes": 8217890816,
+      "version": "28.3.2",
+      "architecture": "aarch64"
+    },
+    "imageId": "sha256:f480f4d198b9c3c29d705e7919dd81af84afb77b6a4c1d953667a4d05334bd1b",
+    "workerNanoCpus": "1000000000",
+    "workerMemoryBytes": "536870912",
+    "slotsPerWorker": 1,
+    "leaseSeconds": 6
+  },
+  "finishedAt": "2026-11-19T20:41:00.275811+00:00"
+}

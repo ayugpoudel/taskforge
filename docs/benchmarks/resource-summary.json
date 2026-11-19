@@ -1,0 +1,57 @@
+{
+  "taskforge-worker-7": {
+    "samples": 6,
+    "meanCpuPercent": 95.22333333333333,
+    "peakObservedMemoryMiB": 262.3
+  },
+  "taskforge-worker-8": {
+    "samples": 6,
+    "meanCpuPercent": 93.46166666666667,
+    "peakObservedMemoryMiB": 261.5
+  },
+  "taskforge-worker-6": {
+    "samples": 6,
+    "meanCpuPercent": 95.36,
+    "peakObservedMemoryMiB": 259.1
+  },
+  "taskforge-worker-5": {
+    "samples": 6,
+    "meanCpuPercent": 103.32666666666667,
+    "peakObservedMemoryMiB": 267.7
+  },
+  "taskforge-api-1": {
+    "samples": 6,
+    "meanCpuPercent": 33.34166666666667,
+    "peakObservedMemoryMiB": 274.9
+  },
+  "taskforge-dispatcher-1": {
+    "samples": 6,
+    "meanCpuPercent": 5.255,
+    "peakObservedMemoryMiB": 230.6
+  },
+  "taskforge-minio-1": {
+    "samples": 6,
+    "meanCpuPercent": 21.606666666666666,
+    "peakObservedMemoryMiB": 322.7
+  },
+  "taskforge-grafana-1": {
+    "samples": 6,
+    "meanCpuPercent": 0.8333333333333334,
+    "peakObservedMemoryMiB": 335.8
+  },
+  "taskforge-prometheus-1": {
+    "samples": 6,
+    "meanCpuPercent": 0.25,
+    "peakObservedMemoryMiB": 61.62
+  },
+  "taskforge-postgres-1": {
+    "samples": 6,
+    "meanCpuPercent": 13.93,
+    "peakObservedMemoryMiB": 119.1
+  },
+  "taskforge-redis-1": {
+    "samples": 6,
+    "meanCpuPercent": 1.155,
+    "peakObservedMemoryMiB": 11.0
+  }
+}

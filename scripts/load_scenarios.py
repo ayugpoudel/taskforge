@@ -56,7 +56,7 @@ def main():
     seconds=(max(b.iso(r['state']['finishedAt']) for r in submitted)-min(b.iso(r['state']['createdAt']) for r in submitted)).total_seconds()
     save('mixed_sizes',{'jobs':12,'durableBatchSeconds':seconds,'results':submitted,'resourceSamples':samples.rows})
     save('burst_100',b.batch(small,100,submission_concurrency=8))
-    save('sustained_20_per_second',b.batch(medium,200,submission_concurrency=8,rate=20))
+    save('sustained_60_per_second',b.batch(medium,600,submission_concurrency=8,rate=60))
     try:
         save('worker_crash',b.batch(large,12,on_submitted=worker_crash))
     finally:

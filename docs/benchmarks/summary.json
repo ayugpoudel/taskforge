@@ -1,0 +1,66 @@
+{
+  "Baseline": [
+    {
+      "workers": 1,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 1.417629243486092,
+      "minJobsPerSecond": 1.3734239864378959,
+      "maxJobsPerSecond": 1.5089254196007231,
+      "medianTrialP95Seconds": 12.10156645,
+      "medianApiP95Milliseconds": 17.261202650000126
+    },
+    {
+      "workers": 2,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 2.730678628252693,
+      "minJobsPerSecond": 2.623793109831834,
+      "maxJobsPerSecond": 2.939635083499518,
+      "medianTrialP95Seconds": 6.273268799999999,
+      "medianApiP95Milliseconds": 28.55023760000818
+    },
+    {
+      "workers": 4,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 4.47121654350121,
+      "minJobsPerSecond": 4.372665785979387,
+      "maxJobsPerSecond": 4.67010507476968,
+      "medianTrialP95Seconds": 3.88574685,
+      "medianApiP95Milliseconds": 22.474843700009465
+    }
+  ],
+  "Precompiled regex": [
+    {
+      "workers": 1,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 5.233814863685292,
+      "minJobsPerSecond": 4.856761948241488,
+      "maxJobsPerSecond": 5.317758210397104,
+      "medianTrialP95Seconds": 3.2544939999999998,
+      "medianApiP95Milliseconds": 24.48260189999977
+    },
+    {
+      "workers": 2,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 6.337325261458677,
+      "minJobsPerSecond": 6.307711176913777,
+      "maxJobsPerSecond": 8.273868732314606,
+      "medianTrialP95Seconds": 2.7562714,
+      "medianApiP95Milliseconds": 28.252074900003876
+    },
+    {
+      "workers": 4,
+      "trials": 3,
+      "verifiedJobs": 54,
+      "medianJobsPerSecond": 11.581774405050684,
+      "minJobsPerSecond": 10.087254753618803,
+      "maxJobsPerSecond": 11.96495067116726,
+      "medianTrialP95Seconds": 1.48359295,
+      "medianApiP95Milliseconds": 17.674562550000413
+    }
+  ]
+}

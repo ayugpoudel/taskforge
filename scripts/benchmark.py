@@ -14,7 +14,13 @@ def request(method,path,body=None,key=None):
     headers={'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'}
     if key:headers['Idempotency-Key']=key
     req=urllib.request.Request(BASE+'/api'+path,data=data,method=method,headers=headers)
-    with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
+    deadline=time.monotonic()+30
+    while True:
+        try:
+            with urllib.request.urlopen(req,timeout=30) as r:return json.load(r)
+        except (urllib.error.URLError,OSError):
+            if method!='GET' or time.monotonic()>=deadline:raise
+            time.sleep(.1)
 def wait(condition,seconds=600):
     deadline=time.monotonic()+seconds
     while time.monotonic()<deadline:
