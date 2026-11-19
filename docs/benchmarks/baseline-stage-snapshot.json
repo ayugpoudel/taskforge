@@ -1,0 +1,62 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "stage": "calculation"
+        },
+        "value": [
+          1795120646.411,
+          "0.703800978153409"
+        ]
+      },
+      {
+        "metric": {
+          "stage": "finalization"
+        },
+        "value": [
+          1795120646.411,
+          "0.001369212840909091"
+        ]
+      },
+      {
+        "metric": {
+          "stage": "input_open"
+        },
+        "value": [
+          1795120646.411,
+          "0.0027812959318181817"
+        ]
+      },
+      {
+        "metric": {
+          "stage": "input_read"
+        },
+        "value": [
+          1795120646.411,
+          "0.013269807448863637"
+        ]
+      },
+      {
+        "metric": {
+          "stage": "output_write"
+        },
+        "value": [
+          1795120646.411,
+          "0.004934355386363636"
+        ]
+      },
+      {
+        "metric": {
+          "stage": "serialization"
+        },
+        "value": [
+          1795120646.411,
+          "0.00038531607386363637"
+        ]
+      }
+    ]
+  }
+}

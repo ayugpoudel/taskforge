@@ -28,6 +28,9 @@ public final class CsvAnalytics {
   }
 
   private static final MathContext MC = MathContext.DECIMAL128;
+  private static final java.util.regex.Pattern NUMERIC =
+      java.util.regex.Pattern.compile(
+          "[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?");
 
   public Report analyze(InputStream input, Runnable checkpoint) {
     var settings = new CsvParserSettings();
@@ -136,9 +139,7 @@ public final class CsvAnalytics {
     }
 
     static BigDecimal number(String v) {
-      if (v.length() > 128
-          || !v.matches("[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]{1,3})?"))
-        return null;
+      if (v.length() > 128 || !NUMERIC.matcher(v).matches()) return null;
       try {
         var n = new BigDecimal(v);
         return Math.abs(n.scale()) > 308 || n.precision() > 128 ? null : n;
