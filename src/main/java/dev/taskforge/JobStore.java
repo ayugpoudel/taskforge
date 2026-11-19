@@ -86,8 +86,8 @@ public class JobStore {
         });
   }
 
-  public void datasetReady(UUID id) {
-    db.update("UPDATE datasets SET ready=true WHERE id=? AND expired_at IS NULL", id);
+  public boolean datasetReady(UUID id) {
+    return db.update("UPDATE datasets SET ready=true WHERE id=? AND expired_at IS NULL", id) == 1;
   }
 
   public void abandonDataset(UUID id) {

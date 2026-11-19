@@ -24,6 +24,8 @@ public record Settings(
     int retentionSeconds,
     int cleanupGraceSeconds) {
   public Settings {
+    if (!java.util.Set.of("api", "worker", "dispatcher", "local-worker").contains(role))
+      throw new IllegalArgumentException("Unknown process role");
     if (leaseSeconds < 3
         || deadlineSeconds < 1
         || maxActiveJobs < 1

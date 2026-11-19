@@ -836,4 +836,25 @@ class PlatformIntegrationTest {
         for (var tag : meter.getId().getTags())
           assertThat(tag.getKey()).isNotIn("job_id", "owner_id", "user_id");
   }
+
+  @Test
+  void expiredUploadReservationCannotBecomeReadyOrCreateAnAcceptedJob() throws Exception {
+    UUID dataset = UUID.randomUUID();
+    jobs.reserveDataset(dataset, "alice", "inputs/" + dataset, "0".repeat(64), 4);
+    jobs.abandonDataset(dataset);
+    assertThat(jobs.datasetReady(dataset)).isFalse();
+    assertThatThrownBy(() -> jobs.create("alice", dataset))
+        .isInstanceOf(org.springframework.web.server.ResponseStatusException.class);
+    assertThat(db.queryForObject("SELECT count(*) FROM jobs", Integer.class)).isZero();
+  }
+
+  @Test
+  void missingReportObjectReturnsServiceErrorBeforeHttpSuccessHeaders() throws Exception {
+    UUID id = jobs.create("alice", upload("a\n1")).id();
+    runner.run(jobs.claim(id, "worker"), "worker");
+    storage.delete(jobs.getInternal(id).outputKey());
+    var response = request("GET", "/jobs/" + id + "/result", ALICE, null);
+    assertThat(response.statusCode()).isEqualTo(503);
+    assertThat(response.body()).doesNotContain("reports/").doesNotContain("accessKey");
+  }
 }

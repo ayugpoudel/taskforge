@@ -8,12 +8,12 @@ import java.nio.file.*;
 import java.security.*;
 import java.util.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 @RestController
 @ConditionalOnProperty(name = "taskforge.role", havingValue = "api", matchIfMissing = true)
@@ -54,7 +54,7 @@ class Api {
           id, owner(request), key, HexFormat.of().formatHex(digest.digest()), Files.size(temp));
       reserved = true;
       storage.putFile(key, temp);
-      jobs.datasetReady(id);
+      if (!jobs.datasetReady(id)) throw new ResponseStatusException(HttpStatus.GONE);
       return ResponseEntity.status(201)
           .body(Map.of("datasetId", id, "sizeBytes", Files.size(temp)));
     } catch (Exception e) {
@@ -96,21 +96,17 @@ class Api {
   }
 
   @GetMapping("/jobs/{id}/result")
-  ResponseEntity<StreamingResponseBody> result(@PathVariable UUID id, HttpServletRequest r) {
+  ResponseEntity<InputStreamResource> result(@PathVariable UUID id, HttpServletRequest r)
+      throws Exception {
     var j = jobs.get(owner(r), id);
     if (jobs.reportExpired(id)) throw new ResponseStatusException(HttpStatus.GONE);
     if (!j.status().equals("SUCCEEDED")) throw new ResponseStatusException(HttpStatus.CONFLICT);
     return ResponseEntity.ok()
         .contentType(MediaType.APPLICATION_JSON)
         .header("Content-Disposition", "attachment; filename=report-" + id + ".json")
-        .body(
-            out -> {
-              try (var input = storage.read(j.outputKey())) {
-                input.transferTo(out);
-              } catch (Exception e) {
-                throw new IOException("Report storage unavailable");
-              }
-            });
+        // Open storage before committing HTTP success headers. Spring closes the resource
+        // after streaming; failures to open return the normal sanitized 503 response.
+        .body(new InputStreamResource(storage.read(j.outputKey())));
   }
 
   @PostMapping("/jobs/{id}/cancel")
