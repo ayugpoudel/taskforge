@@ -15,3 +15,9 @@ Implemented a streaming Univocity CSV calculator with 256-column/65,536-characte
 Added the JDBC/Flyway job schema, private MinIO input/report storage, upload/status/report endpoints, owner-scoped development bearer tokens, and a SQL-polling independent worker role. Guarded completion already checks live ownership/generation rather than waiting to introduce an unsafe pattern. Local workers currently have no heartbeat/recovery; this is explicitly a phase-1 limitation. Real-service acceptance tests are running; phase 1 is not yet marked complete.
 
 Phase 1 acceptance: 8 unit + 5 real-service tests passed, zero skipped. The actual CSV/upload/status/download path, two competing claims, duplicate finalization and expired ownership were exercised against PostgreSQL and MinIO. The source-built MinIO fixture took about 100 seconds after downloads; Docker Hub and Quay were unavailable as image sources. A test-only NPE was caused by reading a field on Spring's exception-translation proxy, not a database failure; injecting JdbcTemplate fixed it. Phase 1 stable; proceed to phase 2.
+
+## Phase 2 — 2026-11-19
+
+Extracted JobProcessor and JobRunner; added Redis Streams consumer-group transport and independent bounded-concurrency workers/dispatcher. Same application image runs by role. Added Compose health checks, random local credential generation, and an executable HTTP E2E test with independent arithmetic. Kept SQL-polling mode for an explicit comparison.
+
+Executed: 8 unit + 6 integration tests; clean application/container startup; 20 CSV jobs × 20,000 rows completed correctly across two independent worker process identities. No duplicate committed output pointer observed. This is a short functional batch, not a throughput benchmark. Phase 2 stable. Heartbeat, outbox and pending recovery are the next phase; no general crash-recovery guarantee claimed yet.

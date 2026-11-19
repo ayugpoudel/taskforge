@@ -42,6 +42,8 @@ class PlatformIntegrationTest {
     @Autowired ObjectStorage storage;
     @Autowired ObjectMapper json;
     @Autowired Settings settings;
+    @Autowired JobRunner runner;
+    @Autowired RedisQueue queue;
     final HttpClient http=HttpClient.newHttpClient();
     HttpResponse<String> request(String method,String path,String token,String body) throws Exception {
         var b=HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api"+path)).header("Content-Type","application/json");
@@ -82,13 +84,29 @@ class PlatformIntegrationTest {
         assertThat(jobs.complete(claim,"expired","report/stale")).isFalse();
         assertThat(jobs.get("alice",id).outputKey()).isNull();
     }
+    @Test void redisGroupDistributesNotificationsAndAcknowledgesDurableCompletion() throws Exception {
+        queue.initialize();
+        UUID a=jobs.create("alice",upload("n\n2\n4")).id();
+        UUID b=jobs.create("alice",upload("n\n5\n7")).id();
+        new Dispatcher(jobs,queue).tick();
+        var first=queue.receive("worker-one");
+        var second=queue.receive("worker-two");
+        assertThat(first).isNotNull();assertThat(second).isNotNull();
+        assertThat(first.jobId()).isNotEqualTo(second.jobId());
+        runner.run(jobs.claim(first.jobId(),"worker-one"),"worker-one");
+        runner.run(jobs.claim(second.jobId(),"worker-two"),"worker-two");
+        queue.acknowledge(first.messageId());queue.acknowledge(second.messageId());
+        assertThat(jobs.getInternal(a).status()).isEqualTo("SUCCEEDED");
+        assertThat(jobs.getInternal(b).status()).isEqualTo("SUCCEEDED");
+        assertThat(db.queryForList("SELECT DISTINCT worker_id FROM job_attempts",String.class)).contains("worker-one","worker-two");
+    }
     @Test void durableUploadJobAndIndependentHandCalculatedReport() throws Exception {
         UUID dataset=upload("name,n\nAlice,2\nBob,4\n");
         var accepted=request("POST","/jobs",ALICE,"{\"datasetId\":\""+dataset+"\"}");
         assertThat(accepted.statusCode()).as(accepted.body()).isEqualTo(202);
         UUID id=UUID.fromString(json.readTree(accepted.body()).get("jobId").asText());
         assertThat(request("GET","/jobs/"+id+"/result",ALICE,null).statusCode()).isEqualTo(409);
-        for(int n=0;n<10&&!jobs.get("alice",id).status().equals("SUCCEEDED");n++) new LocalWorker(jobs,storage,json,settings).tick();
+        for(int n=0;n<10&&!jobs.get("alice",id).status().equals("SUCCEEDED");n++) new LocalWorker(jobs,runner,settings).tick();
         assertThat(jobs.get("alice",id).status()).isEqualTo("SUCCEEDED");
         var result=request("GET","/jobs/"+id+"/result",ALICE,null);
         assertThat(result.statusCode()).isEqualTo(200);
@@ -109,7 +127,7 @@ class PlatformIntegrationTest {
     @Test void malformedCsvBecomesDiagnosablePermanentFailure() throws Exception {
         UUID job=jobs.create("alice",upload("a,a\n1,2")).id();
         // Other tests can leave queued jobs; drain deterministically to this one.
-        for(int n=0;n<10&&!jobs.get("alice",job).status().equals("FAILED");n++) new LocalWorker(jobs,storage,json,settings).tick();
+        for(int n=0;n<10&&!jobs.get("alice",job).status().equals("FAILED");n++) new LocalWorker(jobs,runner,settings).tick();
         assertThat(jobs.get("alice",job).errorCode()).isEqualTo("INVALID_CSV");
     }
 }

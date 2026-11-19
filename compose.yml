@@ -39,6 +39,49 @@ services:
       interval: 3s
       timeout: 3s
       retries: 20
+  api:
+    image: taskforge-app:local
+    build: .
+    env_file: .env
+    environment: &app-env
+      TF_ROLE: api
+      TF_BIND_ADDRESS: 0.0.0.0
+      TF_DATABASE_URL: jdbc:postgresql://postgres:5432/taskforge
+      TF_REDIS_HOST: redis
+      TF_REDIS_PORT: 6379
+      TF_STORAGE_ENDPOINT: http://minio:9000
+    ports: ["127.0.0.1:8080:8080"]
+    mem_limit: 512m
+    healthcheck: &app-health
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/actuator/health"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+      start_period: 15s
+    depends_on: &app-dependencies
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+      minio: {condition: service_healthy}
+  worker:
+    image: taskforge-app:local
+    pull_policy: never
+    env_file: .env
+    environment:
+      <<: *app-env
+      TF_ROLE: worker
+    mem_limit: 512m
+    healthcheck: *app-health
+    depends_on: *app-dependencies
+  dispatcher:
+    image: taskforge-app:local
+    pull_policy: never
+    env_file: .env
+    environment:
+      <<: *app-env
+      TF_ROLE: dispatcher
+    mem_limit: 384m
+    healthcheck: *app-health
+    depends_on: *app-dependencies
 volumes:
   postgres-data:
   redis-data:

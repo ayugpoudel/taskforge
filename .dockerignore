@@ -1,5 +1,6 @@
 .git
 .gradle
-build
+build/*
+!build/libs
 .env
 benchmarks/runs

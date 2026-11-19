@@ -55,6 +55,11 @@ public class JobStore {
             return ids.isEmpty()?null:claimLocked(ids.getFirst(),worker);
         });
     }
+    public Job claim(UUID id,String worker) { return tx.execute(s -> claimLocked(id,worker)); }
+    public List<UUID> notifications() {
+        return db.queryForList("SELECT id FROM jobs WHERE status='QUEUED' AND (notified_at IS NULL OR notified_at<clock_timestamp()-interval '30 seconds') ORDER BY created_at LIMIT 100",UUID.class);
+    }
+    public void notified(UUID id) { db.update("UPDATE jobs SET notified_at=clock_timestamp() WHERE id=?",id); }
     private Job claimLocked(UUID id,String worker) {
         int changed=db.update("UPDATE jobs SET status='RUNNING',attempt_count=attempt_count+1,generation=generation+1,lease_owner=?,lease_expires_at=clock_timestamp()+? * interval '1 second',started_at=clock_timestamp() WHERE id=? AND status='QUEUED'",
                 worker,settings.leaseSeconds(),id);
