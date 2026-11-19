@@ -1,6 +1,6 @@
 # TaskForge architecture
 
-Status: phase 0 design accepted; execution evidence lives in TESTING.md and the engineering journal.
+The diagrams describe the implemented local platform. The comparison tables retain the original design rationale.
 
 ```mermaid
 flowchart LR
@@ -54,3 +54,37 @@ Acceptance occurs after input storage and job/outbox commit. This does not prote
 - [RabbitMQ acknowledgement/confirmation](https://www.rabbitmq.com/docs/confirms): separate producer and consumer guarantees.
 - [SQS standard delivery](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues-at-least-once-delivery.html): consumers must tolerate duplicates.
 - [PostgreSQL row locking](https://www.postgresql.org/docs/current/sql-select.html): SKIP LOCKED for queue-like work, not a globally consistent view.
+
+## Implemented request lifecycle
+
+```mermaid
+sequenceDiagram
+ participant C as Client
+ participant A as API
+ participant P as PostgreSQL
+ participant S as Object storage
+ participant D as Dispatcher
+ participant R as Redis Streams
+ participant W as Worker
+ C->>A: Upload authenticated CSV
+ A->>P: Reserve owner quota
+ A->>S: Write input under unique key
+ A->>P: Mark dataset ready
+ C->>A: Submit dataset and optional idempotency key
+ A->>P: Commit queued job and outbox together
+ A-->>C: 202 and job ID
+ D->>P: Lease due event
+ D->>R: Publish job ID
+ D->>P: Mark event delivered
+ R->>W: Consumer group delivery
+ W->>P: Claim generation and renew lease
+ W->>S: Stream input and write attempt report
+ W->>P: Guarded commit of report pointer
+ W->>R: Acknowledge delivery
+ C->>A: Poll and retrieve result
+ A->>P: Check ownership, state and expiry
+ A->>S: Read selected report
+ A-->>C: Stream JSON
+```
+
+A queued job enters RUNNING on a successful claim. Completion selects the attempt output and enters SUCCEEDED. A transient failure schedules a future attempt. Permanent errors or exhaustion end in FAILED. Cancellation competes with completion under the same job row lock. See [reviewed invariants and lock ordering](RELIABILITY_REVIEW.md).

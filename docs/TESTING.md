@@ -37,3 +37,9 @@ Phase 5: 12 unit + 30 integration tests passed, 0 skipped. The 50 MiB+1-byte upl
 ## Phase 7 executed evidence
 
 43 tests remain passing after consistent Google Java formatting and local storage configuration changes. The actual Redis-outage integration scenario confirms `/actuator/health/readiness` stays HTTP 200 while durable job acceptance returns 202. The CloudFormation JSON passes cfn-lint 1.46.0 locally, shell syntax and Compose schema checks pass, and no AWS resources were created. Runtime IAM/S3/Redis-TLS/RDS-certificate paths remain untested in AWS. Main hosted CI passed for dfc58ae at https://github.com/ayugpoudel/taskforge/actions/runs/44607116098 ; later cloud/format changes require their own hosted check.
+
+## Final local verification at 46d1144
+
+Java 21 on macOS arm64, Gradle 8.14.3, Docker Desktop. The command `./gradlew --no-daemon clean check bootJar` executed 12 unit and 33 PostgreSQL/Redis/MinIO integration tests. All 45 passed, zero failed or skipped. Spotless and the executable JAR build passed. The integration suite exercises failure and concurrency cases listed above plus expired upload reservations and missing report objects. The reservation test exercises the database transition directly. It does not stall a live multipart upload until expiry.
+
+After rebuilding Compose, `scripts/e2e.py --jobs 20 --rows 20000 --require-processes 2` verified both numeric sums and the first column mean on every downloaded report. Distinct process IDs were counted from persisted attempts. See [batch results](evidence/final-e2e.json). CloudFormation passed cfn-lint locally. Hosted results are available in [Actions](https://github.com/ayugpoudel/taskforge/actions/workflows/ci.yml).

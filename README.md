@@ -4,9 +4,9 @@
 
 A Java 21/Spring Boot platform that accepts CSV analytics jobs, distributes work across independent workers, and makes recovery behavior inspectable through PostgreSQL state, tests and operational metrics.
 
-**Implemented and locally validated:** streaming CSV reports, authenticated owner-scoped APIs, PostgreSQL job/attempt state, Redis Streams consumer groups, transactional outbox, request idempotency, worker leases/heartbeats/fencing, durable retries, cancellation/deadlines, admission/storage budgets, private MinIO artifacts, retention, JSON logs, Prometheus and Grafana. **43 executed tests passed**, with no skipped integration tests. Two independent worker processes completed a verified real CSV batch; a controlled worker pause/restart was diagnosed through the dashboard and recovered correctly.
+The local stack passed 45 automated tests and a 20-job end-to-end batch across two worker processes. A user can upload a CSV, submit an authenticated job, and download its JSON report. Independent workers handle retries, timeouts and cancellation. Prometheus and Grafana expose queue, worker and outbox behavior.
 
-**In progress:** controlled scaling benchmarks, final reliability review and cloud deployment configuration. AWS is not deployed. Do not interpret local tests as a guarantee for arbitrary failures or production traffic. The engineering journal records each tested milestone; resume claims must follow that evidence.
+Precompiling numeric validation raised median throughput on a single worker from 1.42 to 5.23 jobs/s for 500,000-row numeric CSVs. Four workers reached 11.58 jobs/s in the same local protocol. See the [measurements and limitations](docs/BENCHMARKS.md), [final review](docs/RELIABILITY_REVIEW.md), and [interview walkthrough](docs/INTERVIEW_NOTES.md). AWS deployment remains configuration-only.
 
 ## Why this exists
 

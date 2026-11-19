@@ -66,3 +66,7 @@ python3 scripts/plot_benchmarks.py
 ```
 
 The load script intentionally kills/stops only TaskForge containers; use an isolated local stack with synthetic CSVs. It restores interrupted services. `compose.benchmark.yml` changes worker resources; return to normal settings afterward with `docker compose up -d --scale worker=2 --wait`. The plot script uses Matplotlib and reads the archived baseline/optimized files; it does not rerun the experiment or invent data. Plotting dependencies are separate from the Java application.
+
+## Redis follow-up at 46d1144
+
+Repeating the three-second Redis interruption with 16 jobs of 250,000 rows and four workers took 5.844 seconds from first durable submission to final completion versus 53.882 seconds in the archived run. All 16 reports passed arithmetic checks and there were zero extra attempts. The dispatcher logged connection refusal at 22:47:23.933 UTC and reconnection at 22:47:28.237 UTC. The earlier wait preceded publication. These observations locate the delay upstream of worker execution and demonstrate reconnect behavior in the repeat. A single before/after run cannot isolate how much the new two-second connect timeout contributed. [Follow-up data](benchmarks/redis-connection-followup.json).
