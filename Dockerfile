@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 RUN adduser -D -u 10001 taskforge
 USER 10001
 WORKDIR /app
