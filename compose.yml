@@ -70,6 +70,7 @@ services:
       <<: *app-env
       TF_ROLE: worker
     mem_limit: 512m
+    stop_grace_period: 40s
     healthcheck: *app-health
     depends_on: *app-dependencies
   dispatcher:

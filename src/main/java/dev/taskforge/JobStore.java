@@ -48,6 +48,7 @@ public class JobStore {
                     return getInternal(existing.getFirst());
                 }
             }
+            admission();
             UUID id=UUID.randomUUID();
             db.update("INSERT INTO jobs(id,owner_id,dataset_id,max_attempts,deadline_at,idempotency_key,payload_fingerprint) VALUES (?,?,?,?,clock_timestamp() + ? * interval '1 second',?,?)",
                     id,owner,dataset,settings.maxAttempts(),settings.deadlineSeconds(),key,digest);
@@ -73,13 +74,19 @@ public class JobStore {
         return db.queryForList("SELECT generation,started_at,finished_at,outcome FROM job_attempts WHERE job_id=? ORDER BY generation",id);
     }
     public Job claimNext(String worker) {
-        return tx.execute(s -> {
-            var ids=db.queryForList("SELECT id FROM jobs WHERE status IN ('QUEUED','RETRY_WAIT') AND next_attempt_at<=clock_timestamp() AND deadline_at>clock_timestamp() AND NOT cancel_requested ORDER BY created_at FOR UPDATE SKIP LOCKED LIMIT 1",UUID.class);
-            return ids.isEmpty()?null:claimLocked(ids.getFirst(),worker);
-        });
+        var ids=db.queryForList("SELECT id FROM jobs WHERE status IN ('QUEUED','RETRY_WAIT') AND next_attempt_at<=clock_timestamp() AND deadline_at>clock_timestamp() AND NOT cancel_requested ORDER BY created_at LIMIT 100",UUID.class);
+        for(UUID id:ids) { var claim=claim(id,worker);if(claim!=null)return claim; }
+        return null;
     }
     public Job claim(UUID id,String worker) { return tx.execute(s -> claimLocked(id,worker)); }
     private Job claimLocked(UUID id,String worker) {
+        var owners=db.queryForList("SELECT owner_id FROM jobs WHERE id=?",String.class,id);
+        if(owners.isEmpty())return null;
+        String owner=owners.getFirst();
+        db.update("INSERT INTO owner_scheduling(owner_id) VALUES (?) ON CONFLICT DO NOTHING",owner);
+        db.queryForList("SELECT owner_id FROM owner_scheduling WHERE owner_id=? FOR UPDATE",owner);
+        int running=db.queryForObject("SELECT count(*) FROM jobs WHERE owner_id=? AND status='RUNNING' AND lease_expires_at>clock_timestamp()",Integer.class,owner);
+        if(running>=settings.perOwnerConcurrency())return null;
         int changed=db.update("UPDATE jobs SET status='RUNNING',attempt_count=attempt_count+1,generation=generation+1,lease_owner=?,lease_expires_at=clock_timestamp()+? * interval '1 second',started_at=clock_timestamp() WHERE id=? AND status IN ('QUEUED','RETRY_WAIT') AND next_attempt_at<=clock_timestamp() AND deadline_at>clock_timestamp() AND NOT cancel_requested AND attempt_count<max_attempts",
                 worker,settings.leaseSeconds(),id);
         if(changed==0)return null;
@@ -160,10 +167,37 @@ public class JobStore {
     }
     public Job replay(UUID id) {
         return tx.execute(s -> {
+            admission();
             var ids=db.queryForList("SELECT id FROM jobs WHERE id=? AND status='FAILED' AND error_code<>'INVALID_CSV' FOR UPDATE",UUID.class,id);
             if(ids.isEmpty())throw new ResponseStatusException(HttpStatus.CONFLICT);
             db.update("UPDATE jobs SET status='QUEUED',attempt_count=0,error_code=null,cancel_requested=false,started_at=null,finished_at=null,next_attempt_at=clock_timestamp(),notified_at=null,deadline_at=clock_timestamp()+? * interval '1 second' WHERE id=?",settings.deadlineSeconds(),id);
             enqueue(id,0);return getInternal(id);
+        });
+    }
+    private void admission() {
+        db.queryForList("SELECT pg_advisory_xact_lock(72819401)");
+        int active=db.queryForObject("SELECT count(*) FROM jobs WHERE status IN ('QUEUED','RUNNING','RETRY_WAIT')",Integer.class);
+        if(active>=settings.maxActiveJobs())throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS);
+    }
+    public Job cancel(String owner,UUID id) {
+        return tx.execute(s -> {
+            var ids=db.queryForList("SELECT id FROM jobs WHERE id=? AND owner_id=? FOR UPDATE",UUID.class,id,owner);
+            if(ids.isEmpty())throw missing();
+            Job current=getInternal(id);
+            if(Set.of("SUCCEEDED","FAILED","CANCELLED").contains(current.status()))return current;
+            terminal(id,"CANCELLED","CANCELLED");return getInternal(id);
+        });
+    }
+    private void terminal(UUID id,String state,String code) {
+        db.update("UPDATE jobs SET status=?,cancel_requested=?,error_code=?,finished_at=clock_timestamp(),lease_owner=null,lease_expires_at=null WHERE id=?",state,state.equals("CANCELLED"),code,id);
+        db.update("UPDATE job_attempts SET finished_at=clock_timestamp(),outcome=? WHERE job_id=? AND finished_at IS NULL",code,id);
+        db.update("UPDATE outbox_events SET published_at=clock_timestamp(),lease_token=null,lease_until=null WHERE job_id=? AND published_at IS NULL",id);
+    }
+    public int expireDeadlines() {
+        return tx.execute(s -> {
+            var ids=db.queryForList("SELECT id FROM jobs WHERE status IN ('QUEUED','RUNNING','RETRY_WAIT') AND deadline_at<=clock_timestamp() ORDER BY deadline_at FOR UPDATE SKIP LOCKED LIMIT 100",UUID.class);
+            for(UUID id:ids)terminal(id,"FAILED","DEADLINE_EXCEEDED");
+            return ids.size();
         });
     }
     private static ResponseStatusException missing() { return new ResponseStatusException(HttpStatus.NOT_FOUND); }

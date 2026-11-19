@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 public record Settings(String role, String instanceId, String authTokens, String storageEndpoint,
                        String storageAccessKey, String storageSecretKey, String storageBucket,
                        int leaseSeconds, int deadlineSeconds, int maxActiveJobs,
-                       int workerConcurrency, int maxAttempts) {
+                       int workerConcurrency, int maxAttempts, int perOwnerConcurrency, int shutdownSeconds) {
     public Settings {
         if (leaseSeconds < 3 || deadlineSeconds < 1 || maxActiveJobs < 1 || workerConcurrency < 1 || workerConcurrency > 16
-                || maxAttempts < 1 || maxAttempts > 10) throw new IllegalArgumentException("Invalid resource limits");
+                || maxAttempts < 1 || maxAttempts > 10 || perOwnerConcurrency<1 || shutdownSeconds<1) throw new IllegalArgumentException("Invalid resource limits");
     }
 }
 @Configuration

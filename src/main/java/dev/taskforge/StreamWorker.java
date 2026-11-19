@@ -48,6 +48,14 @@ class StreamWorker implements SmartLifecycle {
             });
         }
     }
-    @Override public void stop() { running=false;if(executor!=null)executor.shutdownNow(); }
+    @Override public void stop() {
+        running=false;
+        if(executor!=null) {
+            executor.shutdown();
+            try { if(!executor.awaitTermination(settings.shutdownSeconds(),TimeUnit.SECONDS))executor.shutdownNow(); }
+            catch(InterruptedException e) { executor.shutdownNow();Thread.currentThread().interrupt(); }
+        }
+    }
+    @Override public void stop(Runnable callback) { try { stop(); } finally { callback.run(); } }
     @Override public boolean isRunning() { return running; }
 }

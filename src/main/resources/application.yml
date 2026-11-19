@@ -56,3 +56,5 @@ taskforge:
   max-active-jobs: ${TF_MAX_ACTIVE_JOBS:1000}
   worker-concurrency: ${TF_WORKER_CONCURRENCY:2}
   max-attempts: ${TF_MAX_ATTEMPTS:3}
+  per-owner-concurrency: ${TF_PER_OWNER_CONCURRENCY:8}
+  shutdown-seconds: ${TF_SHUTDOWN_SECONDS:20}

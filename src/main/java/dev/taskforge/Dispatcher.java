@@ -22,6 +22,7 @@ class Dispatcher {
     @Scheduled(fixedDelay=500)
     void tick() {
         try {
+            jobs.expireDeadlines();
             jobs.recoverExpired();
             jobs.reconcileNotifications();
             for(int i=0;i<100&&publishOne(()->{});i++) { /* bounded batch */ }

@@ -45,6 +45,7 @@ class PlatformIntegrationTest {
         r.add("spring.data.redis.host",redis::getHost);r.add("spring.data.redis.port",()->redis.getMappedPort(6379));
         r.add("taskforge.storage-endpoint",()->"http://"+minio.getHost()+":"+minio.getMappedPort(9000));
         r.add("taskforge.storage-access-key",()->"taskforge-test");r.add("taskforge.storage-secret-key",()->"taskforge-test-password");
+        r.add("taskforge.max-active-jobs",()->4);r.add("taskforge.per-owner-concurrency",()->1);
         r.add("taskforge.auth-tokens",()->ALICE+"=alice,"+BOB+"=bob,"+ADMIN+"=admin");
     }
     @LocalServerPort int port;
@@ -62,11 +63,12 @@ class PlatformIntegrationTest {
         if(token!=null)b.header("Authorization","Bearer "+token);
         return http.send(b.method(method,HttpRequest.BodyPublishers.ofString(body==null?"":body)).build(),HttpResponse.BodyHandlers.ofString());
     }
-    UUID upload(String csv) throws Exception {
+    UUID upload(String csv) throws Exception { return upload(csv,ALICE); }
+    UUID upload(String csv,String token) throws Exception {
         String boundary="taskforge-boundary";
         String body="--"+boundary+"\r\nContent-Disposition: form-data; name=\"file\"; filename=\"sample.csv\"\r\nContent-Type: text/csv\r\n\r\n"+csv+"\r\n--"+boundary+"--\r\n";
         var response=http.send(HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api/datasets"))
-                .header("Authorization","Bearer "+ALICE).header("Content-Type","multipart/form-data; boundary="+boundary)
+                .header("Authorization","Bearer "+token).header("Content-Type","multipart/form-data; boundary="+boundary)
                 .POST(HttpRequest.BodyPublishers.ofString(body,StandardCharsets.UTF_8)).build(),HttpResponse.BodyHandlers.ofString());
         assertThat(response.statusCode()).as(response.body()).isEqualTo(201);
         return UUID.fromString(json.readTree(response.body()).get("datasetId").asText());
@@ -310,5 +312,77 @@ class PlatformIntegrationTest {
         runner.run(retry,"replayed-worker");
         assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
         assertThat(db.queryForObject("SELECT count(*) FROM job_attempts WHERE job_id=?",Integer.class,id)).isEqualTo(2);
+    }
+
+    @Test void capacityRejectsNewWorkButAllowsIdempotentReplayOfAnAcceptedRequest() throws Exception {
+        UUID dataset=upload("a\n1");
+        UUID original=jobs.create("alice",dataset,"accepted-key").id();
+        for(int i=1;i<settings.maxActiveJobs();i++)jobs.create("alice",dataset);
+        assertThat(jobs.create("alice",dataset,"accepted-key").id()).isEqualTo(original);
+        var rejected=request("POST","/jobs",ALICE,"{\"datasetId\":\""+dataset+"\"}");
+        assertThat(rejected.statusCode()).isEqualTo(429);
+        assertThat(rejected.headers().firstValue("Retry-After")).contains("5");
+        assertThat(db.queryForObject("SELECT count(*) FROM jobs",Integer.class)).isEqualTo(settings.maxActiveJobs());
+    }
+    @Test void concurrentAdmissionCannotExceedCapacity() throws Exception {
+        UUID dataset=upload("a\n1");
+        for(int i=0;i<settings.maxActiveJobs()-1;i++)jobs.create("alice",dataset);
+        var start=new java.util.concurrent.CountDownLatch(1);
+        try(var pool=java.util.concurrent.Executors.newFixedThreadPool(2)) {
+            var calls=new ArrayList<java.util.concurrent.Future<Integer>>();
+            for(int i=0;i<2;i++)calls.add(pool.submit(()-> {
+                start.await();
+                try { jobs.create("alice",dataset);return 202; }
+                catch(org.springframework.web.server.ResponseStatusException e) { return e.getStatusCode().value(); }
+            }));
+            start.countDown();
+            assertThat(List.of(calls.get(0).get(),calls.get(1).get())).containsExactlyInAnyOrder(202,429);
+        }
+    }
+    @Test void ownerConcurrencyLimitDoesNotBlockAnUnrelatedOwner() throws Exception {
+        UUID a=upload("a\n1"),b=upload("a\n2",BOB);
+        var first=jobs.create("alice",a);var second=jobs.create("alice",a);var other=jobs.create("bob",b);
+        var claim=jobs.claim(first.id(),"first");assertThat(claim).isNotNull();
+        assertThat(jobs.claim(second.id(),"second")).isNull();
+        assertThat(jobs.claim(other.id(),"bob-worker")).isNotNull();
+        assertThat(jobs.complete(claim,"first","one-output")).isTrue();
+        assertThat(jobs.claim(second.id(),"second")).isNotNull();
+    }
+    @Test void queuedCancellationIsOwnedIdempotentAndCannotRun() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        assertThat(request("POST","/jobs/"+id+"/cancel",BOB,"{}").statusCode()).isEqualTo(404);
+        assertThat(request("POST","/jobs/"+id+"/cancel",ALICE,"{}").statusCode()).isEqualTo(200);
+        assertThat(jobs.cancel("alice",id).status()).isEqualTo("CANCELLED");
+        assertThat(jobs.claim(id,"worker")).isNull();
+        assertThat(request("GET","/jobs/"+id+"/result",ALICE,null).statusCode()).isEqualTo(409);
+    }
+    @Test void cancellationVersusCompletionHasOneConsistentTerminalOutcome() throws Exception {
+        UUID dataset=upload("a\n1");
+        for(int round=0;round<20;round++) {
+            UUID id=jobs.create("alice",dataset).id();var claim=jobs.claim(id,"worker");
+            var start=new java.util.concurrent.CountDownLatch(1);
+            try(var pool=java.util.concurrent.Executors.newFixedThreadPool(2)) {
+                var complete=pool.submit(()-> { start.await();return jobs.complete(claim,"worker","output/"+id); });
+                var cancel=pool.submit(()-> { start.await();return jobs.cancel("alice",id); });
+                start.countDown();boolean committed=complete.get();cancel.get();
+                var state=jobs.getInternal(id);
+                assertThat(state.status()).isIn("SUCCEEDED","CANCELLED");
+                assertThat(committed).isEqualTo(state.status().equals("SUCCEEDED"));
+                if(state.status().equals("CANCELLED")) { assertThat(state.outputKey()).isNull();assertThat(jobs.heartbeat(claim,"worker")).isFalse(); }
+            }
+        }
+    }
+    @Test void totalDeadlineTerminatesQueuedRunningAndRetryingJobs() throws Exception {
+        UUID dataset=upload("a\n1");
+        UUID queued=jobs.create("alice",dataset).id(), running=jobs.create("alice",dataset).id(), retry=jobs.create("alice",dataset).id();
+        var old=jobs.claim(retry,"retry-worker");jobs.fail(old,"retry-worker","TRANSIENT",false);
+        var active=jobs.claim(running,"active-worker");
+        db.update("UPDATE jobs SET deadline_at=clock_timestamp()-interval '1 second'");
+        assertThat(jobs.expireDeadlines()).isEqualTo(3);
+        for(UUID id:List.of(queued,running,retry)) {
+            assertThat(jobs.getInternal(id).status()).isEqualTo("FAILED");
+            assertThat(jobs.getInternal(id).errorCode()).isEqualTo("DEADLINE_EXCEEDED");
+        }
+        assertThat(jobs.complete(active,"active-worker","late-output")).isFalse();
     }
 }

@@ -29,3 +29,11 @@ Implemented job+outbox atomic acceptance; owner-scoped request idempotency; leas
 A subsequent real Redis restart test failed because Docker Desktop reassigned an automatically published host port on explicit container stop/start, leaving the client pointed at the old endpoint. The test fixture now reserves stable host mappings, matching Compose's stable service endpoints. This is recorded as a fixture defect, not falsely reported as application recovery success. Full restart tests are being rerun. PostgreSQL socket/connection/query timeouts are bounded so outages cannot indefinitely hang heartbeats.
 
 Phase 3 acceptance: full suite passed (9 unit + 17 integration, zero skipped), including actual Redis/PostgreSQL outages after the stable-endpoint fixture correction. Request and worker idempotency are separately tested. Existing public phase-2 smoke remains historical evidence, not retitled as a phase-3 benchmark. Next: admission/deadlines/cancellation/shutdown, including jobs that reach deadlines before being dispatched.
+
+Phase 3 closure: actual Redis/PostgreSQL restart tests passed after the stable-port fixture correction, along with replay/history checks: 9 unit + 17 integration tests, zero skipped. Committed as `2d03e57`.
+
+## Phase 4 — 2026-11-19
+
+Added atomic admission control, owner-scoped live-lease concurrency caps, logical cancellation, total deadlines and bounded graceful shutdown. Kept approximate FIFO/due ordering; priority has no demonstrated need. Owner locks precede job claims consistently; cancellation and completion serialize on the job row. A successful logical cancellation cannot be followed by result finalization, even if physical parsing stops later.
+
+Executed: 10 unit + 23 integration tests passed, including 20 cancellation/completion races, competing capacity claims, deadline sweeps, separate-owner progress and graceful draining. One overloaded Java method reference in the test was replaced by an explicit Runnable lambda. Phase 4 stable; next validate the storage/security boundary and retention.

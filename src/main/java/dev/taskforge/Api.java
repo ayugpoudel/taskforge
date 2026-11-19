@@ -62,6 +62,9 @@ class Api {
                 .body(out -> { try(var input=storage.read(j.outputKey())) { input.transferTo(out); }
                     catch(Exception e) { throw new IOException("Report storage unavailable"); } });
     }
+    @PostMapping("/jobs/{id}/cancel") Map<String,Object> cancel(@PathVariable UUID id,HttpServletRequest r) {
+        return view(jobs.cancel(owner(r),id));
+    }
     @PostMapping("/admin/jobs/{id}/replay") Map<String,Object> replay(@PathVariable UUID id,HttpServletRequest r) {
         if(!owner(r).equals("admin"))throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         return view(jobs.replay(id));
@@ -70,7 +73,7 @@ class Api {
         var m=new LinkedHashMap<String,Object>();
         m.put("jobId",j.id());m.put("status",j.status());m.put("attemptCount",j.attemptCount());
         m.put("createdAt",j.createdAt());m.put("startedAt",j.startedAt());m.put("finishedAt",j.finishedAt());
-        m.put("errorCode",j.errorCode());m.put("statusUrl","/api/jobs/"+j.id());
+        m.put("deadlineAt",j.deadlineAt());m.put("errorCode",j.errorCode());m.put("statusUrl","/api/jobs/"+j.id());
         return m;
     }
 }
@@ -100,7 +103,7 @@ class ApiAuthentication implements WebMvcConfigurer {
 class SafeErrors {
     @ExceptionHandler(ResponseStatusException.class)
     ResponseEntity<Map<String,Object>> status(ResponseStatusException e) {
-        return ResponseEntity.status(e.getStatusCode()).body(Map.of("error",e.getStatusCode().value()));
+        return ResponseEntity.status(e.getStatusCode()).header("Retry-After",e.getStatusCode().value()==429?"5":"0").body(Map.of("error",e.getStatusCode().value()));
     }
     @ExceptionHandler({org.springframework.web.bind.MethodArgumentNotValidException.class,
             org.springframework.http.converter.HttpMessageNotReadableException.class,
