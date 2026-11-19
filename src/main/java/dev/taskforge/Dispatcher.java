@@ -11,13 +11,20 @@ class Dispatcher {
     final JobStore jobs;
     final RedisQueue queue;
     Dispatcher(JobStore jobs,RedisQueue queue) { this.jobs=jobs;this.queue=queue; }
+    boolean publishOne(Runnable afterPublish) {
+        var event=jobs.leaseOutbox();
+        if(event==null)return false;
+        queue.publish(event.jobId());
+        afterPublish.run(); // deterministic post-publish/pre-mark crash boundary in tests
+        jobs.published(event);
+        return true;
+    }
     @Scheduled(fixedDelay=500)
     void tick() {
         try {
-            for(var id:jobs.notifications()) {
-                queue.publish(id);
-                jobs.notified(id);
-            }
+            jobs.recoverExpired();
+            jobs.reconcileNotifications();
+            for(int i=0;i<100&&publishOne(()->{});i++) { /* bounded batch */ }
         } catch(RuntimeException e) { LoggerFactory.getLogger(getClass()).warn("event=dispatcher_unavailable error={}",e.getClass().getSimpleName()); }
     }
 }

@@ -15,11 +15,14 @@ class StreamWorker implements SmartLifecycle {
     final Settings settings;
     ExecutorService executor;
     volatile boolean running;
+    final java.util.concurrent.atomic.AtomicInteger turns=new java.util.concurrent.atomic.AtomicInteger();
     StreamWorker(RedisQueue queue,JobStore jobs,JobRunner runner,Settings settings) {
         this.queue=queue;this.jobs=jobs;this.runner=runner;this.settings=settings;
     }
     boolean processOnce(String consumer) {
-        var delivery=queue.receive(consumer);
+        var delivery=turns.incrementAndGet()%10==0?queue.recoverPending(jobs,consumer):null;
+        if(delivery==null)delivery=queue.receive(consumer);
+        if(delivery==null)delivery=queue.recoverPending(jobs,consumer);
         if(delivery==null)return false;
         var claim=jobs.claim(delivery.jobId(),consumer);
         if(claim!=null)runner.run(claim,consumer);

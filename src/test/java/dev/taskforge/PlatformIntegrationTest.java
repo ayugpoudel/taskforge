@@ -27,6 +27,17 @@ class PlatformIntegrationTest {
             .withEnv("MINIO_ROOT_USER","taskforge-test").withEnv("MINIO_ROOT_PASSWORD","taskforge-test-password")
             .withCommand("server","/data").withExposedPorts(9000)
             .waitingFor(org.testcontainers.containers.wait.strategy.Wait.forHttp("/minio/health/ready").forPort(9000));
+    // Stable mapped ports model service restarts at a stable endpoint. Docker Desktop may
+    // reassign automatically published host ports across explicit stop/start operations.
+    static int freePort() {
+        try(var socket=new java.net.ServerSocket(0)) { return socket.getLocalPort(); }
+        catch(java.io.IOException e) { throw new IllegalStateException(e); }
+    }
+    static {
+        redis.setPortBindings(List.of(freePort()+":6379"));
+        postgres.setPortBindings(List.of(freePort()+":5432"));
+    }
+    static final String ADMIN="test-admin-token-more-than-24-chars";
     static final String ALICE="test-alice-token-more-than-24-chars", BOB="test-bob-token-more-than-24-chars";
     @DynamicPropertySource static void properties(DynamicPropertyRegistry r) {
         r.add("spring.datasource.url",postgres::getJdbcUrl);r.add("spring.datasource.username",postgres::getUsername);
@@ -34,7 +45,7 @@ class PlatformIntegrationTest {
         r.add("spring.data.redis.host",redis::getHost);r.add("spring.data.redis.port",()->redis.getMappedPort(6379));
         r.add("taskforge.storage-endpoint",()->"http://"+minio.getHost()+":"+minio.getMappedPort(9000));
         r.add("taskforge.storage-access-key",()->"taskforge-test");r.add("taskforge.storage-secret-key",()->"taskforge-test-password");
-        r.add("taskforge.auth-tokens",()->ALICE+"=alice,"+BOB+"=bob");
+        r.add("taskforge.auth-tokens",()->ALICE+"=alice,"+BOB+"=bob,"+ADMIN+"=admin");
     }
     @LocalServerPort int port;
     @Autowired JobStore jobs;
@@ -44,6 +55,7 @@ class PlatformIntegrationTest {
     @Autowired Settings settings;
     @Autowired JobRunner runner;
     @Autowired RedisQueue queue;
+    @Autowired org.springframework.data.redis.core.StringRedisTemplate redisTemplate;
     final HttpClient http=HttpClient.newHttpClient();
     HttpResponse<String> request(String method,String path,String token,String body) throws Exception {
         var b=HttpRequest.newBuilder(URI.create("http://localhost:"+port+"/api"+path)).header("Content-Type","application/json");
@@ -59,7 +71,7 @@ class PlatformIntegrationTest {
         assertThat(response.statusCode()).as(response.body()).isEqualTo(201);
         return UUID.fromString(json.readTree(response.body()).get("datasetId").asText());
     }
-    @BeforeEach void resetDatabase() { db.execute("TRUNCATE datasets CASCADE"); }
+    @BeforeEach void resetDatabase() { db.execute("TRUNCATE datasets CASCADE"); redisTemplate.delete(RedisQueue.STREAM); queue.initialized=false;queue.pendingCursor=null; }
     @Test void competingWorkersGetOnlyOneClaimAndResultCommit() throws Exception {
         UUID id=jobs.create("alice",upload("a\n1")).id();
         var start=new java.util.concurrent.CountDownLatch(1);
@@ -129,5 +141,174 @@ class PlatformIntegrationTest {
         // Other tests can leave queued jobs; drain deterministically to this one.
         for(int n=0;n<10&&!jobs.get("alice",job).status().equals("FAILED");n++) new LocalWorker(jobs,runner,settings).tick();
         assertThat(jobs.get("alice",job).errorCode()).isEqualTo("INVALID_CSV");
+    }
+
+    void due(UUID id) {
+        db.update("UPDATE jobs SET next_attempt_at=clock_timestamp()-interval '1 second' WHERE id=?",id);
+        db.update("UPDATE outbox_events SET available_at=clock_timestamp()-interval '1 second' WHERE job_id=? AND published_at IS NULL",id);
+    }
+    @Test void concurrentRequestIdempotencyHasOneJobAndOneOutboxEvent() throws Exception {
+        UUID dataset=upload("a\n1");
+        var barrier=new java.util.concurrent.CountDownLatch(1);
+        try(var pool=java.util.concurrent.Executors.newFixedThreadPool(8)) {
+            var calls=new ArrayList<java.util.concurrent.Future<UUID>>();
+            for(int i=0;i<8;i++)calls.add(pool.submit(()-> { barrier.await();return jobs.create("alice",dataset,"same-request").id(); }));
+            barrier.countDown();
+            var ids=new HashSet<UUID>();
+            for(var call:calls)ids.add(call.get(10,java.util.concurrent.TimeUnit.SECONDS));
+            assertThat(ids).hasSize(1);
+            assertThat(db.queryForObject("SELECT count(*) FROM outbox_events",Integer.class)).isEqualTo(1);
+        }
+        UUID different=upload("a\n2");
+        assertThatThrownBy(()->jobs.create("alice",different,"same-request"))
+                .isInstanceOf(org.springframework.web.server.ResponseStatusException.class)
+                .extracting(e->((org.springframework.web.server.ResponseStatusException)e).getStatusCode().value()).isEqualTo(409);
+    }
+    @Test void outboxInsertFailureRollsBackAcceptance() throws Exception {
+        UUID dataset=upload("a\n1");
+        db.execute("CREATE FUNCTION reject_test_event() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'injected'; END $$");
+        db.execute("CREATE TRIGGER reject_test_event BEFORE INSERT ON outbox_events FOR EACH ROW EXECUTE FUNCTION reject_test_event()");
+        try {
+            assertThatThrownBy(()->jobs.create("alice",dataset,"atomic")) .isInstanceOf(org.springframework.dao.DataAccessException.class);
+            assertThat(db.queryForObject("SELECT count(*) FROM jobs",Integer.class)).isZero();
+        } finally { db.execute("DROP TRIGGER reject_test_event ON outbox_events");db.execute("DROP FUNCTION reject_test_event()"); }
+    }
+    @Test void dispatcherCrashAfterPublishCreatesDuplicateDeliveryButOneResult() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        var dispatcher=new Dispatcher(jobs,queue);
+        assertThatThrownBy(()->dispatcher.publishOne(()-> { throw new IllegalStateException("injected crash"); })).hasMessage("injected crash");
+        assertThat(db.queryForObject("SELECT count(*) FROM outbox_events WHERE published_at IS NULL",Integer.class)).isEqualTo(1);
+        db.update("UPDATE outbox_events SET lease_until=clock_timestamp()-interval '1 second'");
+        assertThat(dispatcher.publishOne(()->{})).isTrue();
+        var one=queue.receive("one");var two=queue.receive("two");
+        assertThat(one.jobId()).isEqualTo(id);assertThat(two.jobId()).isEqualTo(id);
+        runner.run(jobs.claim(id,"one"),"one");
+        assertThat(jobs.claim(id,"two")).isNull();
+        queue.acknowledge(one.messageId());queue.acknowledge(two.messageId());
+        assertThat(db.queryForObject("SELECT count(*) FROM job_attempts WHERE job_id=?",Integer.class,id)).isEqualTo(1);
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+    }
+    @Test void recoveredGenerationRejectsResumedWorkerAndItsObjectCannotOverwriteResult() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n2\n4")).id();
+        var old=jobs.claim(id,"old");
+        String staleKey="reports/"+id+"/old.json";
+        assertThat(jobs.candidateOutput(old,"old",staleKey)).isTrue();
+        db.update("UPDATE jobs SET lease_expires_at=clock_timestamp()-interval '1 second' WHERE id=?",id);
+        assertThat(jobs.recoverExpired()).isEqualTo(1);
+        assertThat(jobs.getInternal(id).status()).isEqualTo("RETRY_WAIT");
+        due(id);
+        var newer=jobs.claim(id,"new");
+        assertThat(newer.generation()).isEqualTo(old.generation()+1);
+        assertThat(jobs.heartbeat(old,"old")).isFalse();
+        runner.run(newer,"new");
+        storage.putReport(staleKey,"{\"stale\":true}".getBytes());
+        assertThat(jobs.complete(old,"old",staleKey)).isFalse();
+        var authoritative=jobs.getInternal(id).outputKey();
+        assertThat(authoritative).isNotEqualTo(staleKey);
+        try(var input=storage.read(authoritative)) { assertThat(json.readTree(input).get("rowCount").asInt()).isEqualTo(2); }
+    }
+    @Test void heartbeatProtectsLongRunningPendingDeliveryAndCompletionBeforeAckIsRecovered() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        new Dispatcher(jobs,queue).tick();
+        var message=queue.receive("original");var job=jobs.claim(id,"original");
+        db.update("UPDATE jobs SET lease_expires_at=clock_timestamp()+interval '2 seconds' WHERE id=?",id);
+        assertThat(jobs.heartbeat(job,"original")).isTrue();
+        assertThat(queue.recoverPending(jobs,"other")).isNull();
+        assertThat(queue.streams.pending(RedisQueue.STREAM,RedisQueue.GROUP).getTotalPendingMessages()).isEqualTo(1);
+        assertThat(jobs.claim(id,"other")).isNull();
+        runner.run(job,"original"); // deliberately omit acknowledgement, as if the worker crashed now
+        queue.pendingCursor=null;
+        assertThat(queue.recoverPending(jobs,"other")).isNull();
+        assertThat(queue.streams.pending(RedisQueue.STREAM,RedisQueue.GROUP).getTotalPendingMessages()).isZero();
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+    }
+    @Test void retriesAreDurablyDelayedAndStopAtMaximumAttempts() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        for(int i=1;i<=3;i++) {
+            due(id);var claim=jobs.claim(id,"retry");assertThat(claim.attemptCount()).isEqualTo(i);
+            jobs.fail(claim,"retry","STORAGE_UNAVAILABLE",false);
+            if(i<3) {
+                assertThat(jobs.getInternal(id).status()).isEqualTo("RETRY_WAIT");
+                assertThat(jobs.claim(id,"too-early")).isNull();
+            }
+        }
+        assertThat(jobs.getInternal(id).status()).isEqualTo("FAILED");
+        assertThat(db.queryForObject("SELECT count(*) FROM job_attempts WHERE job_id=? AND finished_at IS NOT NULL",Integer.class,id)).isEqualTo(3);
+    }
+    @Test void redisLossIsReconciledFromDurableQueuedState() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        var dispatcher=new Dispatcher(jobs,queue);dispatcher.tick();
+        redisTemplate.delete(RedisQueue.STREAM);queue.initialized=false;
+        db.update("UPDATE jobs SET notified_at=clock_timestamp()-interval '31 seconds' WHERE id=?",id);
+        dispatcher.tick();
+        var delivery=queue.receive("after-loss");
+        assertThat(delivery.jobId()).isEqualTo(id);
+        runner.run(jobs.claim(id,"after-loss"),"after-loss");queue.acknowledge(delivery.messageId());
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+    }
+    @Test void simultaneousDispatchersCannotLeaseSameEventAndExpiredPublisherCannotMarkIt() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        var first=jobs.leaseOutbox();assertThat(first.jobId()).isEqualTo(id);
+        assertThat(jobs.leaseOutbox()).isNull();
+        db.update("UPDATE outbox_events SET lease_until=clock_timestamp()-interval '1 second'");
+        var replacement=jobs.leaseOutbox();
+        assertThat(jobs.published(first)).isFalse();
+        assertThat(jobs.published(replacement)).isTrue();
+    }
+
+    static void awaitHealthy(java.util.concurrent.Callable<Boolean> condition) throws Exception {
+        long deadline=System.nanoTime()+java.time.Duration.ofSeconds(20).toNanos();
+        while(System.nanoTime()<deadline) {
+            try { if(condition.call())return; } catch(Exception retry) { /* readiness polling after a controlled restart */ }
+            Thread.sleep(100);
+        }
+        throw new AssertionError("Service did not recover within 20 seconds");
+    }
+    @Test void redisOutageDoesNotPreventDurableAcceptanceAndDispatcherRecovers() throws Exception {
+        UUID dataset=upload("a\n3");
+        redis.getDockerClient().stopContainerCmd(redis.getContainerId()).withTimeout(0).exec();
+        UUID id;
+        try {
+            var response=request("POST","/jobs",ALICE,"{\"datasetId\":\""+dataset+"\"}");
+            assertThat(response.statusCode()).isEqualTo(202);
+            id=UUID.fromString(json.readTree(response.body()).get("jobId").asText());
+            assertThatThrownBy(()->new Dispatcher(jobs,queue).publishOne(()->{})).isInstanceOf(RuntimeException.class);
+            assertThat(db.queryForObject("SELECT count(*) FROM outbox_events WHERE published_at IS NULL",Integer.class)).isEqualTo(1);
+        } finally { redis.getDockerClient().startContainerCmd(redis.getContainerId()).exec(); }
+        awaitHealthy(()-> { try(var connection=redisTemplate.getConnectionFactory().getConnection()) { return "PONG".equals(connection.ping()); } });
+        db.update("UPDATE outbox_events SET lease_until=clock_timestamp()-interval '1 second'");
+        new Dispatcher(jobs,queue).tick();queue.initialized=false;
+        var message=queue.receive("restarted-redis");
+        assertThat(message.jobId()).isEqualTo(id);
+        runner.run(jobs.claim(id,"restarted-redis"),"restarted-redis");queue.acknowledge(message.messageId());
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+    }
+    @Test void postgresRestartPreservesAcceptedStateAndFailedHeartbeatCannotAuthorizeCompletion() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        var old=jobs.claim(id,"before-db-outage");
+        postgres.getDockerClient().stopContainerCmd(postgres.getContainerId()).withTimeout(0).exec();
+        try { assertThatThrownBy(()->jobs.heartbeat(old,"before-db-outage")).isInstanceOf(RuntimeException.class); }
+        finally { postgres.getDockerClient().startContainerCmd(postgres.getContainerId()).exec(); }
+        awaitHealthy(()->db.queryForObject("SELECT 1",Integer.class)==1);
+        assertThat(jobs.getInternal(id).status()).isEqualTo("RUNNING");
+        db.update("UPDATE jobs SET lease_expires_at=clock_timestamp()-interval '1 second' WHERE id=?",id);
+        jobs.recoverExpired();due(id);
+        var replacement=jobs.claim(id,"after-db-outage");
+        assertThat(jobs.complete(old,"before-db-outage","stale-object")).isFalse();
+        runner.run(replacement,"after-db-outage");
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+    }
+    @Test void replayRequiresAdminAndPreservesMonotonicAttemptHistory() throws Exception {
+        UUID id=jobs.create("alice",upload("a\n1")).id();
+        db.update("UPDATE jobs SET max_attempts=1 WHERE id=?",id);
+        var first=jobs.claim(id,"failed-worker");jobs.fail(first,"failed-worker","TRANSIENT_FAILURE",false);
+        assertThat(jobs.getInternal(id).status()).isEqualTo("FAILED");
+        assertThat(request("POST","/admin/jobs/"+id+"/replay",ALICE,"{}").statusCode()).isEqualTo(403);
+        assertThat(request("POST","/admin/jobs/"+id+"/replay",ADMIN,"{}").statusCode()).isEqualTo(200);
+        var retry=jobs.claim(id,"replayed-worker");
+        assertThat(retry.generation()).isGreaterThan(first.generation());
+        runner.run(retry,"replayed-worker");
+        assertThat(jobs.getInternal(id).status()).isEqualTo("SUCCEEDED");
+        assertThat(db.queryForObject("SELECT count(*) FROM job_attempts WHERE job_id=?",Integer.class,id)).isEqualTo(2);
     }
 }

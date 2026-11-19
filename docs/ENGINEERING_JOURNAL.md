@@ -21,3 +21,11 @@ Phase 1 acceptance: 8 unit + 5 real-service tests passed, zero skipped. The actu
 Extracted JobProcessor and JobRunner; added Redis Streams consumer-group transport and independent bounded-concurrency workers/dispatcher. Same application image runs by role. Added Compose health checks, random local credential generation, and an executable HTTP E2E test with independent arithmetic. Kept SQL-polling mode for an explicit comparison.
 
 Executed: 8 unit + 6 integration tests; clean application/container startup; 20 CSV jobs × 20,000 rows completed correctly across two independent worker process identities. No duplicate committed output pointer observed. This is a short functional batch, not a throughput benchmark. Phase 2 stable. Heartbeat, outbox and pending recovery are the next phase; no general crash-recovery guarantee claimed yet.
+
+## Phase 3 — in progress
+
+Implemented job+outbox atomic acceptance; owner-scoped request idempotency; leased outbox dispatch; heartbeats; fenced output/failure; bounded durable retries; pending-page recovery gated by PostgreSQL state; notification reconstruction after Redis loss; and explicit admin replay with history retained. Initial unit/integration recovery tests passed before introducing actual infrastructure restarts.
+
+A subsequent real Redis restart test failed because Docker Desktop reassigned an automatically published host port on explicit container stop/start, leaving the client pointed at the old endpoint. The test fixture now reserves stable host mappings, matching Compose's stable service endpoints. This is recorded as a fixture defect, not falsely reported as application recovery success. Full restart tests are being rerun. PostgreSQL socket/connection/query timeouts are bounded so outages cannot indefinitely hang heartbeats.
+
+Phase 3 acceptance: full suite passed (9 unit + 17 integration, zero skipped), including actual Redis/PostgreSQL outages after the stable-endpoint fixture correction. Request and worker idempotency are separately tested. Existing public phase-2 smoke remains historical evidence, not retitled as a phase-3 benchmark. Next: admission/deadlines/cancellation/shutdown, including jobs that reach deadlines before being dispatched.

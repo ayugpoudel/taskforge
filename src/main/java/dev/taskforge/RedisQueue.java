@@ -13,6 +13,7 @@ public class RedisQueue {
     final StringRedisTemplate redis;
     final StreamOperations<String,String,String> streams;
     volatile boolean initialized;
+    String pendingCursor;
     public RedisQueue(StringRedisTemplate redis) { this.redis=redis;this.streams=redis.opsForStream(); }
     public synchronized void initialize() {
         if(initialized)return;
@@ -38,6 +39,32 @@ public class RedisQueue {
             try { return new Delivery(r.getId().getValue(),UUID.fromString(r.getValue().get("jobId"))); }
             catch(RuntimeException e) { acknowledge(r.getId().getValue());return null; }
         } catch(RuntimeException e) { initialized=false;throw e; }
+    }
+    /** Scan bounded pending pages. Database state, not queue idle age, permits recovery. */
+    public synchronized Delivery recoverPending(JobStore jobs,String consumer) {
+        initialize();
+        org.springframework.data.domain.Range<String> range=pendingCursor==null
+                ?org.springframework.data.domain.Range.unbounded()
+                :org.springframework.data.domain.Range.of(org.springframework.data.domain.Range.Bound.exclusive(pendingCursor),
+                    org.springframework.data.domain.Range.Bound.unbounded());
+        var pending=streams.pending(STREAM,GROUP,range,100);
+        if(pending==null||pending.isEmpty()) { pendingCursor=null;return null; }
+        for(var entry:pending) {
+            pendingCursor=entry.getId().getValue();
+            var records=streams.range(STREAM,org.springframework.data.domain.Range.closed(pendingCursor,pendingCursor));
+            if(records==null||records.isEmpty()) { streams.acknowledge(STREAM,GROUP,entry.getId());continue; }
+            UUID id;
+            try { id=UUID.fromString(records.getFirst().getValue().get("jobId")); }
+            catch(RuntimeException invalid) { acknowledge(pendingCursor);continue; }
+            var state=jobs.getInternal(id);
+            if(state==null||Set.of("SUCCEEDED","FAILED","CANCELLED").contains(state.status())) {
+                acknowledge(pendingCursor);continue;
+            }
+            if(!jobs.recoverable(id))continue;
+            var claimed=streams.claim(STREAM,GROUP,consumer,java.time.Duration.ZERO,entry.getId());
+            if(claimed!=null&&!claimed.isEmpty())return new Delivery(pendingCursor,id);
+        }
+        return null;
     }
     public void acknowledge(String id) {
         streams.acknowledge(STREAM,GROUP,RecordId.of(id));

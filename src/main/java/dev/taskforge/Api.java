@@ -48,8 +48,8 @@ class Api {
         } finally { Files.deleteIfExists(temp); }
     }
     @PostMapping("/jobs")
-    ResponseEntity<Map<String,Object>> submit(@Valid @RequestBody Submit body,HttpServletRequest r) {
-        var j=jobs.create(owner(r),body.datasetId());
+    ResponseEntity<Map<String,Object>> submit(@Valid @RequestBody Submit body,@RequestHeader(value="Idempotency-Key",required=false) String key,HttpServletRequest r) {
+        var j=jobs.create(owner(r),body.datasetId(),key);
         return ResponseEntity.accepted().header("Location","/api/jobs/"+j.id()).body(view(j));
     }
     @GetMapping("/jobs/{id}") Map<String,Object> status(@PathVariable UUID id,HttpServletRequest r) { return view(jobs.get(owner(r),id)); }
@@ -61,6 +61,10 @@ class Api {
                 .header("Content-Disposition","attachment; filename=report-"+id+".json")
                 .body(out -> { try(var input=storage.read(j.outputKey())) { input.transferTo(out); }
                     catch(Exception e) { throw new IOException("Report storage unavailable"); } });
+    }
+    @PostMapping("/admin/jobs/{id}/replay") Map<String,Object> replay(@PathVariable UUID id,HttpServletRequest r) {
+        if(!owner(r).equals("admin"))throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        return view(jobs.replay(id));
     }
     static Map<String,Object> view(JobStore.Job j) {
         var m=new LinkedHashMap<String,Object>();
