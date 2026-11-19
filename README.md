@@ -63,6 +63,43 @@ Same owner/key/payload returns the existing job; a conflicting payload returns 4
 
 JSON reports include row/valid/invalid counts, bounded invalid-record numbers, column names/types/missing counts and numeric count/min/max/sum/mean. Invalid-width rows are counted and excluded from column aggregates. Malformed quoting, invalid UTF-8, NUL, duplicate/blank headers and field/column limits reject the job. Quoted multiline cells and UTF-8 BOM are supported. Numeric statistics cover numeric cells; mixed columns are strings. Arithmetic uses DECIMAL128. Files stream through at most 256 columns and 65,536 characters per field; the upload limit is 50 MiB. No synthetic sleeps are used as the application workload.
 
+The 20,000-row end-to-end fixture returned this JSON report.
+
+```json
+{
+  "rowCount": 20000,
+  "validRows": 20000,
+  "invalidRows": 0,
+  "invalidRowNumbers": [],
+  "columns": [
+    {
+      "name": "n",
+      "inferredType": "NUMBER",
+      "missing": 0,
+      "numeric": {
+        "count": 20000,
+        "min": 1,
+        "max": 20000,
+        "sum": 200010000,
+        "mean": 10000.5
+      }
+    },
+    {
+      "name": "double",
+      "inferredType": "NUMBER",
+      "missing": 0,
+      "numeric": {
+        "count": 20000,
+        "min": 2,
+        "max": 40000,
+        "sum": 400020000,
+        "mean": 20001
+      }
+    }
+  ]
+}
+```
+
 ## Guarantees and boundaries
 
 PostgreSQL records accepted jobs and outbox events atomically. Publication and delivery may repeat. A live DB lease and generation protect completion; every attempt writes a distinct object, and only one guarded pointer is exposed. Processing is **at least once**, not exactly once. Redis is a recoverable notification transport: pending recovery consults database state, and reconciliation reconstructs notifications after Redis loss. AOF everysec alone is not lossless.
